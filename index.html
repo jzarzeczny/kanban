@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <title>Kanban</title>
+  </head>
+  <body>
+    <main>
+      <div class="container">
+        <div class="list list--todo">
+          <h2 class="list__header">TODO</h2>
+          <div class="list__container list__container--todo"></div>
+        </div>
+        <div class="list list--doing">
+          <h2 class="list__header">DOING</h2>
+          <div class="list__container"></div>
+        </div>
+        <div class="list list--done">
+          <h2 class="list__header">DONE</h2>
+          <div class="list__container"></div>
+        </div>
+      </div>
+      <div class="add__container">
+        <h2 class="add__header">Add item to list</h2>
+        <form class="add__form" id="form">
+          <div class="form__control">
+            <label class="form__label" for="header">Title</label>
+            <input class="form__input" type="text" id="header" />
+          </div>
+          <div class="form__control">
+            <label class="form__label" for="text">Content</label>
+            <textarea class="form__input" type="textarea" id="text"></textarea>
+          </div>
+          <input type="submit" class="submit" value="Submit" />
+        </form>
+      </div>
+    </main>
+    <script src="main.js"></script>
+  </body>
+</html>
