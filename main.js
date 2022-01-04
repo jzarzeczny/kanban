@@ -33,12 +33,15 @@ form.addEventListener("submit", (e) => {
   e.preventDefault();
   const header = e.target[0].value;
   const content = e.target[1].value;
-  const id = tasksArray.length + 1;
+  const color = e.target[2].value;
+  const id = (tasksArray.length + 1) * Math.floor(Math.random() * 5 + 17);
   const task = {
     header: header,
     content: content,
+    color: color,
     id: id,
   };
+  console.log(task);
   tasksArray.push(task);
   addItemToTODO(task);
   updateLocalStorage(tasksArray);
@@ -54,6 +57,7 @@ function addItemToTODO(task) {
 
   // Add the classes and content
   card.classList.add("list__card");
+  card.style.backgroundColor = task.color;
   card.setAttribute("id", task.id);
   cardHeader.classList.add("card__header");
   cardHeader.innerHTML = task.header;
@@ -70,14 +74,16 @@ function addItemToTODO(task) {
   cardsContainers[0].appendChild(card);
 }
 
+// TODO refactor
 function createCard(task) {
   const card = document.createElement("div");
   const cardHeader = document.createElement("h2");
   const cardPara = document.createElement("p");
-
+  console.log("im creating the card");
   // Add the classes and content
-  card.classList.add("list__card");
+  // card.classList.add("list__card");
   card.setAttribute("id", task.id);
+  console.log(card);
   cardHeader.classList.add("card__header");
   cardHeader.innerHTML = task.header;
   cardPara.innerHTML = task.content;
@@ -87,6 +93,7 @@ function createCard(task) {
   card.appendChild(cardHeader);
   card.appendChild(cardPara);
 
+  // Change the color of the card based on the input
   card.setAttribute("draggable", "true");
   card.setAttribute("ondragstart", "onDragStart(event)");
 }
