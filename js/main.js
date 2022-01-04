@@ -26,7 +26,6 @@ class Main {
   }
 
   updateLocalStorage() {
-    console.log(this.tasksArray);
     localStorage.setItem("taskList", JSON.stringify(this.tasksArray));
   }
 
@@ -47,7 +46,6 @@ class Main {
   run() {
     this.addTheContainers();
     this.tasksArray = this.getFromLocalStorage();
-    // this.getFromLocalStorage();
   }
 }
 

@@ -37,6 +37,7 @@ class Container {
     const id = event.dataTransfer.getData("text/plain");
     const draggableElement = document.getElementById(id);
     const dropzone = event.target;
+
     if (dropzone["classList"].contains("list__container")) {
       dropzone.appendChild(draggableElement);
     }
