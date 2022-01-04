@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles/style.css" />
+
+    <title>Kanban</title>
+  </head>
+  <body>
+    <main>
+      <div id="root" class="container"></div>
+      <div class="add__container">
+        <h2 class="add__header">Add item to list</h2>
+        <form class="add__form" id="form">
+          <div class="form__control">
+            <label class="form__label" for="header">Title</label>
+            <input class="form__input" type="text" id="header" />
+          </div>
+          <div class="form__control">
+            <label class="form__label" for="text">Content</label>
+            <textarea class="form__input" type="textarea" id="text"></textarea>
+          </div>
+          <div class="form__control">
+            <label for="color"> </label>
+            <input type="color" name="color" id="color" />
+          </div>
+          <input type="submit" class="submit" value="Submit" />
+        </form>
+      </div>
+    </main>
+    <script src="js/Main.js" type="module"></script>
+  </body>
+</html>
