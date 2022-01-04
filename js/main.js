@@ -26,16 +26,27 @@ class Main {
   }
 
   updateLocalStorage() {
+    console.log(this.tasksArray);
     localStorage.setItem("taskList", JSON.stringify(this.tasksArray));
   }
 
   getFromLocalStorage() {
-    const data = localStorage.getItem("taskList");
-
-    this.taskArray = JSON.parse(data);
+    const data = JSON.parse(localStorage.getItem("taskList"));
+    data.forEach((task) => {
+      const taskObj = new Task(
+        task.header,
+        task.content,
+        task.color,
+        task.id,
+        task.position
+      );
+      this.addTask(taskObj);
+    });
+    return data;
   }
   run() {
     this.addTheContainers();
+    this.tasksArray = this.getFromLocalStorage();
     // this.getFromLocalStorage();
   }
 }
@@ -55,9 +66,9 @@ form.addEventListener("submit", (e) => {
 const container = new Main();
 container.run();
 
-const newTask1 = new Task("dsf", "lorem ipsum", "#aa4", 45);
-const newTask2 = new Task("fsd", "lorem ipsum", "#ac3", 456456, 1);
-const newTask3 = new Task("gdfgfd", "lorem ipsum", "#ab1", 124234234, 2);
-container.addTask(newTask1);
-container.addTask(newTask2);
-container.addTask(newTask3);
+// const newTask1 = new Task("dsf", "lorem ipsum", "#aa4", 45);
+// const newTask2 = new Task("fsd", "lorem ipsum", "#ac3", 456456, 1);
+// const newTask3 = new Task("gdfgfd", "lorem ipsum", "#ab1", 124234234, 2);
+// container.addTask(newTask1);
+// container.addTask(newTask2);
+// container.addTask(newTask3);
