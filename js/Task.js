@@ -8,7 +8,6 @@ class Task {
   }
 
   onDragStart(event) {
-    console.log(event);
     event.dataTransfer.setData("text/plain", event.target.id);
   }
 
@@ -25,7 +24,8 @@ class Task {
     // Attributes and content
     card.setAttribute("id", this.id);
     card.setAttribute("draggable", "true");
-    card.setAttribute("ondragstart", this.onDragStart);
+    // card.setAttribute("ondragstart", this.onDragStart);
+    card.addEventListener("dragstart", this.onDragStart);
     cardHeader.innerHTML = this.header;
     cardPara.innerHTML = this.content;
 

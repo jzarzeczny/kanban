@@ -21,13 +21,14 @@ class Container {
     const box = document.createElement("div");
     box.classList.add("list__container");
     box.setAttribute("id", this.id);
-    box.setAttribute("ondragover", this.onDragOver);
-    box.setAttribute("ondrop", this.onDrop);
+    box.addEventListener("dragover", this.onDragOver);
+    box.addEventListener("drop", this.onDrop);
+    // box.setAttribute("ondragover", this.onDragOver);
+    // box.setAttribute("ondrop", this.onDrop);
     return box;
   }
 
   onDragOver(event) {
-    console.log(event);
     event.preventDefault();
   }
 

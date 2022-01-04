@@ -16,10 +16,10 @@ class Main {
     this.root.appendChild(this.c1.createWholeContainer());
     this.root.appendChild(this.c2.createWholeContainer());
   }
-  addTask(task, id) {
-    const properContainer = document.getElementById(id);
-    properContainer.appendChild(task);
-    debugger;
+  addTask(task) {
+    const taskElement = task.createTaskCard();
+    const properContainer = document.getElementById(task.position);
+    properContainer.appendChild(taskElement);
 
     this.tasksArray.push(task);
     this.updateLocalStorage();
@@ -36,7 +36,7 @@ class Main {
   }
   run() {
     this.addTheContainers();
-    this.getFromLocalStorage();
+    // this.getFromLocalStorage();
   }
 }
 
@@ -48,7 +48,6 @@ form.addEventListener("submit", (e) => {
   const id = Date.now() + Math.random();
   const newTask = new Task(header, content, color, id);
   container.addTask(newTask);
-  container.addTask(newTask.createTaskCard(), newTask);
 
   form.reset();
 });
@@ -59,6 +58,6 @@ container.run();
 const newTask1 = new Task("dsf", "lorem ipsum", "#aa4", 45);
 const newTask2 = new Task("fsd", "lorem ipsum", "#ac3", 456456, 1);
 const newTask3 = new Task("gdfgfd", "lorem ipsum", "#ab1", 124234234, 2);
-container.addTask(newTask1.createTaskCard(), newTask1.position);
-container.addTask(newTask2.createTaskCard(), newTask2.position);
-container.addTask(newTask3.createTaskCard(), newTask3.position);
+container.addTask(newTask1);
+container.addTask(newTask2);
+container.addTask(newTask3);
