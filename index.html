@@ -9,26 +9,13 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles/style.css" />
-    <script src="js/m.js" type="module"></script>
+    <script src="js/Main.js" type="module"></script>
 
     <title>Kanban</title>
   </head>
   <body>
     <main>
-      <div class="container">
-        <div class="list list--todo">
-          <h2 class="list__header">TODO</h2>
-          <div class="list__container list__container--todo"></div>
-        </div>
-        <div class="list list--doing">
-          <h2 class="list__header">DOING</h2>
-          <div class="list__container"></div>
-        </div>
-        <div class="list list--done">
-          <h2 class="list__header">DONE</h2>
-          <div class="list__container"></div>
-        </div>
-      </div>
+      <div id="root" class="container"></div>
       <div class="add__container">
         <h2 class="add__header">Add item to list</h2>
         <form class="add__form" id="form">

@@ -8,6 +8,7 @@ class Task {
   }
 
   onDragStart(event) {
+    console.log(event);
     event.dataTransfer.setData("text/plain", event.target.id);
   }
 
