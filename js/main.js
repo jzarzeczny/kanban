@@ -1,17 +1,17 @@
 import Task from "./Task.js";
 import Container from "./Container.js";
+import Storage from "./Storage.js";
 
 const form = document.getElementById("form");
 let tasksArray = [];
+
 class Main {
-  constructor(tasksArray) {
-    this.tasksArray = tasksArray;
-  }
   root = document.getElementById("root");
 
   c0 = new Container(0, "todo", this.updateThePositionOfTask);
   c1 = new Container(1, "going", this.updateThePositionOfTask);
   c2 = new Container(2, "done", this.updateThePositionOfTask);
+  store = new Storage();
 
   // containers = [this.c0, this.c1, this.c2];
 
@@ -21,51 +21,45 @@ class Main {
     this.root.appendChild(this.c2.createWholeContainer());
   }
   addTask(task) {
-    const taskElement = task.createTaskCard();
+    const taskObj = new Task(
+      task.header,
+      task.content,
+      task.color,
+      task.id,
+      task.position
+    );
+    const taskElement = taskObj.createTaskCard();
     const properContainer = document.getElementById(task.position);
     properContainer.appendChild(taskElement);
 
-    this.tasksArray.push(task);
-    this.updateLocalStorage();
-  }
-
-  updateLocalStorage() {
-    localStorage.setItem("taskList", JSON.stringify(tasksArray));
+    // tasksArray.push(task);
+    this.store.addToLocalStorage(task);
   }
 
   updateThePositionOfTask(task, position) {
     task.position = position;
-    const newArray = [...tasksArray];
-    const elementToChange = newArray.filter((t) => {
-      return t.id == task.id;
-    })[0];
-    const nextArray = newArray.filter((t) => {
-      return t.id != task.id;
-    });
-    elementToChange.position = position;
-    nextArray.push(elementToChange);
-    tasksArray = nextArray;
-
-    Main.updateLocalStorage();
+    const store = new Storage();
+    store.updateLocalStorage(task);
   }
 
-  getFromLocalStorage() {
-    const data = JSON.parse(localStorage.getItem("taskList"));
-    data.forEach((task) => {
-      const taskObj = new Task(
-        task.header,
-        task.content,
-        task.color,
-        task.id,
-        task.position
-      );
-      this.addTask(taskObj);
-    });
-    return data;
-  }
+  // getFromLocalStorage() {
+  //   const data = JSON.parse(localStorage.getItem("taskList"));
+  //   data.forEach((task) => {
+  //     const taskObj = new Task(
+  //       task.header,
+  //       task.content,
+  //       task.color,
+  //       task.id,
+  //       task.position
+  //     );
+  //     this.addTask(taskObj);
+  //   });
+  //   return data;
+  // }
   run() {
     this.addTheContainers();
-    this.tasksArray = this.getFromLocalStorage();
+    const tasksArray = this.store.getFromLocalStorage();
+    tasksArray.forEach((task) => this.addTask(task));
   }
 }
 
@@ -81,7 +75,7 @@ form.addEventListener("submit", (e) => {
   form.reset();
 });
 
-const container = new Main(tasksArray);
+const container = new Main();
 container.run();
 
 // const newTask1 = new Task("dsf", "lorem ipsum", "#aa4", 45);
