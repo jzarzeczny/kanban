@@ -43,7 +43,6 @@ class Main {
   run() {
     this.addTheContainers();
     const tasksArray = this.store.getFromLocalStorage();
-    console.log(tasksArray);
     tasksArray.forEach((task) => this.addTask(task));
   }
 }

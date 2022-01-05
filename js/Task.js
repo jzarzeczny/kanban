@@ -1,3 +1,5 @@
+import Storage from "./Storage.js";
+
 class Task {
   constructor(header, content, color, id, position) {
     this.header = header;
@@ -13,10 +15,14 @@ class Task {
 
   editCard(event) {
     event.preventDefault();
+    console.log("editing element");
   }
 
-  removeButton(event) {
+  removeCard(event) {
     event.preventDefault();
+    const storage = new Storage();
+    const id = event.target.parentElement.parentElement.id;
+    storage.delateItem(id);
   }
 
   createTaskCard() {

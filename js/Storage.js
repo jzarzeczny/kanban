@@ -1,15 +1,20 @@
-import Task from "./Task.js";
-
 class Storage {
-  task = new Task();
-
   addToLocalStorage(task) {
     const oldData = this.getFromLocalStorage();
     const newData = [...oldData];
     newData.push(task);
     localStorage.setItem("taskList", JSON.stringify(newData));
   }
-
+  delateItem(taskID) {
+    const oldData = this.getFromLocalStorage();
+    const newArray = oldData.filter((t) => {
+      return t.id != taskID;
+    });
+    // Remove element
+    document.getElementById(taskID).remove();
+    localStorage.clear();
+    localStorage.setItem("taskList", JSON.stringify(newArray));
+  }
   updateLocalStorage = (task) => {
     const oldArray = this.getFromLocalStorage();
     const elementToChange = oldArray.filter((t) => t.id == task.id)[0];
