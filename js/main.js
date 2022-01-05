@@ -9,7 +9,7 @@ class Main {
   c1 = new Container(1, "going");
   c2 = new Container(2, "done");
   tasksArray = [];
-  containers = [this.c0, this.c1, this.c2];
+  // containers = [this.c0, this.c1, this.c2];
 
   addTheContainers() {
     this.root.appendChild(this.c0.createWholeContainer());
