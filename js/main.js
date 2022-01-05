@@ -3,7 +3,6 @@ import Container from "./Container.js";
 import Storage from "./Storage.js";
 
 const form = document.getElementById("form");
-let tasksArray = [];
 
 class Main {
   root = document.getElementById("root");
@@ -12,8 +11,6 @@ class Main {
   c1 = new Container(1, "going", this.updateThePositionOfTask);
   c2 = new Container(2, "done", this.updateThePositionOfTask);
   store = new Storage();
-
-  // containers = [this.c0, this.c1, this.c2];
 
   addTheContainers() {
     this.root.appendChild(this.c0.createWholeContainer());
@@ -43,20 +40,6 @@ class Main {
     store.updateLocalStorage(task);
   }
 
-  // getFromLocalStorage() {
-  //   const data = JSON.parse(localStorage.getItem("taskList"));
-  //   data.forEach((task) => {
-  //     const taskObj = new Task(
-  //       task.header,
-  //       task.content,
-  //       task.color,
-  //       task.id,
-  //       task.position
-  //     );
-  //     this.addTask(taskObj);
-  //   });
-  //   return data;
-  // }
   run() {
     this.addTheContainers();
     const tasksArray = this.store.getFromLocalStorage();
@@ -79,10 +62,3 @@ form.addEventListener("submit", (e) => {
 
 const container = new Main();
 container.run();
-
-// const newTask1 = new Task("dsf", "lorem ipsum", "#aa4", 45);
-// const newTask2 = new Task("fsd", "lorem ipsum", "#ac3", 456456, 1);
-// const newTask3 = new Task("gdfgfd", "lorem ipsum", "#ab1", 124234234, 2);
-// container.addTask(newTask1);
-// container.addTask(newTask2);
-// container.addTask(newTask3);
