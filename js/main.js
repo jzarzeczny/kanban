@@ -20,7 +20,7 @@ class Main {
     this.root.appendChild(this.c1.createWholeContainer());
     this.root.appendChild(this.c2.createWholeContainer());
   }
-  addTask(task) {
+  addTask(task, fresh = false) {
     const taskObj = new Task(
       task.header,
       task.content,
@@ -32,8 +32,9 @@ class Main {
     const properContainer = document.getElementById(task.position);
     properContainer.appendChild(taskElement);
 
-    // tasksArray.push(task);
-    this.store.addToLocalStorage(task);
+    if (fresh) {
+      this.store.addToLocalStorage(task);
+    }
   }
 
   updateThePositionOfTask(task, position) {
@@ -59,6 +60,7 @@ class Main {
   run() {
     this.addTheContainers();
     const tasksArray = this.store.getFromLocalStorage();
+    console.log(tasksArray);
     tasksArray.forEach((task) => this.addTask(task));
   }
 }
@@ -70,7 +72,7 @@ form.addEventListener("submit", (e) => {
   const color = e.target[2].value;
   const id = Date.now() + Math.random();
   const newTask = new Task(header, content, color, id);
-  container.addTask(newTask);
+  container.addTask(newTask, true);
 
   form.reset();
 });
