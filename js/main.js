@@ -5,9 +5,9 @@ const form = document.getElementById("form");
 
 class Main {
   root = document.getElementById("root");
-  c0 = new Container(0, "todo");
-  c1 = new Container(1, "going");
-  c2 = new Container(2, "done");
+  c0 = new Container(0, "todo", this.updateThePositionOfTask);
+  c1 = new Container(1, "going", this.updateThePositionOfTask);
+  c2 = new Container(2, "done", this.updateThePositionOfTask);
   tasksArray = [];
   // containers = [this.c0, this.c1, this.c2];
 
@@ -27,6 +27,16 @@ class Main {
 
   updateLocalStorage() {
     localStorage.setItem("taskList", JSON.stringify(this.tasksArray));
+  }
+
+  updateThePositionOfTask(task, position) {
+    task.position = position;
+    const newArray = this.tasksArray.filter((singleTask) => {
+      singleTask.id !== task.id;
+    });
+    newArray.push(task);
+    this.tasksArray = newArray;
+    this.updateLocalStorage();
   }
 
   getFromLocalStorage() {

@@ -11,27 +11,49 @@ class Task {
     event.dataTransfer.setData("text/plain", event.target.id);
   }
 
+  editCard(event) {
+    event.preventDefault();
+  }
+
+  removeButton(event) {
+    event.preventDefault();
+  }
+
   createTaskCard() {
     // Create HTML elements
     const card = document.createElement("div");
     const cardHeader = document.createElement("h2");
     const cardPara = document.createElement("p");
+    const cardButtons = document.createElement("div");
+    const editButton = document.createElement("button");
+    const removeButton = document.createElement("button");
     // Styling
     card.classList.add("list__card");
     cardHeader.classList.add("card__header");
     cardPara.classList.add("card__para");
+    cardButtons.classList.add("card__buttons");
+    editButton.classList.add("card__button", "card__button--edit");
+    removeButton.classList.add("card__button", "card_button--remove");
     card.style.backgroundColor = this.color;
     // Attributes and content
     card.setAttribute("id", this.id);
     card.setAttribute("draggable", "true");
     // card.setAttribute("ondragstart", this.onDragStart);
     card.addEventListener("dragstart", this.onDragStart);
+    editButton.addEventListener("click", this.editCard);
+    removeButton.addEventListener("click", this.removeCard);
+
     cardHeader.innerHTML = this.header;
     cardPara.innerHTML = this.content;
+    editButton.innerHTML = "Edit";
+    removeButton.innerHTML = "Remove";
 
+    cardButtons.appendChild(editButton);
+    cardButtons.appendChild(removeButton);
     // Add the elements to card parent
     card.appendChild(cardHeader);
     card.appendChild(cardPara);
+    card.appendChild(cardButtons);
 
     // Add the card to TODO section
     return card;

@@ -1,7 +1,8 @@
 class Container {
-  constructor(id, header) {
+  constructor(id, header, updateThePositionOfTask) {
     this.id = id;
     this.header = header;
+    this.updateThePositionOfTask = updateThePositionOfTask;
   }
   createTheContainer() {
     const list = document.createElement("div");
@@ -40,7 +41,9 @@ class Container {
 
     if (dropzone["classList"].contains("list__container")) {
       dropzone.appendChild(draggableElement);
+      // Update the position of element in array
     }
+    updateThePositionOfTask(draggableElement, dropzone.id);
   }
 
   createWholeContainer() {

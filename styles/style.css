@@ -79,12 +79,13 @@ main {
 /* Styling each card */
 
 .list__card {
-  width: 120px;
-  height: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 160px;
+  height: 160px;
   background-color: pink;
-
   padding: 0.5rem;
-  align-items: center;
   font-weight: 300;
   border-radius: 8px;
   overflow: hidden;
@@ -99,6 +100,22 @@ main {
 .card__para {
   justify-self: flex-start;
   width: 100%;
+}
+.card__buttons {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.card__button {
+  cursor: pointer;
+  padding: 0.25rem;
+  background-color: transparent;
+  border: 2px solid transparent;
+}
+.card__button:hover,
+.card__button:active {
+  border: 2px solid black;
+  border-radius: 8px;
 }
 
 /* Form styling */
@@ -119,8 +136,8 @@ main {
 
 @media screen and (min-width: 768px) {
   .list__card {
-    width: 160px;
-    height: 160px;
+    width: 200px;
+    height: 200px;
   }
   .card__header {
     font-size: var(--fs-big);
