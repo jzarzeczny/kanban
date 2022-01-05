@@ -1,8 +1,7 @@
 import Task from "./Task.js";
 import Container from "./Container.js";
 import Storage from "./Storage.js";
-
-const form = document.getElementById("form");
+import Form from "./Form.js";
 
 class Main {
    root = document.getElementById("root");
@@ -11,27 +10,11 @@ class Main {
    c1 = new Container(1, "going", this.updateThePositionOfTask);
    c2 = new Container(2, "done", this.updateThePositionOfTask);
    store = new Storage();
-
+   form = new Form();
    addTheContainers() {
       this.root.appendChild(this.c0.createWholeContainer());
       this.root.appendChild(this.c1.createWholeContainer());
       this.root.appendChild(this.c2.createWholeContainer());
-   }
-   addTask(task, fresh = false) {
-      const taskObj = new Task(
-         task.header,
-         task.content,
-         task.color,
-         task.id,
-         task.position
-      );
-      const taskElement = taskObj.createTaskCard();
-      const properContainer = document.getElementById(task.position);
-      properContainer.appendChild(taskElement);
-
-      if (fresh) {
-         this.store.addToLocalStorage(task);
-      }
    }
 
    updateThePositionOfTask(task, position) {
@@ -43,22 +26,11 @@ class Main {
 
    run() {
       this.addTheContainers();
+      this.form.bindEvent();
       const tasksArray = this.store.getFromLocalStorage();
-      tasksArray.forEach((task) => this.addTask(task));
+      tasksArray.forEach((task) => this.form.addTask(task));
    }
 }
-
-form.addEventListener("submit", (e) => {
-   e.preventDefault();
-   const header = e.target[0].value;
-   const content = e.target[1].value;
-   const color = e.target[2].value;
-   const id = Date.now() + Math.random();
-   const newTask = new Task(header, content, color, id);
-   container.addTask(newTask, true);
-
-   form.reset();
-});
 
 const container = new Main();
 container.run();
