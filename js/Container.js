@@ -4,6 +4,7 @@ class Container {
     this.header = header;
     this.updateThePositionOfTask = updateThePositionOfTask;
   }
+
   createTheContainer() {
     const list = document.createElement("div");
     list.classList.add("list");
@@ -33,7 +34,7 @@ class Container {
     event.preventDefault();
   }
 
-  onDrop(event) {
+  onDrop = (event) => {
     event.preventDefault();
     const id = event.dataTransfer.getData("text/plain");
     const draggableElement = document.getElementById(id);
@@ -42,9 +43,9 @@ class Container {
     if (dropzone["classList"].contains("list__container")) {
       dropzone.appendChild(draggableElement);
       // Update the position of element in array
+      this.updateThePositionOfTask(draggableElement, dropzone.id);
     }
-    updateThePositionOfTask(draggableElement, dropzone.id);
-  }
+  };
 
   createWholeContainer() {
     const container = this.createTheContainer();

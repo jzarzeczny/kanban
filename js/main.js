@@ -2,13 +2,17 @@ import Task from "./Task.js";
 import Container from "./Container.js";
 
 const form = document.getElementById("form");
-
+let tasksArray = [];
 class Main {
+  constructor(tasksArray) {
+    this.tasksArray = tasksArray;
+  }
   root = document.getElementById("root");
+
   c0 = new Container(0, "todo", this.updateThePositionOfTask);
   c1 = new Container(1, "going", this.updateThePositionOfTask);
   c2 = new Container(2, "done", this.updateThePositionOfTask);
-  tasksArray = [];
+
   // containers = [this.c0, this.c1, this.c2];
 
   addTheContainers() {
@@ -26,17 +30,23 @@ class Main {
   }
 
   updateLocalStorage() {
-    localStorage.setItem("taskList", JSON.stringify(this.tasksArray));
+    localStorage.setItem("taskList", JSON.stringify(tasksArray));
   }
 
   updateThePositionOfTask(task, position) {
     task.position = position;
-    const newArray = this.tasksArray.filter((singleTask) => {
-      singleTask.id !== task.id;
+    const newArray = [...tasksArray];
+    const elementToChange = newArray.filter((t) => {
+      return t.id == task.id;
+    })[0];
+    const nextArray = newArray.filter((t) => {
+      return t.id != task.id;
     });
-    newArray.push(task);
-    this.tasksArray = newArray;
-    this.updateLocalStorage();
+    elementToChange.position = position;
+    nextArray.push(elementToChange);
+    tasksArray = nextArray;
+
+    Main.updateLocalStorage();
   }
 
   getFromLocalStorage() {
@@ -71,7 +81,7 @@ form.addEventListener("submit", (e) => {
   form.reset();
 });
 
-const container = new Main();
+const container = new Main(tasksArray);
 container.run();
 
 // const newTask1 = new Task("dsf", "lorem ipsum", "#aa4", 45);
