@@ -2,7 +2,6 @@ import Task from "./Task.js";
 import Storage from "./Storage.js";
 class Form {
    form = document.getElementById("form");
-   button = document.getElementById("openButton");
 
    store = new Storage();
 
@@ -30,19 +29,16 @@ class Form {
       const color = e.target[2].value;
       const id = Date.now() + Math.random();
       const newTask = new Task(header, content, color, id);
-      console.log(this);
       this.addTask(newTask, true);
 
       form.reset();
    };
    toggleClass(e) {
-      console.log("toggling!");
-      e.target.classList.toggle("add__open--open");
+      e.target.parentElement.classList.toggle("add__container--open");
    }
 
    bindEvent() {
       form.addEventListener("submit", this.handleInput);
-      this.button.addEventListener("onClick", this.toggleClass);
    }
 }
 

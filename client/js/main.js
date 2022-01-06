@@ -1,10 +1,10 @@
-import Task from "./Task.js";
 import Container from "./Container.js";
 import Storage from "./Storage.js";
 import Form from "./Form.js";
 
 class Main {
    root = document.getElementById("root");
+   button = document.getElementById("openButton");
 
    c0 = new Container(0, "todo", this.updateThePositionOfTask);
    c1 = new Container(1, "going", this.updateThePositionOfTask);
@@ -27,6 +27,7 @@ class Main {
    run() {
       this.addTheContainers();
       this.form.bindEvent();
+      this.button.addEventListener("click", this.form.toggleClass);
       const tasksArray = this.store.getFromLocalStorage();
       tasksArray.forEach((task) => this.form.addTask(task));
    }
