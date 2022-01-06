@@ -23,17 +23,18 @@ class Form {
       }
    }
 
-   handleInput(e) {
+   handleInput = (e) => {
       e.preventDefault();
       const header = e.target[0].value;
       const content = e.target[1].value;
       const color = e.target[2].value;
       const id = Date.now() + Math.random();
       const newTask = new Task(header, content, color, id);
+      console.log(this);
       this.addTask(newTask, true);
 
       form.reset();
-   }
+   };
    toggleClass(e) {
       console.log("toggling!");
       e.target.classList.toggle("add__open--open");
