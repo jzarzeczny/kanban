@@ -30,7 +30,7 @@ class Form {
       const id = Date.now() + Math.random();
       const newTask = new Task(header, content, color, id);
       this.addTask(newTask, true);
-
+      this.form.parentElement.classList.toggle("add__container--open");
       form.reset();
    };
    toggleClass(e) {

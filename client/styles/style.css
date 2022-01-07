@@ -45,7 +45,8 @@ p {
 /* List styling */
 .list {
    display: grid;
-   grid-template-rows: min-content max-content;
+   grid-template-rows: min-content auto;
+   align-items: start;
 }
 
 .list > .list__header {
@@ -63,7 +64,9 @@ p {
    display: flex;
    flex-flow: row wrap;
    justify-content: flex-start;
+   align-content: flex-start;
    min-height: 120px;
+   height: 100%;
    width: 100%;
    padding: 1rem;
    gap: 1rem;

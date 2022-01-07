@@ -26,15 +26,6 @@ class Task {
          storage.updateValueLocalStorage(element);
          console.log(element);
       };
-      // Change the content area  to text area
-      // Disable it
-      // When edit card is clicked, enable it
-      // When edit enabled, Change button to the Save
-      // Update the ls
-
-      // Color picker
-      // Change the form input for the stuff that scroll from the left site of the screen
-      // When clicked, it closes itself
    }
 
    removeCard(event) {
