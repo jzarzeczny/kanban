@@ -1,0 +1,261 @@
+:root {
+   /* Colors */
+   --bg-clr: #ddca7d;
+
+   /* Font size */
+   --fs-small: 0.75rem;
+   --fs-normal: 1rem;
+   --fs-big: 1.5rem;
+   --fs-vBig: 2rem;
+
+   /* Breaking points */
+   --bp-tablet: 768px;
+   --bp-desktop: 1024px;
+}
+
+*,
+*::before,
+*::after {
+   box-sizing: border-box;
+}
+
+body {
+   font-size: 16px;
+   font-family: "Roboto", sans-serif;
+   margin: 0;
+   padding: 0;
+   min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+p {
+   margin: 0;
+   padding: 0;
+}
+
+/* Container styling */
+.container {
+   display: flex;
+   flex-direction: column;
+   position: relative;
+}
+
+/* List styling */
+.list {
+   display: grid;
+   grid-template-rows: min-content max-content;
+}
+
+.list > .list__header {
+   text-align: center;
+   font-size: var(--fs-big);
+   grid-row: 1/2;
+   grid-column: 1/4;
+   border-bottom: 1px solid black;
+   padding: 1rem;
+}
+
+/* Styling of container */
+.list__container {
+   grid-column: 1/4;
+   display: flex;
+   flex-flow: row wrap;
+   justify-content: flex-start;
+   min-height: 120px;
+   width: 100%;
+   padding: 1rem;
+   gap: 1rem;
+}
+
+/* Styling each card */
+
+.list__card {
+   display: flex;
+   flex-direction: column;
+   justify-content: space-between;
+   width: 160px;
+   height: 160px;
+   background-color: pink;
+   padding: 0.5rem;
+   font-weight: 300;
+   border-radius: 8px;
+   overflow: hidden;
+}
+
+.card__header {
+   font-size: var(--fs-normal);
+   text-transform: uppercase;
+   text-align: center;
+}
+
+.card__para {
+   justify-self: flex-start;
+   max-width: 100%;
+   padding: 5px;
+   line-height: 1.5;
+   background-color: transparent;
+   border-radius: 5px;
+   border: 1px solid black;
+   box-shadow: 2px 2px 3px #999;
+}
+.card__buttons {
+   display: flex;
+   justify-content: space-around;
+   align-items: center;
+}
+.card__button {
+   cursor: pointer;
+   padding: 0.25rem;
+   background-color: transparent;
+   border: 1px solid transparent;
+}
+.card__button:hover,
+.card__button:active {
+   border-bottom: 1px solid black;
+   /* border-radius: 8px; */
+}
+
+/* Form styling */
+
+.add__container {
+   position: absolute;
+   top: 20%;
+   left: 0;
+   margin-top: 1rem;
+   padding: 1rem;
+   border: 1px solid black;
+   background-color: #fff;
+   z-index: 2;
+   transform: translateX(-100%);
+   transition: transform 0.5s ease-in-out;
+}
+.add__container--open {
+   transform: translateX(0);
+}
+
+.add__open {
+   position: absolute;
+   right: -31px;
+   top: 50%;
+   transform: translateY(-50%);
+   width: 30px;
+   height: 80px;
+   border: none;
+   background-color: white;
+   border-top: 1px solid black;
+   border-right: 1px solid black;
+   border-bottom: 1px solid black;
+   border-top-right-radius: 8px;
+   border-bottom-right-radius: 8px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   font-size: 1.5rem;
+}
+
+.add__form > * {
+   margin-top: 1rem;
+}
+
+.form__label {
+   display: block;
+   margin-bottom: 0.25rem;
+}
+.form__control > textarea {
+   width: 100%;
+   min-height: 100px;
+}
+
+/* Custom radio buttons */
+.radio {
+   margin-top: 1rem;
+   width: 50%;
+   display: flex;
+   flex-direction: column;
+   justify-content: flex-start;
+   align-items: flex-start;
+   position: relative;
+   padding: 0.5rem 0;
+   margin-left: 0.5rem;
+   font-weight: 300;
+   text-align: center;
+   cursor: pointer;
+}
+
+.radio:hover input ~ span {
+   border: 2px solid #bb342f;
+}
+
+.radio input:checked ~ span {
+   border: 2px solid #003844;
+}
+
+.radio input {
+   position: absolute;
+   opacity: 0;
+   cursor: pointer;
+   height: 0;
+   width: 0;
+}
+.radio span {
+   position: absolute;
+   bottom: 0;
+   left: -0.5rem;
+
+   width: 100%;
+   height: 100%;
+   z-index: -1;
+   background-color: pink;
+}
+
+.radio:nth-of-type(1) span {
+   background-color: #d6d84f;
+}
+.radio:nth-of-type(2) span {
+   background-color: #ddc3d0;
+}
+.radio:nth-of-type(3) span {
+   background-color: #b3efb2;
+}
+
+/* Tablet style */
+
+@media screen and (min-width: 768px) {
+   .list__card {
+      width: 200px;
+      height: 200px;
+   }
+   .card__header {
+      font-size: var(--fs-big);
+   }
+   .card__para {
+      font-size: var(--fs-normal);
+   }
+}
+
+/* Desktop style */
+
+@media screen and (min-width: 1024px) {
+   .container {
+      flex-direction: row;
+   }
+   .container > * {
+      flex: 1;
+   }
+   .container > * + * {
+      margin-top: 0rem;
+      border-left: 1px solid black;
+   }
+
+   .list {
+      padding: 0;
+   }
+   .list > .list__header {
+      font-size: var(--fs-vBig);
+   }
+   .list__container {
+      min-height: 350px;
+   }
+}

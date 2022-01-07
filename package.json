@@ -1,0 +1,24 @@
+{
+   "name": "kanban",
+   "version": "1.0.0",
+   "description": "",
+   "main": "index.js",
+   "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "dev": "nodemon server"
+   },
+   "repository": {
+      "type": "git",
+      "url": "git+ssh://git@gitlab.com/jkzarzeczny/kanban.git"
+   },
+   "keywords": [],
+   "author": "",
+   "license": "ISC",
+   "bugs": {
+      "url": "https://gitlab.com/jkzarzeczny/kanban/issues"
+   },
+   "homepage": "https://gitlab.com/jkzarzeczny/kanban#readme",
+   "devDependencies": {
+      "nodemon": "^2.0.15"
+   }
+}
