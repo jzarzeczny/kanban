@@ -20,5 +20,8 @@
    "homepage": "https://gitlab.com/jkzarzeczny/kanban#readme",
    "devDependencies": {
       "nodemon": "^2.0.15"
+   },
+   "dependencies": {
+      "express": "^4.17.2"
    }
 }
