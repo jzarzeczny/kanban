@@ -15,7 +15,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use(express.static(path.join(__dirname, "client")));
 
-app.use("api/tasks", require("./routes/tasks"));
+app.use("/tasks", require("./routes/tasks"));
 
 app.listen(PORT, (req, res) => {
    console.log(`Server is running on port ${PORT}`);
