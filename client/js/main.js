@@ -1,4 +1,3 @@
-import Container from "./Container.js";
 import Storage from "./Storage.js";
 import Form from "./Form.js";
 import Creator from "./Creator.js";
