@@ -1,4 +1,3 @@
-import Task from "./Task.js";
 import Storage from "./Storage.js";
 import Creator from "./Creator.js";
 class Form {
@@ -29,6 +28,7 @@ class Form {
       const header = e.target[0].value;
       const content = e.target[1].value;
       const color = document.querySelector("input[name='color']:checked").value;
+
       const id = Date.now() + Math.random();
       const newTask = {
          header,
@@ -47,6 +47,8 @@ class Form {
    }
 
    bindEvent() {
+      const button = document.getElementById("openButton");
+      button.addEventListener("click", this.toggleClass);
       form.addEventListener("submit", this.handleInput);
    }
 }

@@ -80,7 +80,9 @@ class Creator {
                         class="radio__input"
                         type="radio"
                         value="#D6D84F"
-                        name="color" />
+                        name="color" 
+                              checked="checked"/>
+                  
                      <span class="radio__box"></span>
                   </label>
                   <label class="radio"

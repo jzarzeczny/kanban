@@ -9,14 +9,29 @@ class Main {
    form = new Form();
    creator = new Creator();
 
+   columns = [
+      {
+         id: 0,
+         name: "todo",
+      },
+      {
+         id: 1,
+         name: "going",
+      },
+      {
+         id: 2,
+         name: "done",
+      },
+   ];
+   bindEvents() {
+      this.form.bindEvent();
+   }
    run() {
       this.creator.createForm(root);
-      this.creator.createContainer(0, "todo");
-      this.creator.createContainer(1, "going");
-      this.creator.createContainer(2, "done");
-      const button = document.getElementById("openButton");
-      this.form.bindEvent();
-      button.addEventListener("click", this.form.toggleClass);
+      this.columns.forEach((column) => {
+         this.creator.createContainer(column.id, column.name);
+      });
+      this.bindEvents();
       const tasksArray = this.store.getFromLocalStorage();
       tasksArray.forEach((task) => this.form.addTask(task));
    }
