@@ -92,7 +92,13 @@ p {
 
 .card__para {
    justify-self: flex-start;
-   width: 100%;
+   max-width: 100%;
+   padding: 5px;
+   line-height: 1.5;
+   background-color: transparent;
+   border-radius: 5px;
+   border: 1px solid black;
+   box-shadow: 2px 2px 3px #999;
 }
 .card__buttons {
    display: flex;
@@ -103,12 +109,12 @@ p {
    cursor: pointer;
    padding: 0.25rem;
    background-color: transparent;
-   border: 2px solid transparent;
+   border: 1px solid transparent;
 }
 .card__button:hover,
 .card__button:active {
-   border: 2px solid black;
-   border-radius: 8px;
+   border-bottom: 1px solid black;
+   /* border-radius: 8px; */
 }
 
 /* Form styling */
@@ -160,6 +166,58 @@ p {
 .form__control > textarea {
    width: 100%;
    min-height: 100px;
+}
+
+/* Custom radio buttons */
+.radio {
+   margin-top: 1rem;
+   width: 50%;
+   display: flex;
+   flex-direction: column;
+   justify-content: flex-start;
+   align-items: flex-start;
+   position: relative;
+   padding: 0.5rem 0;
+   margin-left: 0.5rem;
+   font-weight: 300;
+   text-align: center;
+   cursor: pointer;
+}
+
+.radio:hover input ~ span {
+   border: 2px solid #bb342f;
+}
+
+.radio input:checked ~ span {
+   border: 2px solid #003844;
+}
+
+.radio input {
+   position: absolute;
+   opacity: 0;
+   cursor: pointer;
+   height: 0;
+   width: 0;
+}
+.radio span {
+   position: absolute;
+   bottom: 0;
+   left: -0.5rem;
+
+   width: 100%;
+   height: 100%;
+   z-index: -1;
+   background-color: pink;
+}
+
+.radio:nth-of-type(1) span {
+   background-color: #d6d84f;
+}
+.radio:nth-of-type(2) span {
+   background-color: #ddc3d0;
+}
+.radio:nth-of-type(3) span {
+   background-color: #b3efb2;
 }
 
 /* Tablet style */

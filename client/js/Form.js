@@ -26,7 +26,7 @@ class Form {
       e.preventDefault();
       const header = e.target[0].value;
       const content = e.target[1].value;
-      const color = e.target[2].value;
+      const color = document.querySelector("input[name='color']:checked").value;
       const id = Date.now() + Math.random();
       const newTask = new Task(header, content, color, id);
       this.addTask(newTask, true);

@@ -21,7 +21,7 @@ class Main {
       // TODO del the task -> those operation happen in storage
       task.position = position;
       const store = new Storage();
-      store.updateLocalStorage(task);
+      store.updatePositionLocalStorage(task);
    }
 
    run() {

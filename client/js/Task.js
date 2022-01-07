@@ -15,8 +15,17 @@ class Task {
 
    editCard(event) {
       event.preventDefault();
-      console.log("editing element");
-
+      const elementID = event.target.parentElement.parentElement.id;
+      const element = document.getElementById(elementID);
+      const textarea = element.children[1];
+      textarea.removeAttribute("disabled");
+      textarea.focus();
+      textarea.onblur = () => {
+         textarea.setAttribute("disabled", "true");
+         const storage = new Storage();
+         storage.updateValueLocalStorage(element);
+         console.log(element);
+      };
       // Change the content area  to text area
       // Disable it
       // When edit card is clicked, enable it
@@ -39,7 +48,7 @@ class Task {
       // Create HTML elements
       const card = document.createElement("div");
       const cardHeader = document.createElement("h2");
-      const cardPara = document.createElement("p");
+      const cardPara = document.createElement("textarea");
       const cardButtons = document.createElement("div");
       const editButton = document.createElement("button");
       const removeButton = document.createElement("button");
@@ -54,9 +63,9 @@ class Task {
       // Attributes and content
       card.setAttribute("id", this.id);
       card.setAttribute("draggable", "true");
-      // card.setAttribute("ondragstart", this.onDragStart);
       card.addEventListener("dragstart", this.onDragStart);
       editButton.addEventListener("click", this.editCard);
+      cardPara.setAttribute("disabled", "true");
       removeButton.addEventListener("click", this.removeCard);
 
       cardHeader.innerHTML = this.header;
