@@ -10,7 +10,7 @@ const server = http.createServer((req, res) => {
    );
    let extname = path.extname(filePath);
    let contentType = "text/html";
-
+   console.log(extname);
    switch (extname) {
       case ".js":
          contentType = "text/javascript";
@@ -30,8 +30,6 @@ const server = http.createServer((req, res) => {
    }
    // Check if contentType is text/html but no .html file extension
    if (contentType == "text/html" && extname == "") filePath += ".html";
-
-   console.log(filePath);
 
    fs.readFile(filePath, (err, content) => {
       if (err) {

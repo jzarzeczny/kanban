@@ -1,19 +1,20 @@
-import Task from "./Task.js";
 import Storage from "./Storage.js";
+import Creator from "./Creator.js";
 class Form {
    form = document.getElementById("form");
+
+   creator = new Creator();
 
    store = new Storage();
 
    addTask(task, fresh = false) {
-      const taskObj = new Task(
+      const taskElement = this.creator.createTaskCard(
          task.header,
          task.content,
          task.color,
-         task.id,
-         task.position
+         task.id
       );
-      const taskElement = taskObj.createTaskCard();
+      task.position = task.position || 0;
       const properContainer = document.getElementById(task.position);
       properContainer.appendChild(taskElement);
 
@@ -27,10 +28,18 @@ class Form {
       const header = e.target[0].value;
       const content = e.target[1].value;
       const color = document.querySelector("input[name='color']:checked").value;
-      const id = Date.now() + Math.random();
-      const newTask = new Task(header, content, color, id);
-      this.addTask(newTask, true);
 
+      const id = Date.now() + Math.random();
+      const newTask = {
+         header,
+         content,
+         color,
+         id,
+      };
+      this.addTask(newTask, true);
+      const form = document.getElementById("form");
+
+      form.parentElement.classList.toggle("add__container--open");
       form.reset();
    };
    toggleClass(e) {
@@ -38,6 +47,8 @@ class Form {
    }
 
    bindEvent() {
+      const button = document.getElementById("openButton");
+      button.addEventListener("click", this.toggleClass);
       form.addEventListener("submit", this.handleInput);
    }
 }
