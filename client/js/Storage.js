@@ -43,8 +43,7 @@ class Storage {
       // const data = JSON.parse(localStorage.getItem("taskList")) || [];
       const data = await fetch("http://localhost:5002/tasks")
          .then((response) => response.json())
-         .then((data) => data);
-
+         .then((data) => JSON.parse(data));
       return data;
    }
 }

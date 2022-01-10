@@ -2,12 +2,27 @@ const express = require("express");
 const fs = require("fs");
 const router = express.Router();
 
-const tasks = fs.readFileSync("../tasks.json", "utf8", (err, data) => {
+// Repair method!
+// const d = [
+//    {
+//       id: 3,
+//       header: "header",
+//       content: "content",
+//       color: "#D6D84F",
+//    },
+// ];
+// fs.writeFileSync("../data.json", JSON.stringify(d), "utf-8", function (err) {
+//    if (err) throw err;
+//    console.log("Done");
+// });
+const tasks = fs.readFileSync("./data.json", "utf8", (err, data) => {
    if (err) console.log(err);
    return data;
 });
+parsedData = JSON.parse(tasks);
 
 router.get("/", (req, res) => {
+   console.log(tasks);
    res.json(tasks);
 });
 router.post("/", (req, res) => {
@@ -18,14 +33,14 @@ router.post("/", (req, res) => {
    console.log(newTask);
 
    // Update the content of tasks
-   const filePath = "../tasks.json";
-   const newTasks = [...tasks];
+   const filePath = "./data.json";
+   const newTasks = [...parsedData];
    newTasks.push(newTask);
    // Those are new tasks
    console.log("This is a list of new tasks");
    console.log(newTasks);
 
-   fs.writeFile(filePath, JSON.stringify(newTasks), "utf-8", (err) => {
+   fs.writeFileSync(filePath, JSON.stringify(newTasks), "utf-8", (err) => {
       if (err) throw err;
       console.log("Done");
    });
@@ -55,11 +70,16 @@ router.put("/:id", (req, res) => {
 });
 
 router.delete("/:id", (req, res) => {
-   const found = tasks.some((task) => {
+   console.log(req.params.id);
+   const found = parsedData.some((task) => {
       return task.id === parseInt(req.params.id);
    });
    if (found) {
-      tasks.filter((task) => task.id !== parseInt(req.params.id));
+      newData = parsedData.filter((task) => task.id !== parseInt(req.params.id));
+      fs.writeFileSync(filePath, JSON.stringify(newData), "utf-8", (err) => {
+         if (err) throw err;
+         console.log(`Delate item ${task.id}`);
+      });
       res.json({
          message: "Member delate",
       });
