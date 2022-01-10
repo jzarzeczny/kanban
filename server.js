@@ -10,7 +10,6 @@ const server = http.createServer((req, res) => {
    );
    let extname = path.extname(filePath);
    let contentType = "text/html";
-   console.log(extname);
    switch (extname) {
       case ".js":
          contentType = "text/javascript";
