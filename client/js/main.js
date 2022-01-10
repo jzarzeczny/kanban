@@ -26,13 +26,13 @@ class Main {
    bindEvents() {
       this.form.bindEvent();
    }
-   run() {
+   async run() {
       this.creator.createForm(root);
       this.columns.forEach((column) => {
          this.creator.createContainer(column.id, column.name);
       });
       this.bindEvents();
-      const tasksArray = this.store.getFromLocalStorage();
+      const tasksArray = await this.store.getFromLocalStorage();
       tasksArray.forEach((task) => this.form.addTask(task));
    }
 }

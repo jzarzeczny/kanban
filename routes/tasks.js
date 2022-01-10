@@ -1,16 +1,35 @@
 const express = require("express");
+const fs = require("fs");
 const router = express.Router();
-const tasks = require("../Tasks");
+const tasks = require("../tasks.json");
 
 router.get("/", (req, res) => {
    res.json(tasks);
 });
 router.post("/", (req, res) => {
+   console.log(req);
    const newTask = {
       ...req.body,
    };
-   tasks.push(newTask);
-   res.json(tasks);
+   console.log("This is new task");
+   console.log(newTask);
+
+   // Update the content of tasks
+   const filePath = "../tasks.json";
+   const newTasks = [...tasks];
+   newTasks.push(newTask);
+   // Those are new tasks
+   console.log("This is a list of new tasks");
+   console.log(newTasks);
+   try {
+      fs.writeFileSync(filePath, JSON.stringify(newTasks), "utf-8");
+      console.log("The file was saved");
+   } catch (err) {
+      console.err(`Error with override JSON `);
+   }
+   res.end();
+   // tasks.push(newTask);
+   // res.json(tasks);
 });
 
 router.put("/:id", (req, res) => {
@@ -23,13 +42,9 @@ router.put("/:id", (req, res) => {
       tasks.forEach((task) => {
          if (task.id === parseInt(req.params.id)) {
             task.header = updateTask.header ? updateTask.header : task.header;
-            task.content = updateTask.content
-               ? updateTask.content
-               : task.content;
+            task.content = updateTask.content ? updateTask.content : task.content;
             task.color = updateTask.color ? updateTask.color : task.color;
-            task.position = updateTask.position
-               ? updateTask.position
-               : task.position;
+            task.position = updateTask.position ? updateTask.position : task.position;
             res.json({ message: "Task updated", header: task.header });
          }
       });
