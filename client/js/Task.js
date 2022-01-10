@@ -23,7 +23,11 @@ class Task {
       textarea.onblur = () => {
          textarea.setAttribute("disabled", "true");
          const storage = new Storage();
-         storage.updateValueLocalStorage(element);
+         const objToUpdate = {
+            id: element.id,
+            content: element.children[1].value,
+         };
+         storage.updateItem(objToUpdate);
       };
    }
 
