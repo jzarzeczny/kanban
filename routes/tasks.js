@@ -1,13 +1,16 @@
 const express = require("express");
 const fs = require("fs");
 const router = express.Router();
-const tasks = require("../tasks.json");
+
+const tasks = fs.readFileSync("../tasks.json", "utf8", (err, data) => {
+   if (err) console.log(err);
+   return data;
+});
 
 router.get("/", (req, res) => {
    res.json(tasks);
 });
 router.post("/", (req, res) => {
-   console.log(req);
    const newTask = {
       ...req.body,
    };
@@ -21,15 +24,13 @@ router.post("/", (req, res) => {
    // Those are new tasks
    console.log("This is a list of new tasks");
    console.log(newTasks);
-   try {
-      fs.writeFileSync(filePath, JSON.stringify(newTasks), "utf-8");
-      console.log("The file was saved");
-   } catch (err) {
-      console.err(`Error with override JSON `);
-   }
-   res.end();
-   // tasks.push(newTask);
-   // res.json(tasks);
+
+   fs.writeFile(filePath, JSON.stringify(newTasks), "utf-8", (err) => {
+      if (err) throw err;
+      console.log("Done");
+   });
+
+   console.log(tasks);
 });
 
 router.put("/:id", (req, res) => {

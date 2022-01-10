@@ -5,7 +5,7 @@ class Storage {
          headers: {
             "Content-Type": "application/json",
          },
-         body: task,
+         body: JSON.stringify(task),
       }).then(() => console.log("all good!"));
    }
    async delateItem(taskID) {
@@ -41,12 +41,9 @@ class Storage {
    };
    async getFromLocalStorage() {
       // const data = JSON.parse(localStorage.getItem("taskList")) || [];
-      console.log("hi api");
-      const data = await fetch("http://localhost:5002/tasks").then((response) => response.json());
-
-      if (!data) {
-         data = [];
-      }
+      const data = await fetch("http://localhost:5002/tasks")
+         .then((response) => response.json())
+         .then((data) => data);
 
       return data;
    }
