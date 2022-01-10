@@ -55,11 +55,11 @@ router.put("/:id", (req, res) => {
             task.position = updateTask.position ? updateTask.position : task.position;
          }
       });
-      res.status(200);
 
       fs.writeFileSync(filePath, JSON.stringify(parsedData), "utf-8", (err) => {
          if (err) throw err;
          console.log("Done");
+         res.json({ message: "Task list updated" });
       });
    } else {
       res.status(400).json({ message: "No task with id of " + req.params.id });
@@ -67,20 +67,18 @@ router.put("/:id", (req, res) => {
 });
 
 router.delete("/:id", (req, res) => {
-   // const delID = parseFloat(req.params.id);
    const found = parsedData.some((task) => {
       console.log(task.id == req.params.id);
       return task.id == parseFloat(req.params.id);
    });
    if (found) {
       newData = parsedData.filter((task) => task.id !== parseFloat(req.params.id));
-      fs.writeFileSync(filePath, JSON.stringify(newData), "utf-8", (err) => {
+      fs.writeFile(filePath, JSON.stringify(newData), "utf-8", (err) => {
          console.log(`Delate item ${task.id}`);
          if (err) throw err;
       });
-
       res.status(200).json({
-         tasks: JSON.stringify(newData),
+         newData,
       });
    } else {
       res.status(400).json({

@@ -1,4 +1,4 @@
-import Main from "./Main.js";
+import Main from "./main.js";
 
 class Storage {
    async addToLocalStorage(task) {
@@ -16,18 +16,14 @@ class Storage {
       })
          .then((res) => res.json())
          .then((data) => {
-            const newData = JSON.parse(data.tasks);
-         });
+            console.log(data.newData);
+            // const newData = JSON.parse(data.tasks);
+            const main = new Main();
+            main.run();
+         })
+         .catch((e) => console.log(e));
 
       // TODO UPDATE THE RENDER BASED ON THE RES
-      // const oldData = this.getFromLocalStorage();
-      // const newArray = oldData.filter((t) => {
-      //    return t.id != taskID;
-      // });
-      // // Remove element
-      // document.getElementById(taskID).remove();
-      // localStorage.clear();
-      // localStorage.setItem("taskList", JSON.stringify(newArray));
    }
    updateItem = async (task) => {
       const taskObject = {
@@ -41,11 +37,10 @@ class Storage {
             "Content-Type": "application/json",
          },
          body: JSON.stringify(taskObject),
-      });
+      }).then((res) => console.log(res));
    };
 
    async getFromLocalStorage() {
-      // const data = JSON.parse(localStorage.getItem("taskList")) || [];
       const data = await fetch("http://localhost:5002/tasks")
          .then((response) => response.json())
          .then((data) => JSON.parse(data));

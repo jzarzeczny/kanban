@@ -27,6 +27,7 @@ class Main {
       this.form.bindEvent();
    }
    async run() {
+      this.root.innerHTML = "";
       this.creator.createForm(root);
       this.columns.forEach((column) => {
          this.creator.createContainer(column.id, column.name);
