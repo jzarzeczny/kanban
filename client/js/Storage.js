@@ -37,16 +37,15 @@ class Storage {
             "Content-Type": "application/json",
          },
          body: JSON.stringify(taskObject),
-      })
-         .then((res) => res.json())
-         .then((e) => console.log(e));
+      }).then((res) => res.json());
    };
 
    async getFromLocalStorage() {
       const data = await fetch("http://localhost:5002/tasks")
          .then((response) => response.json())
          .then((data) => {
-            return JSON.parse(data);
+            console.log(data);
+            return data;
          });
       return data;
    }
