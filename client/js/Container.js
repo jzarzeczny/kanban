@@ -22,7 +22,7 @@ class Container {
          // Update the position of element in array
          draggableElement.position = dropzone.id;
          const store = new Storage();
-         store.updatePositionLocalStorage(draggableElement);
+         store.updateItem(draggableElement);
       }
    };
 }

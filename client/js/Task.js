@@ -23,15 +23,20 @@ class Task {
       textarea.onblur = () => {
          textarea.setAttribute("disabled", "true");
          const storage = new Storage();
-         storage.updateValueLocalStorage(element);
+         const objToUpdate = {
+            id: element.id,
+            content: element.children[1].value,
+         };
+         storage.updateItem(objToUpdate);
       };
    }
 
    removeCard(event) {
       event.preventDefault();
       const storage = new Storage();
-      const id = event.target.parentElement.parentElement.id;
-      storage.delateItem(id);
+      const card = event.target.parentElement.parentElement;
+      card.parentElement.removeChild(document.getElementById(card.id));
+      storage.delateItem(card.id);
    }
 }
 

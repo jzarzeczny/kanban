@@ -1,57 +1,78 @@
-const http = require("http");
+// Node imports
+
+// const http = require("http");
+// const path = require("path");
+// const fs = require("fs");
+
+const PORT = process.env.PORT || 5002;
+
+const express = require("express");
 const path = require("path");
-const fs = require("fs");
+const app = express();
 
-const server = http.createServer((req, res) => {
-   let filePath = path.join(
-      __dirname,
-      "client",
-      req.url === "/" ? "index.html" : req.url
-   );
-   let extname = path.extname(filePath);
-   let contentType = "text/html";
-   switch (extname) {
-      case ".js":
-         contentType = "text/javascript";
-         break;
-      case ".css":
-         contentType = "text/css";
-         break;
-      case ".json":
-         contentType = "application/json";
-         break;
-      case ".png":
-         contentType = "image/png";
-         break;
-      case ".jpg":
-         contentType = "image/jpg";
-         break;
-   }
-   // Check if contentType is text/html but no .html file extension
-   if (contentType == "text/html" && extname == "") filePath += ".html";
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-   fs.readFile(filePath, (err, content) => {
-      if (err) {
-         if (err.code == "ENOENT") {
-            fs.readFile(
-               path.join(__dirname, "client", "404.html"),
-               (err, content) => {
-                  res.writeHead(404, { "Content-Type": "text/html" });
-                  res.end(content, "utf8");
-               }
-            );
-         } else {
-            res.writeHead(500);
-            res.end(`Server Error: ${err.code}`);
-         }
-      } else {
-         //   Success
-         res.writeHead(200, { "Content-Type": contentType });
-         res.end(content, "utf8");
-      }
-   });
+app.use(express.static(path.join(__dirname, "client")));
+
+app.use("/tasks", require("./routes/tasks"));
+
+app.listen(PORT, (req, res) => {
+   console.log(`Server is running on port ${PORT}`);
 });
+// NODE ONLY SERVER
 
-const PORT = (process.env.PORT = 5001);
+// const server = http.createServer((req, res) => {
+//    let filePath = path.join(
+//       __dirname,
+//       "client",
+//       req.url === "/" ? "index.html" : req.url
+//    );
+//    let extname = path.extname(filePath);
+//    let contentType = "text/html";
+//    console.log(extname);
+//    switch (extname) {
+//       case ".js":
+//          contentType = "text/javascript";
+//          break;
+//       case ".css":
+//          contentType = "text/css";
+//          break;
+//       case ".json":
+//          contentType = "application/json";
+//          break;
+//       case ".png":
+//          contentType = "image/png";
+//          break;
+//       case ".jpg":
+//          contentType = "image/jpg";
+//          break;
+//    }
+//    // Check if contentType is text/html but no .html file extension
+//    if (contentType == "text/html" && extname == "") filePath += ".html";
 
-server.listen(PORT, () => console.log(`Server is running on port: ${PORT}`));
+//    fs.readFile(filePath, (err, content) => {
+//       if (err) {
+//          if (err.code == "ENOENT") {
+//             fs.readFile(
+//                path.join(__dirname, "client", "404.html"),
+//                (err, content) => {
+//                   res.writeHead(404, { "Content-Type": "text/html" });
+//                   res.end(content, "utf8");
+//                }
+//             );
+//          } else {
+//             res.writeHead(500);
+//             res.end(`Server Error: ${err.code}`);
+//          }
+//       } else {
+//          //   Success
+//          res.writeHead(200, { "Content-Type": contentType });
+//          res.end(content, "utf8");
+//       }
+//    });
+// });
+
+// const PORT = (process.env.PORT = 5001);
+
+// server.listen(PORT, () => console.log(`Server is running on port: ${PORT}`));

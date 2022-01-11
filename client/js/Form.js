@@ -19,7 +19,7 @@ class Form {
       properContainer.appendChild(taskElement);
 
       if (fresh) {
-         this.store.addToLocalStorage(task);
+         this.store.addItem(task);
       }
    }
 

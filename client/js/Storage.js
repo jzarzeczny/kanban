@@ -1,42 +1,50 @@
-class Storage {
-   addToLocalStorage(task) {
-      const oldData = this.getFromLocalStorage();
-      const newData = [...oldData];
-      newData.push(task);
-      localStorage.setItem("taskList", JSON.stringify(newData));
-   }
-   delateItem(taskID) {
-      const oldData = this.getFromLocalStorage();
-      const newArray = oldData.filter((t) => {
-         return t.id != taskID;
-      });
-      // Remove element
-      document.getElementById(taskID).remove();
-      localStorage.clear();
-      localStorage.setItem("taskList", JSON.stringify(newArray));
-   }
-   updatePositionLocalStorage = (task) => {
-      const oldArray = this.getFromLocalStorage();
-      const elementToChange = oldArray.filter((t) => t.id == task.id)[0];
-      elementToChange.position = task.position;
-      const newArray = oldArray.filter((t) => t.id != task.id);
-      newArray.push(elementToChange);
-      localStorage.clear();
-      localStorage.setItem("taskList", JSON.stringify(newArray));
-   };
-   updateValueLocalStorage = (task) => {
-      const oldArray = this.getFromLocalStorage();
-      const elementToChange = oldArray.filter((t) => t.id == task.id)[0];
-      elementToChange.content = task.children[1].value;
-      const newArray = oldArray.filter((t) => t.id != task.id);
-      newArray.push(elementToChange);
-      localStorage.clear();
-      localStorage.setItem("taskList", JSON.stringify(newArray));
-   };
-   getFromLocalStorage() {
-      const data = JSON.parse(localStorage.getItem("taskList")) || [];
+import Main from "./main.js";
 
+class Storage {
+   async addItem(task) {
+      const response = await fetch("http://localhost:5002/tasks", {
+         method: "POST",
+         headers: {
+            "Content-Type": "application/json",
+         },
+         body: JSON.stringify(task),
+      });
+      this.logResponse(response);
+   }
+   async delateItem(taskID) {
+      const response = await fetch(`http://localhost:5002/tasks/${taskID}`, {
+         method: "DELETE",
+      });
+      this.logResponse(response);
+   }
+   updateItem = async (task) => {
+      const taskObject = {
+         id: task.id,
+         content: task.content,
+         position: task.position,
+      };
+      const response = await fetch(`http://localhost:5002/tasks/${task.id}`, {
+         method: "PUT",
+         headers: {
+            "Content-Type": "application/json",
+         },
+         body: JSON.stringify(taskObject),
+      });
+      this.logResponse(response);
+   };
+
+   async getData() {
+      const data = await fetch("http://localhost:5002/tasks")
+         .then((response) => response.json())
+         .then((data) => {
+            console.log(data);
+            return data;
+         });
       return data;
+   }
+   async logResponse(response) {
+      const message = await response.json();
+      console.log(message.message);
    }
 }
 
