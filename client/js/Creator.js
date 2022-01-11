@@ -54,24 +54,24 @@ class Creator {
             <h2 class="add__header">Add item to list</h2>
             <form class="add__form" id="form">
                <div class="form__control">
-                  <label class="form__label" for="header">Title</label>
+                  <label class="form__label" for="header">Title:</label>
                   <input class="form__input" type="text" id="header" />
                </div>
                <div class="form__control">
-                  <label class="form__label" for="text">Content</label>
+                  <label class="form__label" for="text">Content:</label>
                   <textarea
                      class="form__input"
                      type="textarea"
                      id="text"></textarea>
                </div>
                <div class="form__control">
-                  <p for="color">Select category</p>
+                  <p for="color">Select category:</p>
                   <label class="radio"
                      >Category 1
                      <input
                         class="radio__input"
                         type="radio"
-                        value="#D6D84F"
+                        value="#fdff7b"
                         name="color" 
                               checked="checked"/>
                   
@@ -82,7 +82,7 @@ class Creator {
                      <input
                         class="radio__input"
                         type="radio"
-                        value="#DDC3D0"
+                        value="#fcb7da"
                         name="color" />
                      <span class="radio__box"></span>
                   </label>
@@ -91,7 +91,7 @@ class Creator {
                      <input
                         class="radio__input"
                         type="radio"
-                        value="#B3EFB2"
+                        value="#99fa97"
                         name="color" />
                      <span class="radio__box"></span>
                   </label>
