@@ -15,17 +15,14 @@ class Task {
 
    editCard(event) {
       event.preventDefault();
-      const elementID = event.target.parentElement.parentElement.id;
+      const elementID = event.target.parentElement.id;
       const element = document.getElementById(elementID);
-      const textarea = element.children[1];
-      textarea.removeAttribute("disabled");
-      textarea.focus();
-      textarea.onblur = () => {
-         textarea.setAttribute("disabled", "true");
+      const editableDiv = element.children[1];
+      editableDiv.onblur = () => {
          const storage = new Storage();
          const objToUpdate = {
             id: element.id,
-            content: element.children[1].value,
+            content: element.children[1].innerHTML,
          };
          storage.updateItem(objToUpdate);
       };
@@ -34,7 +31,7 @@ class Task {
    removeCard(event) {
       event.preventDefault();
       const storage = new Storage();
-      const card = event.target.parentElement.parentElement;
+      const card = event.target.parentElement;
       card.parentElement.removeChild(document.getElementById(card.id));
       storage.delateItem(card.id);
    }
