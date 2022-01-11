@@ -1,7 +1,7 @@
 import Main from "./main.js";
 
 class Storage {
-   async addToLocalStorage(task) {
+   async addItem(task) {
       await fetch("http://localhost:5002/tasks", {
          method: "POST",
          headers: {
@@ -13,17 +13,7 @@ class Storage {
    async delateItem(taskID) {
       await fetch(`http://localhost:5002/tasks/${taskID}`, {
          method: "DELETE",
-      })
-         .then((res) => res.json())
-         .then((data) => {
-            console.log(data.newData);
-            // const newData = JSON.parse(data.tasks);
-            const main = new Main();
-            main.run();
-         })
-         .catch((e) => console.log(e));
-
-      // TODO UPDATE THE RENDER BASED ON THE RES
+      }).then((res) => res.json());
    }
    updateItem = async (task) => {
       const taskObject = {
@@ -31,16 +21,18 @@ class Storage {
          content: task.content,
          position: task.position,
       };
-      await fetch(`http://localhost:5002/tasks/${task.id}`, {
+      const response = await fetch(`http://localhost:5002/tasks/${task.id}`, {
          method: "PUT",
          headers: {
             "Content-Type": "application/json",
          },
          body: JSON.stringify(taskObject),
-      }).then((res) => res.json());
+      });
+      const message = await response.json();
+      console.log(message);
    };
 
-   async getFromLocalStorage() {
+   async getData() {
       const data = await fetch("http://localhost:5002/tasks")
          .then((response) => response.json())
          .then((data) => {

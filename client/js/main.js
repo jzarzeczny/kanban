@@ -33,7 +33,7 @@ class Main {
          this.creator.createContainer(column.id, column.name);
       });
       this.bindEvents();
-      const tasksArray = await this.store.getFromLocalStorage();
+      const tasksArray = await this.store.getData();
       tasksArray.forEach((task) => this.form.addTask(task));
    }
 }

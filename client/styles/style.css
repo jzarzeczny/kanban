@@ -1,6 +1,6 @@
 @import "./form.css";
-
-:root {
+@import "./card.css";
+:root  {
    /* Colors */
    --bg-clr: #ddca7d;
 
@@ -72,54 +72,6 @@ p {
    width: 100%;
    padding: 1rem;
    gap: 1rem;
-}
-
-/* Styling each card */
-
-.list__card {
-   display: flex;
-   flex-direction: column;
-   justify-content: space-between;
-   width: 160px;
-   height: 160px;
-   background-color: pink;
-   padding: 0.5rem;
-   font-weight: 300;
-   border-radius: 8px;
-   overflow: hidden;
-}
-
-.card__header {
-   font-size: var(--fs-normal);
-   text-transform: uppercase;
-   text-align: center;
-}
-
-.card__para {
-   justify-self: flex-start;
-   max-width: 100%;
-   padding: 5px;
-   line-height: 1.5;
-   background-color: transparent;
-   border-radius: 5px;
-   border: 1px solid black;
-   box-shadow: 2px 2px 3px #999;
-}
-.card__buttons {
-   display: flex;
-   justify-content: space-around;
-   align-items: center;
-}
-.card__button {
-   cursor: pointer;
-   padding: 0.25rem;
-   background-color: transparent;
-   border: 1px solid transparent;
-}
-.card__button:hover,
-.card__button:active {
-   border-bottom: 1px solid black;
-   /* border-radius: 8px; */
 }
 
 /* Tablet style */

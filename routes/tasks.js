@@ -29,7 +29,6 @@ router.post("/", async (req, res) => {
 
    // Update the content of tasks
    const newTasks = await readTheStorage(FILE_PATH);
-   console.log(newTasks);
    newTasks.push(newTask);
    fs.writeFileSync(FILE_PATH, JSON.stringify(newTasks), "utf-8", (err) => {
       if (err) throw err;
@@ -39,7 +38,6 @@ router.post("/", async (req, res) => {
 });
 
 router.put("/:id", (req, res) => {
-   console.log(req.params.id);
    const data = readTheStorage(FILE_PATH);
 
    const found = data.some((task) => {
@@ -55,11 +53,12 @@ router.put("/:id", (req, res) => {
          }
       });
 
-      fs.writeFileSync(filePath, JSON.stringify(parsedData), "utf-8", (err) => {
+      fs.writeFileSync(FILE_PATH, JSON.stringify(data), "utf-8", (err) => {
          if (err) throw err;
          console.log("Done");
          res.json({ message: "Task list updated" });
       });
+      res.status(200).json({ message: `Task updated` });
    } else {
       res.status(400).json({ message: "No task with id of " + req.params.id });
    }
@@ -69,7 +68,6 @@ router.delete("/:id", (req, res) => {
    const data = readTheStorage(FILE_PATH);
 
    const found = data.some((task) => {
-      console.log(task.id == req.params.id);
       return task.id == parseFloat(req.params.id);
    });
    if (found) {
@@ -94,8 +92,7 @@ function readTheStorage(filePath) {
       if (err) console.log(err);
       return data;
    });
-   console.log("Log the value of task from Storage");
-   console.log(tasks);
+
    const parsedTasks = JSON.parse(tasks);
    return parsedTasks;
 }
