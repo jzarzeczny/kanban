@@ -34,8 +34,9 @@ class Task {
    removeCard(event) {
       event.preventDefault();
       const storage = new Storage();
-      const id = event.target.parentElement.parentElement.id;
-      storage.delateItem(id);
+      const card = event.target.parentElement.parentElement;
+      card.parentElement.removeChild(document.getElementById(card.id));
+      storage.delateItem(card.id);
    }
 }
 

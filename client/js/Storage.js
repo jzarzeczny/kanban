@@ -46,10 +46,8 @@ class Storage {
       const data = await fetch("http://localhost:5002/tasks")
          .then((response) => response.json())
          .then((data) => {
-            console.log(data);
-            JSON.parse(data);
+            return JSON.parse(data);
          });
-
       return data;
    }
 }
