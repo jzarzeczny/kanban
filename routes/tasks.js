@@ -32,7 +32,7 @@ router.post("/", async (req, res) => {
    newTasks.push(newTask);
    fs.writeFileSync(FILE_PATH, JSON.stringify(newTasks), "utf-8", (err) => {
       if (err) throw err;
-      console.log("Done");
+      console.log("Read the storage");
    });
    res.status(200).json({ message: "Task added" });
 });
@@ -55,8 +55,7 @@ router.put("/:id", (req, res) => {
 
       fs.writeFileSync(FILE_PATH, JSON.stringify(data), "utf-8", (err) => {
          if (err) throw err;
-         console.log("Done");
-         res.json({ message: "Task list updated" });
+         console.log("Task updated");
       });
       res.status(200).json({ message: `Task updated` });
    } else {
@@ -73,8 +72,8 @@ router.delete("/:id", (req, res) => {
    if (found) {
       newData = data.filter((task) => task.id !== parseFloat(req.params.id));
       fs.writeFileSync(FILE_PATH, JSON.stringify(newData), "utf-8", (err) => {
-         console.log(`Delate item ${req.params.id}`);
          if (err) throw err;
+         console.log(`Delate item ${req.params.id}`);
       });
       res.status(200).json({
          message: "Task removed",

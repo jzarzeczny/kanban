@@ -1,5 +1,3 @@
-import Main from "./main.js";
-
 class Storage {
    async addItem(task) {
       const response = await fetch("http://localhost:5002/tasks", {
@@ -37,7 +35,6 @@ class Storage {
       const data = await fetch("http://localhost:5002/tasks")
          .then((response) => response.json())
          .then((data) => {
-            console.log(data);
             return data;
          });
       return data;

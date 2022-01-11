@@ -15,6 +15,7 @@
 
 .card__header {
    font-size: var(--fs-normal);
+   letter-spacing: 1px;
    text-transform: uppercase;
    text-align: center;
 }
@@ -32,12 +33,10 @@
    resize: none;
    height: 100%;
 }
-.card__buttons {
-   display: flex;
-   justify-content: space-around;
-   align-items: center;
-}
+
 .card__button {
+   max-width: 60px;
+   margin: 0 auto;
    cursor: pointer;
    padding: 0.25rem;
    background-color: transparent;
