@@ -8,7 +8,7 @@ class Storage {
             "Content-Type": "application/json",
          },
          body: JSON.stringify(task),
-      }).then(() => console.log("all good!"));
+      });
    }
    async delateItem(taskID) {
       await fetch(`http://localhost:5002/tasks/${taskID}`, {
@@ -37,13 +37,19 @@ class Storage {
             "Content-Type": "application/json",
          },
          body: JSON.stringify(taskObject),
-      }).then((res) => console.log(res));
+      })
+         .then((res) => res.json())
+         .then((e) => console.log(e));
    };
 
    async getFromLocalStorage() {
       const data = await fetch("http://localhost:5002/tasks")
          .then((response) => response.json())
-         .then((data) => JSON.parse(data));
+         .then((data) => {
+            console.log(data);
+            JSON.parse(data);
+         });
+
       return data;
    }
 }

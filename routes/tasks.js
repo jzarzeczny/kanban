@@ -24,6 +24,7 @@ const filePath = "./data.json";
 const parsedData = JSON.parse(tasks);
 
 router.get("/", (req, res) => {
+   console.log(tasks);
    res.json(tasks);
 });
 router.post("/", (req, res) => {
@@ -34,15 +35,16 @@ router.post("/", (req, res) => {
    // Update the content of tasks
    const newTasks = [...parsedData];
    newTasks.push(newTask);
-
+   console.log(newTasks);
    fs.writeFileSync(filePath, JSON.stringify(newTasks), "utf-8", (err) => {
       if (err) throw err;
       console.log("Done");
+      res.status(200);
    });
-   res.status(200);
 });
 
 router.put("/:id", (req, res) => {
+   console.log(req.params.id);
    const found = parsedData.some((task) => {
       return task.id === parseFloat(req.params.id);
    });
@@ -74,7 +76,7 @@ router.delete("/:id", (req, res) => {
    if (found) {
       newData = parsedData.filter((task) => task.id !== parseFloat(req.params.id));
       fs.writeFile(filePath, JSON.stringify(newData), "utf-8", (err) => {
-         console.log(`Delate item ${task.id}`);
+         console.log(`Delate item ${req.params.id}`);
          if (err) throw err;
       });
       res.status(200).json({
