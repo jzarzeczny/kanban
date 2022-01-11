@@ -1,13 +1,14 @@
 import Storage from "./Storage.js";
 import Form from "./Form.js";
-import Creator from "./Creator.js";
-
+import FormCreator from "./Creator/FormCreator.js";
+import ContainerCreator from "./Creator/ContainerCreator.js";
 class Main {
    root = document.getElementById("root");
 
    store = new Storage();
    form = new Form();
-   creator = new Creator();
+   formCreator = new FormCreator();
+   containerCreator = new ContainerCreator();
 
    columns = [
       {
@@ -23,16 +24,13 @@ class Main {
          name: "done",
       },
    ];
-   bindEvents() {
-      this.form.bindEvent();
-   }
    async run() {
       this.root.innerHTML = "";
-      this.creator.createForm(root);
+      this.formCreator.createForm(root);
       this.columns.forEach((column) => {
-         this.creator.createContainer(column.id, column.name);
+         this.containerCreator.createContainer(column.id, column.name);
       });
-      this.bindEvents();
+      this.form.bindEvents();
       const tasksArray = await this.store.getData();
       tasksArray.forEach((task) => this.form.addTask(task));
    }

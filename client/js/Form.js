@@ -1,14 +1,14 @@
 import Storage from "./Storage.js";
-import Creator from "./Creator.js";
+import CardCreator from "./Creator/CardCreator.js";
 class Form {
    form = document.getElementById("form");
 
-   creator = new Creator();
+   cardCreator = new CardCreator();
 
    store = new Storage();
 
    addTask(task, fresh = false) {
-      const taskElement = this.creator.createTaskCard(
+      const taskElement = this.cardCreator.createTaskCard(
          task.header,
          task.content,
          task.color,
@@ -46,7 +46,7 @@ class Form {
       e.target.parentElement.classList.toggle("add__container--open");
    }
 
-   bindEvent() {
+   bindEvents() {
       const button = document.getElementById("openButton");
       button.addEventListener("click", this.toggleClass);
       form.addEventListener("submit", this.handleInput);

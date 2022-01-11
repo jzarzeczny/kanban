@@ -1,4 +1,12 @@
 class Storage {
+   // Singleton pattern implementation
+   constructor() {
+      if (Storage._instance) {
+         return Storage._instance;
+      }
+      Storage._instance = this;
+   }
+
    async addItem(task) {
       const response = await fetch("http://localhost:5002/tasks", {
          method: "POST",
