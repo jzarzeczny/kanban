@@ -16,6 +16,7 @@
 .card__header {
    font-size: var(--fs-normal);
    letter-spacing: 1px;
+   font-weight: 400;
    text-transform: uppercase;
    text-align: center;
 }
