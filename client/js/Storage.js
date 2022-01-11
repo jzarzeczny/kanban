@@ -2,18 +2,20 @@ import Main from "./main.js";
 
 class Storage {
    async addItem(task) {
-      await fetch("http://localhost:5002/tasks", {
+      const response = await fetch("http://localhost:5002/tasks", {
          method: "POST",
          headers: {
             "Content-Type": "application/json",
          },
          body: JSON.stringify(task),
       });
+      this.logResponse(response);
    }
    async delateItem(taskID) {
-      await fetch(`http://localhost:5002/tasks/${taskID}`, {
+      const response = await fetch(`http://localhost:5002/tasks/${taskID}`, {
          method: "DELETE",
-      }).then((res) => res.json());
+      });
+      this.logResponse(response);
    }
    updateItem = async (task) => {
       const taskObject = {
@@ -28,8 +30,7 @@ class Storage {
          },
          body: JSON.stringify(taskObject),
       });
-      const message = await response.json();
-      console.log(message);
+      this.logResponse(response);
    };
 
    async getData() {
@@ -40,6 +41,10 @@ class Storage {
             return data;
          });
       return data;
+   }
+   async logResponse(response) {
+      const message = await response.json();
+      console.log(message.message);
    }
 }
 
