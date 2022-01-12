@@ -5,15 +5,14 @@ const PORT = process.env.PORT || 5002;
 const db = require("./db/conn");
 const mongoRouter = require("./routes/mongoTask");
 
-db.on("error", console.error.bind(console, "MongoDB connection error"));
+const PATH_TO_API = "/mongo";
 
-require("dotenv").config({ path: "./config.env" });
+db.on("error", console.error.bind(console, "MongoDB connection error"));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "client")));
-app.use("/mongo", mongoRouter);
-app.use("/tasks", require("./routes/tasks"));
+app.use(PATH_TO_API, mongoRouter);
 
 app.listen(PORT, (req, res) => {
     console.log(`Server is running on port ${PORT}`);
