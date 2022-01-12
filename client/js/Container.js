@@ -1,30 +1,30 @@
-import Storage from "./Storage.js";
+import Service from "./Service.js";
 
 class Container {
-   constructor(id, header, updateThePositionOfTask) {
-      this.id = id;
-      this.header = header;
-      this.updateThePositionOfTask = updateThePositionOfTask;
-   }
+    constructor(id, header, updateThePositionOfTask) {
+        this.id = id;
+        this.header = header;
+        this.updateThePositionOfTask = updateThePositionOfTask;
+    }
 
-   onDragOver(event) {
-      event.preventDefault();
-   }
+    onDragOver(event) {
+        event.preventDefault();
+    }
 
-   onDrop = (event) => {
-      event.preventDefault();
-      const id = event.dataTransfer.getData("text/plain");
-      const draggableElement = document.getElementById(id);
-      const dropzone = event.target;
+    onDrop = (event) => {
+        event.preventDefault();
+        const id = event.dataTransfer.getData("text/plain");
+        const draggableElement = document.getElementById(id);
+        const dropzone = event.target;
 
-      if (dropzone["classList"].contains("list__container")) {
-         dropzone.appendChild(draggableElement);
-         // Update the position of element in array
-         draggableElement.position = dropzone.id;
-         const store = new Storage();
-         store.updateItem(draggableElement);
-      }
-   };
+        if (dropzone["classList"].contains("list__container")) {
+            dropzone.appendChild(draggableElement);
+            // Update the position of element in array
+            draggableElement.position = dropzone.id;
+            const service = new Service();
+            service.updateItem(draggableElement);
+        }
+    };
 }
 
 export default Container;
