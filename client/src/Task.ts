@@ -5,7 +5,7 @@ class Task {
         event.dataTransfer.setData("text/plain", event.target.id);
     }
 
-    static editCard(event: EventTarget) {
+    static editCard(event:) {
         event.preventDefault();
         const elementID = event.target.parentElement.id;
         const element = document.getElementById(elementID);

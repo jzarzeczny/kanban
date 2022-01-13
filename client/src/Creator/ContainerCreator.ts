@@ -20,7 +20,7 @@ class ContainerCreator {
         list.appendChild(header);
         list.appendChild(box);
 
-        root.appendChild(list);
+        root?.appendChild(list);
     }
 }
 

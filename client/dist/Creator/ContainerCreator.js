@@ -18,7 +18,7 @@ class ContainerCreator {
         box.addEventListener("drop", Container_1.Container.onDrop);
         list.appendChild(header);
         list.appendChild(box);
-        root.appendChild(list);
+        root === null || root === void 0 ? void 0 : root.appendChild(list);
     }
 }
 exports.ContainerCreator = ContainerCreator;

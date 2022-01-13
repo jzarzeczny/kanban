@@ -8,13 +8,13 @@ class Container {
         this.header = header;
     }
 
-    static onDragOver(event: EventTarget) {
+    static onDragOver(event: Event) {
         event.preventDefault();
     }
 
-    static onDrop = (ev: EventTarget) => {
+    static onDrop = (ev: DragEvent) => {
         ev.preventDefault();
-        const id = ev.dataTransfer.getData("text/plain");
+        const id = ev.dataTransfer?.getData("text/plain");
         const draggableElement = document?.getElementById(id);
         const dropzone = ev.target;
 
