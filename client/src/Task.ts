@@ -1,7 +1,16 @@
 import { Service } from "./Service";
 
+interface UpdateItem{
+    id: string;
+    content: string;
+}
+
+interface DragEvent<T = Element> extends MouseEvent<T, DragEvent>{
+
+}
+
 class Task {
-    static onDragStart(event: DragEvent<HTMLDivElement>) {
+    static onDragStart(event: DragEvent){
         event.dataTransfer.setData("text/plain", event.target.id);
     }
 
@@ -9,22 +18,23 @@ class Task {
         event.preventDefault();
         const elementID = event.target.parentElement.id;
         const element = document.getElementById(elementID);
-        const editableDiv = element.children[1];
-        editableDiv.onblur = () => {
+        const editableDiv:Element | undefined = element?.children[1]
+        editableDiv.onblurs = () => {
             const service = new Service();
-            const objToUpdate = {
-                id: element.id,
-                content: element.children[1].innerHTML,
+            const objToUpdate:UpdateItem = {
+                id: element?.id,
+                content: element?.children[1].innerHTML,
             };
             service.updateItem(objToUpdate);
-        };
+        }
     }
 
-    static removeCard(event) {
+    static removeCard(event:Event):void {
         event.preventDefault();
         const service = new Service();
-        const card = event.target.parentElement;
-        card.parentElement.removeChild(document.getElementById(card.id));
+        const target = event.target as HTMLElement
+        const card = target.parentElement as HTMLElement;
+        card?.parentElement?.removeChild(document.getElementById(card.id));
         service.delateItem(card.id);
     }
 }

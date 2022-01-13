@@ -12,6 +12,8 @@ interface TaskEdit {
     position?: number;
 }
 class Service {
+    static _instance: any;
+
     // Singleton pattern implementation
     constructor() {
         if (Service._instance) {
@@ -19,10 +21,10 @@ class Service {
         }
         Service._instance = this;
     }
-    url = "mongo/";
+    url: string = "http://localhost:5002/mongo/";
 
     async addItem(task: TaskObject) {
-        const response = await fetch(`http://localhost:5002/${this.url}`, {
+        const response = await fetch(`${this.url}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -31,7 +33,7 @@ class Service {
         });
     }
     async delateItem(taskID: string) {
-        const response = await fetch(`http://localhost:5002/${this.url}/${taskID}`, {
+        const response = await fetch(`${this.url}/${taskID}`, {
             method: "DELETE",
         });
     }
@@ -41,7 +43,7 @@ class Service {
             content: task.content,
             position: task.position,
         };
-        const response = await fetch(`http://localhost:5002/${this.url}/${task.id}`, {
+        const response = await fetch(`${this.url}/${task.id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -51,7 +53,7 @@ class Service {
     };
 
     async getData() {
-        const data = await fetch(`http://localhost:5002/${this.url}`)
+        const data = await fetch(`${this.url}`)
             .then((response) => response.json())
             .then((data) => {
                 return data;

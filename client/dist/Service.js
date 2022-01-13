@@ -13,14 +13,14 @@ exports.Service = void 0;
 class Service {
     // Singleton pattern implementation
     constructor() {
-        this.url = "mongo/";
+        this.url = "http://localhost:5002/mongo/";
         this.updateItem = (task) => __awaiter(this, void 0, void 0, function* () {
             const taskObject = {
                 id: task.id,
                 content: task.content,
                 position: task.position,
             };
-            const response = yield fetch(`http://localhost:5002/${this.url}/${task.id}`, {
+            const response = yield fetch(`${this.url}/${task.id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -35,7 +35,7 @@ class Service {
     }
     addItem(task) {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield fetch(`http://localhost:5002/${this.url}`, {
+            const response = yield fetch(`${this.url}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -46,14 +46,14 @@ class Service {
     }
     delateItem(taskID) {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield fetch(`http://localhost:5002/${this.url}/${taskID}`, {
+            const response = yield fetch(`${this.url}/${taskID}`, {
                 method: "DELETE",
             });
         });
     }
     getData() {
         return __awaiter(this, void 0, void 0, function* () {
-            const data = yield fetch(`http://localhost:5002/${this.url}`)
+            const data = yield fetch(`${this.url}`)
                 .then((response) => response.json())
                 .then((data) => {
                 return data;

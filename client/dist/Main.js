@@ -39,13 +39,13 @@ class Main {
     run() {
         return __awaiter(this, void 0, void 0, function* () {
             this.root.innerHTML = "";
-            this.formCreator.createForm(this.root, HTMLElement);
+            this.formCreator.createForm(this.root);
             this.columns.forEach((column) => {
-                this.containerCreator.createContainer(column.id, number, column.name);
+                this.containerCreator.createContainer(column.id, column.name);
             });
             this.form.bindEvents();
             const tasksArray = yield this.service.getData();
-            tasksArray.forEach((task()), this.form.addTask(task));
+            tasksArray.forEach((task) => this.form.addTask(task));
         });
     }
 }

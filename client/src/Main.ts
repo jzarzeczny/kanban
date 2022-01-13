@@ -5,9 +5,9 @@ import { ContainerCreator } from "./Creator/ContainerCreator";
 
 interface TaskObject {
     header: string;
-    container: string;
+    content: string;
     color: string;
-    id: string;
+    _id: string;
     position?: number;
 }
 
@@ -19,7 +19,7 @@ class Main {
     formCreator = new FormCreator();
     containerCreator = new ContainerCreator();
 
-    columns:{id: number, name:string}[] = [
+    columns: { id: number; name: string }[] = [
         {
             id: 0,
             name: "todo",
@@ -35,13 +35,13 @@ class Main {
     ];
     async run() {
         this.root!.innerHTML = "";
-        this.formCreator.createForm(this.root :HTMLElement);
+        this.formCreator.createForm(this.root);
         this.columns.forEach((column) => {
-            this.containerCreator.createContainer(column.id:number, column.name);
+            this.containerCreator.createContainer(column.id, column.name);
         });
         this.form.bindEvents();
         const tasksArray = await this.service.getData();
-        tasksArray.forEach((task<TaskObject>) => this.form.addTask(task));
+        tasksArray.forEach((task: TaskObject) => this.form.addTask(task));
     }
 }
 export { Main };

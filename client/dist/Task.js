@@ -10,21 +10,23 @@ class Task {
         event.preventDefault();
         const elementID = event.target.parentElement.id;
         const element = document.getElementById(elementID);
-        const editableDiv = element.children[1];
-        editableDiv.onblur = () => {
+        const editableDiv = element === null || element === void 0 ? void 0 : element.children[1];
+        editableDiv.onblurs = () => {
             const service = new Service_1.Service();
             const objToUpdate = {
-                id: element.id,
-                content: element.children[1].innerHTML,
+                id: element === null || element === void 0 ? void 0 : element.id,
+                content: element === null || element === void 0 ? void 0 : element.children[1].innerHTML,
             };
             service.updateItem(objToUpdate);
         };
     }
     static removeCard(event) {
+        var _a;
         event.preventDefault();
         const service = new Service_1.Service();
-        const card = event.target.parentElement;
-        card.parentElement.removeChild(document.getElementById(card.id));
+        const target = event.target;
+        const card = target.parentElement;
+        (_a = card === null || card === void 0 ? void 0 : card.parentElement) === null || _a === void 0 ? void 0 : _a.removeChild(document.getElementById(card.id));
         service.delateItem(card.id);
     }
 }
