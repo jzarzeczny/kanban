@@ -2,14 +2,13 @@ interface TaskObject {
     header: string;
     content: string;
     color: string;
-    _id: string;
-    position?: number;
+    position?: string;
 }
 
 interface TaskEdit {
     _id: string;
     content?: string;
-    position?: number;
+    position?: string;
 }
 class Service {
     static _instance: any;
@@ -31,6 +30,8 @@ class Service {
             },
             body: JSON.stringify(task),
         });
+        const body = await response.json();
+        return body._id;
     }
     async delateItem(taskID: string) {
         const response = await fetch(`${this.url}/${taskID}`, {

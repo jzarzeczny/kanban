@@ -11,8 +11,8 @@ interface DragEvent<T = Element> extends MouseEvent<T, DragEvent>{
 }
 
 class Task {
-    static onDragStart(event: DragEvent){
-        event.dataTransfer.setData("text/plain", event.target.id);
+    static onDragStart(ev: DragEvent){
+        ev.dataTransfer.setData("text/plain", ev.target.id) as DataTransfer
     }
 
     static editCard(event:) {

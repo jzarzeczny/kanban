@@ -1,7 +1,7 @@
 import { Task } from "../Task";
 
 class CardCreator {
-    createTaskCard(header: string, content: string, color: string, id?: string) {
+    createTaskCard(header: string, content: string, color: string, _id: string) {
         // Create HTML elements
         const card = document.createElement("div");
         const cardHeader = document.createElement("h2");
@@ -14,7 +14,7 @@ class CardCreator {
         removeButton.classList.add("card__button", "card_button--remove");
         card.style.backgroundColor = color;
         // Attributes and content
-        card.setAttribute("id", id);
+        card.setAttribute("id", _id);
         card.setAttribute("draggable", "true");
         cardPara.setAttribute("contenteditable", "true");
         card.addEventListener("dragstart", Task.onDragStart);
