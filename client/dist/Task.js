@@ -3,18 +3,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Task = void 0;
 const Service_1 = require("./Service");
 class Task {
-    static onDragStart(event) {
-        event.dataTransfer.setData("text/plain", event.target.id);
+    static onDragStart(ev) {
+        var _a;
+        const element = ev.target;
+        (_a = ev.dataTransfer) === null || _a === void 0 ? void 0 : _a.setData("text/plain", element.id);
     }
     static editCard(event) {
-        event.preventDefault();
-        const elementID = event.target.parentElement.id;
-        const element = document.getElementById(elementID);
+        var _a;
+        const eventElement = event.target;
+        const id = (_a = eventElement.parentElement) === null || _a === void 0 ? void 0 : _a.id;
+        const element = document.getElementById(id);
         const editableDiv = element === null || element === void 0 ? void 0 : element.children[1];
         editableDiv.onblur = () => {
             const service = new Service_1.Service();
             const objToUpdate = {
-                id: element === null || element === void 0 ? void 0 : element.id,
+                _id: element.id,
                 content: element === null || element === void 0 ? void 0 : element.children[1].innerHTML,
             };
             service.updateItem(objToUpdate);

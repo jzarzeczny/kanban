@@ -1,5 +1,5 @@
-import { Service } from "./Service";
-import { Form } from "./Form";
+import { Service } from "./Service.js";
+import { Form } from "./Form.js";
 import { FormCreator } from "./Creator/FormCreator";
 import { ContainerCreator } from "./Creator/ContainerCreator";
 
@@ -12,7 +12,7 @@ interface TaskObject {
 }
 
 class Main {
-    root: HTMLElement = document.getElementById("root");
+    root = document.getElementById("root") as HTMLElement;
 
     service = new Service();
     form = new Form();

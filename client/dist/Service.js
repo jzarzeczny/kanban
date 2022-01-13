@@ -42,6 +42,8 @@ class Service {
                 },
                 body: JSON.stringify(task),
             });
+            const body = yield response.json();
+            return body._id;
         });
     }
     delateItem(taskID) {

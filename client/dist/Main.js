@@ -10,15 +10,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Main = void 0;
-const Service_1 = require("./Service");
-const Form_1 = require("./Form");
+const Service_js_1 = require("./Service.js");
+const Form_js_1 = require("./Form.js");
 const FormCreator_1 = require("./Creator/FormCreator");
 const ContainerCreator_1 = require("./Creator/ContainerCreator");
 class Main {
     constructor() {
         this.root = document.getElementById("root");
-        this.service = new Service_1.Service();
-        this.form = new Form_1.Form();
+        this.service = new Service_js_1.Service();
+        this.form = new Form_js_1.Form();
         this.formCreator = new FormCreator_1.FormCreator();
         this.containerCreator = new ContainerCreator_1.ContainerCreator();
         this.columns = [

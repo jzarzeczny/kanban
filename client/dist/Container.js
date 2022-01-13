@@ -13,10 +13,10 @@ class Container {
 }
 exports.Container = Container;
 Container.onDrop = (ev) => {
-    var _a;
     ev.preventDefault();
-    const id = (_a = ev.dataTransfer) === null || _a === void 0 ? void 0 : _a.getData("text/plain");
-    const draggableElement = document === null || document === void 0 ? void 0 : document.getElementById(id);
+    const dataTransfer = ev.dataTransfer;
+    const id = dataTransfer.getData("text/plain");
+    const draggableElement = document.getElementById(id);
     const dropzone = ev.target;
     if (dropzone["classList"].contains("list__container")) {
         dropzone.appendChild(draggableElement);
