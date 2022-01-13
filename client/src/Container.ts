@@ -1,21 +1,22 @@
-import Service from "./Service.js";
+import { Service } from "./Service";
 
 class Container {
-    constructor(id, header, updateThePositionOfTask) {
+    id?: string;
+    header?: string;
+    constructor(id: string, header: string) {
         this.id = id;
         this.header = header;
-        this.updateThePositionOfTask = updateThePositionOfTask;
     }
 
-    onDragOver(event) {
+    static onDragOver(event: EventTarget) {
         event.preventDefault();
     }
 
-    onDrop = (event) => {
-        event.preventDefault();
-        const id = event.dataTransfer.getData("text/plain");
-        const draggableElement = document.getElementById(id);
-        const dropzone = event.target;
+    static onDrop = (ev: EventTarget) => {
+        ev.preventDefault();
+        const id = ev.dataTransfer.getData("text/plain");
+        const draggableElement = document?.getElementById(id);
+        const dropzone = ev.target;
 
         if (dropzone["classList"].contains("list__container")) {
             dropzone.appendChild(draggableElement);
@@ -27,4 +28,4 @@ class Container {
     };
 }
 
-export default Container;
+export { Container };

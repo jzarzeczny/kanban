@@ -1,3 +1,16 @@
+interface TaskObject {
+    header: string;
+    content: string;
+    color: string;
+    id: string;
+    position?: number;
+}
+
+interface TaskEdit {
+    id: string;
+    content?: string;
+    position?: number;
+}
 class Service {
     // Singleton pattern implementation
     constructor() {
@@ -7,7 +20,8 @@ class Service {
         Service._instance = this;
     }
     url = "mongo/";
-    async addItem(task) {
+
+    async addItem(task: TaskObject) {
         const response = await fetch(`http://localhost:5002/${this.url}`, {
             method: "POST",
             headers: {
@@ -16,12 +30,12 @@ class Service {
             body: JSON.stringify(task),
         });
     }
-    async delateItem(taskID) {
+    async delateItem(taskID: string) {
         const response = await fetch(`http://localhost:5002/${this.url}/${taskID}`, {
             method: "DELETE",
         });
     }
-    updateItem = async (task) => {
+    updateItem = async (task: TaskEdit) => {
         const taskObject = {
             id: task.id,
             content: task.content,
@@ -45,10 +59,10 @@ class Service {
         return data;
     }
 
-    async logResponse(response) {
-        const message = await response.json();
-        console.log(message.message);
-    }
+    // async logResponse(response) {
+    //     const message = await response.json();
+    //     console.log(message.message);
+    // }
 }
 
-export default Service;
+export { Service };

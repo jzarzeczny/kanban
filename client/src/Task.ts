@@ -1,19 +1,11 @@
-import Service from "./Service.js";
+import { Service } from "./Service";
 
 class Task {
-    constructor(header, content, color, id, position) {
-        this.header = header;
-        this.content = content;
-        this.color = color;
-        this.id = id;
-        this.position = position || 0;
-    }
-
-    onDragStart(event) {
+    static onDragStart(event: DragEvent<HTMLDivElement>) {
         event.dataTransfer.setData("text/plain", event.target.id);
     }
 
-    editCard(event) {
+    static editCard(event: EventTarget) {
         event.preventDefault();
         const elementID = event.target.parentElement.id;
         const element = document.getElementById(elementID);
@@ -28,7 +20,7 @@ class Task {
         };
     }
 
-    removeCard(event) {
+    static removeCard(event) {
         event.preventDefault();
         const service = new Service();
         const card = event.target.parentElement;
@@ -37,4 +29,4 @@ class Task {
     }
 }
 
-export default Task;
+export { Task };

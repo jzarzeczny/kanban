@@ -1,5 +1,13 @@
-import Service from "./Service.js";
-import CardCreator from "./Creator/CardCreator.js";
+import { Service } from "./Service";
+import { CardCreator } from "./Creator/CardCreator";
+
+interface TaskObject {
+    header: string;
+    content: string;
+    color: string;
+    _id: string;
+    position?: number | string;
+}
 class Form {
     form = document.getElementById("form");
 
@@ -7,7 +15,7 @@ class Form {
 
     service = new Service();
 
-    addTask(task, fresh = false) {
+    addTask(task: TaskObject, fresh: boolean = false) {
         const taskElement = this.cardCreator.createTaskCard(
             task.header,
             task.content,
@@ -23,11 +31,11 @@ class Form {
         }
     }
 
-    handleInput = (e) => {
+    handleInput = (e: any) => {
         e.preventDefault();
         const header = e.target[0].value;
         const content = e.target[1].value;
-        const color = document.querySelector("input[name='color']:checked").value;
+        const color = document.querySelector("input[name='color']:checked")?.value;
 
         const newTask = {
             header,
@@ -51,4 +59,4 @@ class Form {
     }
 }
 
-export default Form;
+export { Form };
