@@ -17,7 +17,7 @@ class Service {
                 content: task.content,
                 position: task.position,
             };
-            const response = yield fetch(`${this.url}/${task._id}`, {
+            const response = yield fetch(`${this.url}${task._id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -45,7 +45,7 @@ class Service {
     }
     delateItem(taskID) {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield fetch(`${this.url}/${taskID}`, {
+            const response = yield fetch(`${this.url}${taskID}`, {
                 method: "DELETE",
             });
         });

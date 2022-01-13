@@ -9,8 +9,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import { Service } from "./Service.js";
 import { Form } from "./Form.js";
-import { FormCreator } from "./Creator/FormCreator";
-import { ContainerCreator } from "./Creator/ContainerCreator";
+import { FormCreator } from "./Creator/FormCreator.js";
+import { ContainerCreator } from "./Creator/ContainerCreator.js";
 class Main {
     constructor() {
         this.root = document.getElementById("root");

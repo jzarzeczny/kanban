@@ -7,8 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { Service } from "./Service";
-import { CardCreator } from "./Creator/CardCreator";
+import { Service } from "./Service.js";
+import { CardCreator } from "./Creator/CardCreator.js";
 class Form {
     constructor() {
         this.form = document.getElementById("form");

@@ -34,7 +34,7 @@ class Service {
         return body._id;
     }
     async delateItem(taskID: string) {
-        const response = await fetch(`${this.url}/${taskID}`, {
+        const response = await fetch(`${this.url}${taskID}`, {
             method: "DELETE",
         });
     }
@@ -44,7 +44,7 @@ class Service {
             content: task.content,
             position: task.position,
         };
-        const response = await fetch(`${this.url}/${task._id}`, {
+        const response = await fetch(`${this.url}${task._id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",

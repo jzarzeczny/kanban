@@ -1,7 +1,7 @@
 import { Service } from "./Service.js";
 import { Form } from "./Form.js";
-import { FormCreator } from "./Creator/FormCreator";
-import { ContainerCreator } from "./Creator/ContainerCreator";
+import { FormCreator } from "./Creator/FormCreator.js";
+import { ContainerCreator } from "./Creator/ContainerCreator.js";
 
 interface TaskObject {
     header: string;

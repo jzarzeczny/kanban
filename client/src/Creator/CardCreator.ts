@@ -1,4 +1,4 @@
-import { Task } from "../Task";
+import { Task } from "../Task.js";
 
 class CardCreator {
     createTaskCard(header: string, content: string, color: string, _id: string) {
