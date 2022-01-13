@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Container = void 0;
-const Service_1 = require("./Service");
+import { Service } from "./Service";
 class Container {
     constructor(id, header) {
         this.id = id;
@@ -11,7 +8,6 @@ class Container {
         event.preventDefault();
     }
 }
-exports.Container = Container;
 Container.onDrop = (ev) => {
     ev.preventDefault();
     const dataTransfer = ev.dataTransfer;
@@ -22,7 +18,8 @@ Container.onDrop = (ev) => {
         dropzone.appendChild(draggableElement);
         // Update the position of element in array
         draggableElement.position = dropzone.id;
-        const service = new Service_1.Service();
+        const service = new Service();
         service.updateItem(draggableElement);
     }
 };
+export { Container };

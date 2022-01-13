@@ -1,6 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.FormCreator = void 0;
 class FormCreator {
     createForm(target) {
         target.insertAdjacentHTML("beforeend", `         <div class="add__container">
@@ -56,4 +53,4 @@ class FormCreator {
 `);
     }
 }
-exports.FormCreator = FormCreator;
+export { FormCreator };

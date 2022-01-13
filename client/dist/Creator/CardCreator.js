@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.CardCreator = void 0;
-const Task_1 = require("../Task");
+import { Task } from "../Task";
 class CardCreator {
     createTaskCard(header, content, color, _id) {
         // Create HTML elements
@@ -19,9 +16,9 @@ class CardCreator {
         card.setAttribute("id", _id);
         card.setAttribute("draggable", "true");
         cardPara.setAttribute("contenteditable", "true");
-        card.addEventListener("dragstart", Task_1.Task.onDragStart);
-        cardPara.addEventListener("click", Task_1.Task.editCard);
-        removeButton.addEventListener("click", Task_1.Task.removeCard);
+        card.addEventListener("dragstart", Task.onDragStart);
+        cardPara.addEventListener("click", Task.editCard);
+        removeButton.addEventListener("click", Task.removeCard);
         cardHeader.innerHTML = header;
         cardPara.innerHTML = content;
         removeButton.innerHTML = "Remove";
@@ -33,4 +30,4 @@ class CardCreator {
         return card;
     }
 }
-exports.CardCreator = CardCreator;
+export { CardCreator };

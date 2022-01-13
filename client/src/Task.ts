@@ -14,7 +14,12 @@ class Task {
 
     static editCard(event: Event) {
         const eventElement = event.target as HTMLElement;
-        const id: any = eventElement.parentElement?.id;
+        let id: string = "";
+        if (eventElement.parentElement) {
+            const id: string = eventElement.parentElement.id;
+
+            return id;
+        }
         const element = document.getElementById(id) as HTMLElement;
         const editableDiv = element?.children[1] as HTMLElement;
         editableDiv.onblur = () => {

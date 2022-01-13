@@ -1,4 +1,3 @@
-"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -8,15 +7,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Form = void 0;
-const Service_1 = require("./Service");
-const CardCreator_1 = require("./Creator/CardCreator");
+import { Service } from "./Service";
+import { CardCreator } from "./Creator/CardCreator";
 class Form {
     constructor() {
         this.form = document.getElementById("form");
-        this.cardCreator = new CardCreator_1.CardCreator();
-        this.service = new Service_1.Service();
+        this.cardCreator = new CardCreator();
+        this.service = new Service();
         this.handleInput = (e) => {
             var _a;
             e.preventDefault();
@@ -58,4 +55,4 @@ class Form {
         (_a = this.form) === null || _a === void 0 ? void 0 : _a.addEventListener("submit", this.handleInput);
     }
 }
-exports.Form = Form;
+export { Form };
