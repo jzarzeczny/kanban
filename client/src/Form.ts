@@ -5,9 +5,15 @@ interface TaskObject {
     header: string;
     content: string;
     color: string;
-    _id: string;
-    position?: number | string;
+    _id?: string;
+    position?: string;
 }
+interface UpdateItem {
+    _id: string;
+    content: string;
+    position: string;
+}
+
 class Form {
     form = document.getElementById("form");
 
@@ -16,15 +22,15 @@ class Form {
     service = new Service();
 
     addTask(task: TaskObject, fresh: boolean = false) {
-        const taskElement = this.cardCreator.createTaskCard(
+        const taskElement: HTMLElement = this.cardCreator.createTaskCard(
             task.header,
             task.content,
             task.color,
             task._id
         );
-        task.position = task.position || 0;
+        task.position = task.position || "0";
         const properContainer = document.getElementById(task.position);
-        properContainer.appendChild(taskElement);
+        properContainer?.appendChild(taskElement);
 
         if (fresh) {
             this.service.addItem(task);
@@ -33,12 +39,12 @@ class Form {
 
     handleInput = (e: any) => {
         e.preventDefault();
-        const header = e.target[0].value;
-        const content = e.target[1].value;
-        const color = document.querySelector("input[name='color']:checked")?.value;
+        const header: string = e.target[0].value;
+        const content: string = e.target[1].value;
+        const color: string = document.querySelector("input[name='color']:checked")?.value;
 
-        const newTask = {
-            header,
+        const newTask: UpdateItem = {
+            _id,
             content,
             color,
         };

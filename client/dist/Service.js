@@ -16,11 +16,11 @@ class Service {
         this.url = "http://localhost:5002/mongo/";
         this.updateItem = (task) => __awaiter(this, void 0, void 0, function* () {
             const taskObject = {
-                id: task.id,
+                id: task._id,
                 content: task.content,
                 position: task.position,
             };
-            const response = yield fetch(`${this.url}/${task.id}`, {
+            const response = yield fetch(`${this.url}/${task._id}`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",

@@ -5,7 +5,6 @@ const Container_1 = require("../Container");
 class ContainerCreator {
     createContainer(id, head) {
         const root = document.getElementById("root");
-        const idString = id.toString();
         const list = document.createElement("div");
         list.classList.add("list");
         list.classList.add(`list--${head}`);
@@ -14,7 +13,7 @@ class ContainerCreator {
         header.innerHTML = head.toUpperCase();
         const box = document.createElement("div");
         box.classList.add("list__container");
-        box.setAttribute("id", idString);
+        box.setAttribute("id", id);
         box.addEventListener("dragover", Container_1.Container.onDragOver);
         box.addEventListener("drop", Container_1.Container.onDrop);
         list.appendChild(header);

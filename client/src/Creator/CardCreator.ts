@@ -1,7 +1,7 @@
 import { Task } from "../Task";
 
 class CardCreator {
-    createTaskCard(header: string, content: string, color: string, id: string) {
+    createTaskCard(header: string, content: string, color: string, id?: string) {
         // Create HTML elements
         const card = document.createElement("div");
         const cardHeader = document.createElement("h2");

@@ -11,7 +11,7 @@ class Task {
         const elementID = event.target.parentElement.id;
         const element = document.getElementById(elementID);
         const editableDiv = element === null || element === void 0 ? void 0 : element.children[1];
-        editableDiv.onblurs = () => {
+        editableDiv.onblur = () => {
             const service = new Service_1.Service();
             const objToUpdate = {
                 id: element === null || element === void 0 ? void 0 : element.id,

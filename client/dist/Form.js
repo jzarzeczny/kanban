@@ -15,7 +15,7 @@ class Form {
             const content = e.target[1].value;
             const color = (_a = document.querySelector("input[name='color']:checked")) === null || _a === void 0 ? void 0 : _a.value;
             const newTask = {
-                header,
+                _id,
                 content,
                 color,
             };
@@ -27,9 +27,9 @@ class Form {
     }
     addTask(task, fresh = false) {
         const taskElement = this.cardCreator.createTaskCard(task.header, task.content, task.color, task._id);
-        task.position = task.position || 0;
+        task.position = task.position || "0";
         const properContainer = document.getElementById(task.position);
-        properContainer.appendChild(taskElement);
+        properContainer === null || properContainer === void 0 ? void 0 : properContainer.appendChild(taskElement);
         if (fresh) {
             this.service.addItem(task);
         }

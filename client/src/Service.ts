@@ -2,12 +2,12 @@ interface TaskObject {
     header: string;
     content: string;
     color: string;
-    id: string;
+    _id: string;
     position?: number;
 }
 
 interface TaskEdit {
-    id: string;
+    _id: string;
     content?: string;
     position?: number;
 }
@@ -39,11 +39,11 @@ class Service {
     }
     updateItem = async (task: TaskEdit) => {
         const taskObject = {
-            id: task.id,
+            id: task._id,
             content: task.content,
             position: task.position,
         };
-        const response = await fetch(`${this.url}/${task.id}`, {
+        const response = await fetch(`${this.url}/${task._id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",

@@ -23,15 +23,15 @@ class Main {
         this.containerCreator = new ContainerCreator_1.ContainerCreator();
         this.columns = [
             {
-                id: 0,
+                id: "0",
                 name: "todo",
             },
             {
-                id: 1,
+                id: "1",
                 name: "going",
             },
             {
-                id: 2,
+                id: "2",
                 name: "done",
             },
         ];

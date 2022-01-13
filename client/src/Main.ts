@@ -8,28 +8,28 @@ interface TaskObject {
     content: string;
     color: string;
     _id: string;
-    position?: number;
+    position?: string;
 }
 
 class Main {
-    root = document.getElementById("root");
+    root: HTMLElement = document.getElementById("root");
 
     service = new Service();
     form = new Form();
     formCreator = new FormCreator();
     containerCreator = new ContainerCreator();
 
-    columns: { id: number; name: string }[] = [
+    columns: { id: string; name: string }[] = [
         {
-            id: 0,
+            id: "0",
             name: "todo",
         },
         {
-            id: 1,
+            id: "1",
             name: "going",
         },
         {
-            id: 2,
+            id: "2",
             name: "done",
         },
     ];

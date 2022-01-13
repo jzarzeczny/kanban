@@ -1,8 +1,7 @@
 import { Container } from "../Container";
 class ContainerCreator {
-    createContainer(id: number, head: string) {
+    createContainer(id: string, head: string) {
         const root = document.getElementById("root");
-        const idString: string = id.toString();
 
         const list = document.createElement("div");
         list.classList.add("list");
@@ -14,7 +13,7 @@ class ContainerCreator {
 
         const box = document.createElement("div");
         box.classList.add("list__container");
-        box.setAttribute("id", idString);
+        box.setAttribute("id", id);
         box.addEventListener("dragover", Container.onDragOver);
         box.addEventListener("drop", Container.onDrop);
 

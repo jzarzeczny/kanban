@@ -3,6 +3,7 @@ import { Service } from "./Service";
 interface UpdateItem{
     id: string;
     content: string;
+    position: string;
 }
 
 interface DragEvent<T = Element> extends MouseEvent<T, DragEvent>{
@@ -19,7 +20,7 @@ class Task {
         const elementID = event.target.parentElement.id;
         const element = document.getElementById(elementID);
         const editableDiv:Element | undefined = element?.children[1]
-        editableDiv.onblurs = () => {
+        editableDiv.onblur = () => {
             const service = new Service();
             const objToUpdate:UpdateItem = {
                 id: element?.id,
