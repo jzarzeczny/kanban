@@ -16,7 +16,7 @@ class Form {
         this.handleInput = (e) => {
             var _a;
             e.preventDefault();
-            const inputElement = e === null || e === void 0 ? void 0 : e.target;
+            const inputElement = e.target;
             const header = inputElement[0].value;
             const content = inputElement[1].value;
             const color = document.querySelector("input[name='color']:checked").value;

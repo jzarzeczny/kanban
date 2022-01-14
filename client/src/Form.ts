@@ -38,10 +38,10 @@ class Form {
 
     handleInput = (e: InputEvent) => {
         e.preventDefault();
-        const inputElement = e?.target as HTMLInputElement;
+        const inputElement = e.target as HTMLFormElement;
 
-        const header: string = inputElement[0].value;
-        const content: string = inputElement[1].value;
+        const header: string = (inputElement[0] as HTMLInputElement).value;
+        const content: string = (inputElement[1] as HTMLInputElement).value;
         const color: string = (
             document.querySelector("input[name='color']:checked") as HTMLInputElement
         ).value;
