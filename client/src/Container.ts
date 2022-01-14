@@ -28,8 +28,7 @@ class Container {
             dropzone.appendChild(draggableElement);
             // Update the position of element in array
             draggableElement.position = dropzone.id;
-            const service = new Service();
-            service.updateItem(draggableElement);
+            Service.updateItem(draggableElement);
         }
     };
 }

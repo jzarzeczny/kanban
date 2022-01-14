@@ -21,22 +21,20 @@ class Task {
         const element = document.getElementById(id) as HTMLElement;
         const editableDiv = element?.children[1] as HTMLElement;
         editableDiv.onblur = () => {
-            const service = new Service();
             const objToUpdate: UpdateItem = {
                 id: element.id,
                 content: element?.children[1].innerHTML,
             };
-            service.updateItem(objToUpdate);
+            Service.updateItem(objToUpdate);
         };
     }
 
     static removeCard(event: Event): void {
         event.preventDefault();
-        const service = new Service();
         const target = event.target as HTMLElement;
         const card = target.parentElement as HTMLElement;
         card?.parentElement?.removeChild(document.getElementById(card.id) as HTMLElement);
-        service.delateItem(card.id);
+        Service.delateItem(card.id);
     }
 }
 

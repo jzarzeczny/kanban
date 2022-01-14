@@ -16,7 +16,6 @@ class Main {
 
     formCreator = new FormCreator();
     containerCreator = new ContainerCreator();
-    service = new Service();
 
     columns: { id: string; name: string }[] = [
         {
@@ -41,8 +40,8 @@ class Main {
             this.containerCreator.createContainer(column.id, column.name);
         });
         form.bindEvents();
-        const tasksArray = await this.service.getData();
-        tasksArray.forEach((task: TaskObject) => form.addTask(task));
+        const tasksArray = await Service.getData();
+        tasksArray.forEach((task: TaskObject) => Form.addTask(task));
     }
 }
 export { Main };

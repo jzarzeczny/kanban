@@ -13,25 +13,6 @@ class Form {
     constructor() {
         this.cardCreator = new CardCreator();
         this.service = new Service();
-        this.handleInput = (e) => {
-            var _a;
-            e.preventDefault();
-            const inputElement = e.target;
-            const header = inputElement[0].value;
-            const content = inputElement[1].value;
-            const color = document.querySelector("input[name='color']:checked").value;
-            const _id = "";
-            const newTask = {
-                header,
-                content,
-                color,
-                _id,
-            };
-            this.addTask(newTask, true);
-            const form = document.getElementById("form");
-            (_a = form === null || form === void 0 ? void 0 : form.parentElement) === null || _a === void 0 ? void 0 : _a.classList.toggle("add__container--open");
-            form === null || form === void 0 ? void 0 : form.reset();
-        };
         this.bindEvents = () => {
             const button = document.getElementById("openButton");
             const form = document.getElementById("form");
@@ -39,21 +20,40 @@ class Form {
             form === null || form === void 0 ? void 0 : form.addEventListener("submit", this.handleInput);
         };
     }
-    addTask(task, fresh = false) {
+    static addTask(task, fresh = false) {
         return __awaiter(this, void 0, void 0, function* () {
             let _id = task._id;
             if (fresh) {
-                _id = yield this.service.addItem(task);
+                _id = yield Service.addItem(task);
             }
-            const taskElement = this.cardCreator.createTaskCard(task.header, task.content, task.color, _id);
+            const taskElement = CardCreator.createTaskCard(task.header, task.content, task.color, _id);
             task.position = task.position || "0";
             const properContainer = document.getElementById(task.position);
             properContainer === null || properContainer === void 0 ? void 0 : properContainer.appendChild(taskElement);
         });
     }
-    toggleClass(e) {
-        e.target.parentElement.classList.toggle("add__container--open");
+    handleInput(ev) {
+        var _a;
+        ev.preventDefault();
+        const inputElement = ev.target;
+        const header = inputElement[0].value;
+        const content = inputElement[1].value;
+        const color = document.querySelector("input[name='color']:checked").value;
+        const _id = "";
+        const newTask = {
+            header,
+            content,
+            color,
+            _id,
+        };
+        Form.addTask(newTask, true);
+        const form = document.getElementById("form");
+        (_a = form === null || form === void 0 ? void 0 : form.parentElement) === null || _a === void 0 ? void 0 : _a.classList.toggle("add__container--open");
+        form === null || form === void 0 ? void 0 : form.reset();
+    }
+    toggleClass() {
+        var _a;
+        (_a = this.parentElement) === null || _a === void 0 ? void 0 : _a.classList.toggle("add__container--open");
     }
 }
 export { Form };
-//# sourceMappingURL=Form.js.map

@@ -7,30 +7,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var _a;
 class Service {
     // Singleton pattern implementation
     constructor() {
-        this.url = "http://localhost:5002/mongo/";
-        this.updateItem = (task) => __awaiter(this, void 0, void 0, function* () {
-            const taskObject = {
-                id: task.id,
-                content: task.content,
-                position: task.position,
-            };
-            const response = yield fetch(`${this.url}${task.id}`, {
-                method: "PUT",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(taskObject),
-            });
-        });
         if (Service._instance) {
             return Service._instance;
         }
         Service._instance = this;
     }
-    addItem(task) {
+    static addItem(task) {
         return __awaiter(this, void 0, void 0, function* () {
             const response = yield fetch(`${this.url}`, {
                 method: "POST",
@@ -43,14 +29,15 @@ class Service {
             return body._id;
         });
     }
-    delateItem(taskID) {
+    static delateItem(taskID) {
         return __awaiter(this, void 0, void 0, function* () {
             const response = yield fetch(`${this.url}${taskID}`, {
                 method: "DELETE",
             });
+            return response.json(); //Something is wrong with return value
         });
     }
-    getData() {
+    static getData() {
         return __awaiter(this, void 0, void 0, function* () {
             const data = yield fetch(`${this.url}`)
                 .then((response) => response.json())
@@ -61,5 +48,21 @@ class Service {
         });
     }
 }
+_a = Service;
+Service.url = "http://localhost:5002/mongo/";
+Service.updateItem = (task) => __awaiter(void 0, void 0, void 0, function* () {
+    const taskObject = {
+        id: task.id,
+        content: task.content,
+        position: task.position,
+    };
+    const response = yield fetch(`${_a.url}${task.id}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(taskObject),
+    });
+    return response.json();
+});
 export { Service };
-//# sourceMappingURL=Service.js.map

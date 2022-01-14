@@ -20,12 +20,12 @@ class Form {
 
     service = new Service();
 
-    async addTask(task: TaskObject, fresh: boolean = false) {
+    static async addTask(task: TaskObject, fresh: boolean = false) {
         let _id: string = task._id;
         if (fresh) {
-            _id = await this.service.addItem(task);
+            _id = await Service.addItem(task);
         }
-        const taskElement: HTMLElement = this.cardCreator.createTaskCard(
+        const taskElement: HTMLElement = CardCreator.createTaskCard(
             task.header,
             task.content,
             task.color,
@@ -36,9 +36,9 @@ class Form {
         properContainer?.appendChild(taskElement);
     }
 
-    handleInput = (e: InputEvent) => {
-        e.preventDefault();
-        const inputElement = e.target as HTMLFormElement;
+    handleInput(this: HTMLFormElement, ev: SubmitEvent) {
+        ev.preventDefault();
+        const inputElement = ev.target as HTMLFormElement;
 
         const header: string = (inputElement[0] as HTMLInputElement).value;
         const content: string = (inputElement[1] as HTMLInputElement).value;
@@ -53,14 +53,14 @@ class Form {
             color,
             _id,
         };
-        this.addTask(newTask, true);
+        Form.addTask(newTask, true);
         const form = document.getElementById("form") as HTMLFormElement;
 
         form?.parentElement?.classList.toggle("add__container--open");
         form?.reset();
-    };
-    toggleClass(e: any) {
-        e.target.parentElement.classList.toggle("add__container--open");
+    }
+    toggleClass(this: HTMLElement) {
+        this.parentElement?.classList.toggle("add__container--open");
     }
 
     bindEvents = () => {

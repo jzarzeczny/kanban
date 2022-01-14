@@ -20,9 +20,9 @@ class Service {
         }
         Service._instance = this;
     }
-    url: string = "http://localhost:5002/mongo/";
+    static url: string = "http://localhost:5002/mongo/";
 
-    async addItem(task: TaskObject) {
+    static async addItem(task: TaskObject) {
         const response = await fetch(`${this.url}`, {
             method: "POST",
             headers: {
@@ -33,12 +33,13 @@ class Service {
         const body = await response.json();
         return body._id;
     }
-    async delateItem(taskID: string) {
+    static async delateItem(taskID: string) {
         const response = await fetch(`${this.url}${taskID}`, {
             method: "DELETE",
         });
+        return response.json(); //Something is wrong with return value
     }
-    updateItem = async (task: TaskEdit) => {
+    static updateItem = async (task: TaskEdit) => {
         const taskObject = {
             id: task.id,
             content: task.content,
@@ -51,9 +52,10 @@ class Service {
             },
             body: JSON.stringify(taskObject),
         });
+        return response.json();
     };
 
-    async getData() {
+    static async getData() {
         const data = await fetch(`${this.url}`)
             .then((response) => response.json())
             .then((data) => {

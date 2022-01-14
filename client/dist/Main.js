@@ -16,7 +16,6 @@ class Main {
         this.root = document.getElementById("root");
         this.formCreator = new FormCreator();
         this.containerCreator = new ContainerCreator();
-        this.service = new Service();
         this.columns = [
             {
                 id: "0",
@@ -41,10 +40,9 @@ class Main {
                 this.containerCreator.createContainer(column.id, column.name);
             });
             form.bindEvents();
-            const tasksArray = yield this.service.getData();
-            tasksArray.forEach((task) => form.addTask(task));
+            const tasksArray = yield Service.getData();
+            tasksArray.forEach((task) => Form.addTask(task));
         });
     }
 }
 export { Main };
-//# sourceMappingURL=Main.js.map

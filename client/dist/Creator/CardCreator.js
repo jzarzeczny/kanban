@@ -1,6 +1,6 @@
 import { Task } from "../Task.js";
 class CardCreator {
-    createTaskCard(header, content, color, _id) {
+    static createTaskCard(header, content, color, _id) {
         // Create HTML elements
         const card = document.createElement("div");
         const cardHeader = document.createElement("h2");
@@ -31,4 +31,3 @@ class CardCreator {
     }
 }
 export { CardCreator };
-//# sourceMappingURL=CardCreator.js.map
