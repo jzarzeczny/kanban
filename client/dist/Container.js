@@ -10,8 +10,13 @@ class Container {
 }
 Container.onDrop = (ev) => {
     ev.preventDefault();
-    const dataTransfer = ev.dataTransfer;
-    const id = dataTransfer.getData("text/plain");
+    function dataNotNull(ev) {
+        if (ev.dataTransfer) {
+            return ev.dataTransfer.getData("text/plain");
+        }
+        return "";
+    }
+    const id = dataNotNull(ev);
     const draggableElement = document.getElementById(id);
     const dropzone = ev.target;
     if (dropzone["classList"].contains("list__container")) {
@@ -23,3 +28,4 @@ Container.onDrop = (ev) => {
     }
 };
 export { Container };
+//# sourceMappingURL=Container.js.map

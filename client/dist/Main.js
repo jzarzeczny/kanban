@@ -14,10 +14,9 @@ import { ContainerCreator } from "./Creator/ContainerCreator.js";
 class Main {
     constructor() {
         this.root = document.getElementById("root");
-        this.service = new Service();
-        this.form = new Form();
         this.formCreator = new FormCreator();
         this.containerCreator = new ContainerCreator();
+        this.service = new Service();
         this.columns = [
             {
                 id: "0",
@@ -35,15 +34,17 @@ class Main {
     }
     run() {
         return __awaiter(this, void 0, void 0, function* () {
+            const form = new Form();
             this.root.innerHTML = "";
             this.formCreator.createForm(this.root);
             this.columns.forEach((column) => {
                 this.containerCreator.createContainer(column.id, column.name);
             });
-            this.form.bindEvents();
+            form.bindEvents();
             const tasksArray = yield this.service.getData();
-            tasksArray.forEach((task) => this.form.addTask(task));
+            tasksArray.forEach((task) => form.addTask(task));
         });
     }
 }
 export { Main };
+//# sourceMappingURL=Main.js.map

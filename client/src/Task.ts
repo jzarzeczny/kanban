@@ -1,7 +1,7 @@
 import { Service } from "./Service.js";
 
 interface UpdateItem {
-    _id: string;
+    id: string;
     content: string;
     position?: string;
 }
@@ -16,16 +16,14 @@ class Task {
         const eventElement = event.target as HTMLElement;
         let id: string = "";
         if (eventElement.parentElement) {
-            const id: string = eventElement.parentElement.id;
-
-            return id;
+            id = eventElement.parentElement.id;
         }
         const element = document.getElementById(id) as HTMLElement;
         const editableDiv = element?.children[1] as HTMLElement;
         editableDiv.onblur = () => {
             const service = new Service();
             const objToUpdate: UpdateItem = {
-                _id: element.id,
+                id: element.id,
                 content: element?.children[1].innerHTML,
             };
             service.updateItem(objToUpdate);

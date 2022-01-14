@@ -14,8 +14,13 @@ class Container {
 
     static onDrop = (ev: DragEvent) => {
         ev.preventDefault();
-        const dataTransfer = ev.dataTransfer as DataTransfer;
-        const id: string = dataTransfer.getData("text/plain");
+        function dataNotNull(ev: any) {
+            if (ev.dataTransfer) {
+                return ev.dataTransfer.getData("text/plain") as string;
+            }
+            return "";
+        }
+        const id = dataNotNull(ev);
         const draggableElement = document.getElementById(id) as any;
         const dropzone = ev.target as HTMLElement;
 

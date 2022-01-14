@@ -9,15 +9,14 @@ class Task {
         const eventElement = event.target;
         let id = "";
         if (eventElement.parentElement) {
-            const id = eventElement.parentElement.id;
-            return id;
+            id = eventElement.parentElement.id;
         }
         const element = document.getElementById(id);
         const editableDiv = element === null || element === void 0 ? void 0 : element.children[1];
         editableDiv.onblur = () => {
             const service = new Service();
             const objToUpdate = {
-                _id: element.id,
+                id: element.id,
                 content: element === null || element === void 0 ? void 0 : element.children[1].innerHTML,
             };
             service.updateItem(objToUpdate);
@@ -34,3 +33,4 @@ class Task {
     }
 }
 export { Task };
+//# sourceMappingURL=Task.js.map

@@ -16,8 +16,6 @@ interface NewItem {
 }
 
 class Form {
-    form = document.getElementById("form");
-
     cardCreator = new CardCreator();
 
     service = new Service();
@@ -25,7 +23,7 @@ class Form {
     async addTask(task: TaskObject, fresh: boolean = false) {
         let _id: string = task._id;
         if (fresh) {
-            return (_id = await this.service.addItem(task));
+            _id = await this.service.addItem(task);
         }
         const taskElement: HTMLElement = this.cardCreator.createTaskCard(
             task.header,
@@ -38,10 +36,12 @@ class Form {
         properContainer?.appendChild(taskElement);
     }
 
-    handleInput = (e: any) => {
+    handleInput = (e: InputEvent) => {
         e.preventDefault();
-        const header: string = e.target[0].value;
-        const content: string = e.target[1].value;
+        const inputElement = e?.target as HTMLInputElement;
+
+        const header: string = inputElement[0].value;
+        const content: string = inputElement[1].value;
         const color: string = (
             document.querySelector("input[name='color']:checked") as HTMLInputElement
         ).value;
@@ -54,7 +54,7 @@ class Form {
             _id,
         };
         this.addTask(newTask, true);
-        const form: HTMLFormElement = document.getElementById("form") as HTMLFormElement;
+        const form = document.getElementById("form") as HTMLFormElement;
 
         form?.parentElement?.classList.toggle("add__container--open");
         form?.reset();
@@ -63,11 +63,13 @@ class Form {
         e.target.parentElement.classList.toggle("add__container--open");
     }
 
-    bindEvents() {
-        const button = document.getElementById("openButton");
+    bindEvents = () => {
+        const button = document.getElementById("openButton") as HTMLElement;
+        const form = document.getElementById("form") as HTMLFormElement;
+
         button?.addEventListener("click", this.toggleClass);
-        this.form?.addEventListener("submit", this.handleInput);
-    }
+        form?.addEventListener("submit", this.handleInput);
+    };
 }
 
 export { Form };

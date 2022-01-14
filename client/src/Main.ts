@@ -14,10 +14,9 @@ interface TaskObject {
 class Main {
     root = document.getElementById("root") as HTMLElement;
 
-    service = new Service();
-    form = new Form();
     formCreator = new FormCreator();
     containerCreator = new ContainerCreator();
+    service = new Service();
 
     columns: { id: string; name: string }[] = [
         {
@@ -34,14 +33,16 @@ class Main {
         },
     ];
     async run() {
+        const form = new Form();
+
         this.root!.innerHTML = "";
         this.formCreator.createForm(this.root);
         this.columns.forEach((column) => {
             this.containerCreator.createContainer(column.id, column.name);
         });
-        this.form.bindEvents();
+        form.bindEvents();
         const tasksArray = await this.service.getData();
-        tasksArray.forEach((task: TaskObject) => this.form.addTask(task));
+        tasksArray.forEach((task: TaskObject) => form.addTask(task));
     }
 }
 export { Main };
