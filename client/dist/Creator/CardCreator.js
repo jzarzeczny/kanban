@@ -1,9 +1,6 @@
-import Task from "../Task.js";
-
+import { Task } from "../Task.js";
 class CardCreator {
-    task = new Task();
-
-    createTaskCard(header, content, color, id) {
+    static createTaskCard(header, content, color, _id) {
         // Create HTML elements
         const card = document.createElement("div");
         const cardHeader = document.createElement("h2");
@@ -16,25 +13,21 @@ class CardCreator {
         removeButton.classList.add("card__button", "card_button--remove");
         card.style.backgroundColor = color;
         // Attributes and content
-        card.setAttribute("id", id);
+        card.setAttribute("id", _id);
         card.setAttribute("draggable", "true");
         cardPara.setAttribute("contenteditable", "true");
-        card.addEventListener("dragstart", this.task.onDragStart);
-        cardPara.addEventListener("click", this.task.editCard);
-        removeButton.addEventListener("click", this.task.removeCard);
-
+        card.addEventListener("dragstart", Task.onDragStart);
+        cardPara.addEventListener("click", Task.editCard);
+        removeButton.addEventListener("click", Task.removeCard);
         cardHeader.innerHTML = header;
         cardPara.innerHTML = content;
         removeButton.innerHTML = "Remove";
-
         // Add the elements to card parent
         card.appendChild(cardHeader);
         card.appendChild(cardPara);
         card.appendChild(removeButton);
-
         // Add the card to TODO section
         return card;
     }
 }
-
-export default CardCreator;
+export { CardCreator };

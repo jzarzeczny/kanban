@@ -1,8 +1,8 @@
 class FormCreator {
-   createForm(target) {
-      target.insertAdjacentHTML(
-         "beforeend",
-         `         <div class="add__container">
+    createForm(target: HTMLElement) {
+        target.insertAdjacentHTML(
+            "beforeend",
+            `         <div class="add__container">
             <button id="openButton" class="add__open">+</button>
             <h2 class="add__header">Add item to list</h2>
             <form class="add__form" id="form">
@@ -53,8 +53,8 @@ class FormCreator {
             </form>
          </div>
 `
-      );
-   }
+        );
+    }
 }
 
-export default FormCreator;
+export { FormCreator };
