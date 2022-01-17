@@ -1,5 +1,5 @@
-import { Service } from "./Service.js";
-import { CardCreator } from "./Creator/CardCreator.js";
+import { Service } from "./Service";
+import { CardCreator } from "./Creator/CardCreator";
 import { TaskObject } from "./validators/taskValidators";
 
 class Form {

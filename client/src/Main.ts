@@ -1,7 +1,7 @@
-import { Service } from "./Service.js";
-import { Form } from "./Form.js";
-import { FormCreator } from "./Creator/FormCreator.js";
-import { ContainerCreator } from "./Creator/ContainerCreator.js";
+import { Service } from "./Service";
+import { Form } from "./Form";
+import { FormCreator } from "./Creator/FormCreator";
+import { ContainerCreator } from "./Creator/ContainerCreator";
 import { TaskObject } from "./validators/taskValidators";
 
 class Main {
