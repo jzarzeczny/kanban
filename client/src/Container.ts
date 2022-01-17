@@ -14,14 +14,14 @@ class Container {
 
     static onDrop = (ev: DragEvent) => {
         ev.preventDefault();
-        function dataNotNull(ev: any) {
+        function dataNotNull(ev: DragEvent) {
             if (ev.dataTransfer) {
                 return ev.dataTransfer.getData("text/plain") as string;
             }
             return "";
         }
         const id = dataNotNull(ev);
-        const draggableElement = document.getElementById(id) as any;
+        const draggableElement = document.getElementById(id) as any; //What type should be here?!
         const dropzone = ev.target as HTMLElement;
 
         if (dropzone["classList"].contains("list__container")) {

@@ -1,8 +1,8 @@
 import { taskModel } from "../models/taskModel";
 import { Request, Response } from "express";
-
+import { Task } from "../validators/taskValidators";
 // GET list of all tasks
-const taskList = async function (req: Request, res: Response) {
+const taskList = async function (req: Request, res: Response): Promise<void> {
     console.log("Sending the task list");
     const tasks = await taskModel.find();
     try {
@@ -13,7 +13,7 @@ const taskList = async function (req: Request, res: Response) {
 };
 
 // POST create the new task
-const taskListCreate = async function (req: Request, res: Response) {
+const taskListCreate = async function (req: Request, res: Response): Promise<void> {
     const task = new taskModel({
         header: req.body.header,
         content: req.body.content,
@@ -22,25 +22,25 @@ const taskListCreate = async function (req: Request, res: Response) {
     });
     try {
         await task.save();
-        res.send(task);
+        res.send(task as Task);
     } catch (error) {
         res.status(500).send(error);
     }
 };
 
 // PUT handle change of task
-const taskListUpdate = async function (req: Request, res: Response) {
+const taskListUpdate = async function (req: Request, res: Response): Promise<void> {
     try {
         const task = await taskModel.findByIdAndUpdate(req.params.id, req.body);
         await task?.save();
-        res.send(task);
+        res.send(task as Task);
     } catch (error) {
         res.status(500).send(error);
     }
 };
 
 // DELETE handle task delete
-const taskListDelete = async function (req: Request, res: Response) {
+const taskListDelete = async function (req: Request, res: Response): Promise<void> {
     try {
         const task = await taskModel.findByIdAndDelete(req.params.id);
         if (!task) {

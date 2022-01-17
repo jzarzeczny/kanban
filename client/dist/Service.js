@@ -9,7 +9,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 var _a;
 class Service {
-    // Singleton pattern implementation
     constructor() {
         if (Service._instance) {
             return Service._instance;
@@ -34,7 +33,7 @@ class Service {
             const response = yield fetch(`${this.url}${taskID}`, {
                 method: "DELETE",
             });
-            return response.json(); //Something is wrong with return value
+            return response.json();
         });
     }
     static getData() {
