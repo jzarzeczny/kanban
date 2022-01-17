@@ -16,5 +16,3 @@ module.exports = {
         path: path.resolve(__dirname, "dist"),
     },
 };
-
-// => Zmimifikowany plik, uywany pod produkcję => es5 => source-map
