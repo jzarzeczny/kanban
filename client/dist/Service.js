@@ -9,12 +9,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 var _a;
 class Service {
-    constructor() {
-        if (Service._instance) {
-            return Service._instance;
-        }
-        Service._instance = this;
-    }
     static addItem(task) {
         return __awaiter(this, void 0, void 0, function* () {
             const response = yield fetch(`${this.url}`, {
@@ -30,10 +24,9 @@ class Service {
     }
     static delateItem(taskID) {
         return __awaiter(this, void 0, void 0, function* () {
-            const response = yield fetch(`${this.url}${taskID}`, {
+            yield fetch(`${this.url}${taskID}`, {
                 method: "DELETE",
             });
-            return response.json();
         });
     }
     static getData() {
@@ -55,13 +48,12 @@ Service.updateItem = (task) => __awaiter(void 0, void 0, void 0, function* () {
         content: task.content,
         position: task.position,
     };
-    const response = yield fetch(`${_a.url}${task.id}`, {
+    yield fetch(`${_a.url}${task.id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(taskObject),
     });
-    return response.json();
 });
 export { Service };

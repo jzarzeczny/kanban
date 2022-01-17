@@ -24,7 +24,7 @@ class Task {
         };
     }
 
-    static removeCard(event: Event): void {
+    static removeCard(event: Event) {
         event.preventDefault();
         const target = event.target as HTMLElement;
         const card = target.parentElement as HTMLElement;

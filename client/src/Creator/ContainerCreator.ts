@@ -1,6 +1,6 @@
 import { Container } from "../Container.js";
 class ContainerCreator {
-    createContainer(id: string, head: string) {
+    createContainer(id: string, head: string): void {
         const root = document.getElementById("root");
 
         const list = document.createElement("div");

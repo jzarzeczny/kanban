@@ -7,7 +7,7 @@ class Form {
 
     service = new Service();
 
-    static async addTask(task: TaskObject, fresh: boolean = false) {
+    static async addTask(task: TaskObject, fresh: boolean = false): Promise<void> {
         let _id: string = task._id;
         if (fresh) {
             _id = await Service.addItem(task);
@@ -19,11 +19,11 @@ class Form {
             _id
         );
         task.position = task.position || "0";
-        const properContainer = document.getElementById(task.position);
-        properContainer?.appendChild(taskElement);
+        const properContainer = document.getElementById(task.position) as HTMLElement;
+        properContainer.appendChild(taskElement);
     }
 
-    handleInput(this: HTMLFormElement, ev: SubmitEvent) {
+    handleInput(this: HTMLFormElement, ev: SubmitEvent): void {
         ev.preventDefault();
         const inputElement = ev.target as HTMLFormElement;
 
@@ -46,11 +46,11 @@ class Form {
         form?.parentElement?.classList.toggle("add__container--open");
         form?.reset();
     }
-    toggleClass(this: HTMLElement) {
+    toggleClass(this: HTMLElement): void {
         this.parentElement?.classList.toggle("add__container--open");
     }
 
-    bindEvents = () => {
+    bindEvents = (): void => {
         const button = document.getElementById("openButton") as HTMLElement;
         const form = document.getElementById("form") as HTMLFormElement;
 
