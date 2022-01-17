@@ -1,19 +1,6 @@
 import { Service } from "./Service.js";
 import { CardCreator } from "./Creator/CardCreator.js";
-
-interface TaskObject {
-    header: string;
-    content: string;
-    color: string;
-    _id: string;
-    position?: string;
-}
-interface NewItem {
-    header: string;
-    content: string;
-    color: string;
-    _id: string;
-}
+import { TaskObject } from "./validators/taskValidators";
 
 class Form {
     cardCreator = new CardCreator();
@@ -47,7 +34,7 @@ class Form {
         ).value;
         const _id: string = "";
 
-        const newTask: NewItem = {
+        const newTask: TaskObject = {
             header,
             content,
             color,

@@ -2,14 +2,7 @@ import { Service } from "./Service.js";
 import { Form } from "./Form.js";
 import { FormCreator } from "./Creator/FormCreator.js";
 import { ContainerCreator } from "./Creator/ContainerCreator.js";
-
-interface TaskObject {
-    header: string;
-    content: string;
-    color: string;
-    _id: string;
-    position?: string;
-}
+import { TaskObject } from "./validators/taskValidators";
 
 class Main {
     root = document.getElementById("root") as HTMLElement;

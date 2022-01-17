@@ -12,7 +12,7 @@ class Container {
         event.preventDefault();
     }
 
-    static onDrop = (ev: DragEvent) => {
+    static onDrop = (ev: DragEvent): void => {
         ev.preventDefault();
         function dataNotNull(ev: DragEvent) {
             if (ev.dataTransfer) {

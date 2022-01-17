@@ -1,15 +1,5 @@
-interface TaskObject {
-    header: string;
-    content: string;
-    color: string;
-    position?: string;
-}
+import { TaskEdit, NewTaskObject } from "./validators/taskValidators";
 
-interface TaskEdit {
-    id: string;
-    content?: string;
-    position?: string;
-}
 class Service {
     static _instance: any;
 
@@ -22,7 +12,7 @@ class Service {
     }
     static url: string = "http://localhost:5002/mongo/";
 
-    static async addItem(task: TaskObject) {
+    static async addItem(task: NewTaskObject) {
         const response = await fetch(`${this.url}`, {
             method: "POST",
             headers: {

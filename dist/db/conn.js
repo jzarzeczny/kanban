@@ -17,7 +17,3 @@ const connectToDB = (dbUrl) => {
     });
 };
 exports.connectToDB = connectToDB;
-// {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true,
-// }
