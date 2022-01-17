@@ -1,13 +1,11 @@
 const path = require("path");
 
 module.exports = {
-    mode: "development",
     entry: "./src/index.ts",
-    devtool: "inline-source-map",
     module: {
         rules: [
             { test: /\.ts$/, use: "ts-loader" },
-            { test: /\.css$/, use: ["style-loader", "css-loader"] }, //Does not work! Wrong entry probably
+            { test: /\.css$/, use: ["style-loader", "css-loader"] },
         ],
     },
     resolve: {
@@ -18,3 +16,5 @@ module.exports = {
         path: path.resolve(__dirname, "dist"),
     },
 };
+
+// => Zmimifikowany plik, uywany pod produkcję => es5 => source-map
