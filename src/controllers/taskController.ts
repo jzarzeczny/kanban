@@ -1,6 +1,7 @@
 import { taskModel } from "../models/taskModel";
 import { Request, Response } from "express";
 import { Task } from "../validators/taskValidators";
+
 // GET list of all tasks
 const taskList = async function (req: Request, res: Response): Promise<void> {
     console.log("Sending the task list");
@@ -53,3 +54,5 @@ const taskListDelete = async function (req: Request, res: Response): Promise<voi
 };
 
 export { taskList, taskListCreate, taskListUpdate, taskListDelete };
+
+// No unuse locals na back

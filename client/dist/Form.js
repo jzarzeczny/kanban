@@ -29,7 +29,7 @@ class Form {
             const taskElement = CardCreator.createTaskCard(task.header, task.content, task.color, _id);
             task.position = task.position || "0";
             const properContainer = document.getElementById(task.position);
-            properContainer === null || properContainer === void 0 ? void 0 : properContainer.appendChild(taskElement);
+            properContainer.appendChild(taskElement);
         });
     }
     handleInput(ev) {

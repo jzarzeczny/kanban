@@ -20,6 +20,6 @@ app.use(express.static(path.resolve(__dirname, "../client")));
 console.log(path.resolve(__dirname, "../client"));
 app.use(PATH_TO_API, router);
 
-app.listen(PORT, () => {
+app.listen(PORT, (): void => {
     console.log(`Server is running on port ${PORT}`);
 });
