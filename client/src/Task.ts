@@ -1,10 +1,5 @@
 import { Service } from "./Service.js";
-
-interface UpdateItem {
-    id: string;
-    content: string;
-    position?: string;
-}
+import { TaskEdit } from "./validators/taskValidators";
 
 class Task {
     static onDragStart(ev: DragEvent) {
@@ -20,8 +15,8 @@ class Task {
         }
         const element = document.getElementById(id) as HTMLElement;
         const editableDiv = element?.children[1] as HTMLElement;
-        editableDiv.onblur = () => {
-            const objToUpdate: UpdateItem = {
+        editableDiv.onblur = (): void => {
+            const objToUpdate: TaskEdit = {
                 id: element.id,
                 content: element?.children[1].innerHTML,
             };
@@ -29,7 +24,7 @@ class Task {
         };
     }
 
-    static removeCard(event: Event): void {
+    static removeCard(event: Event) {
         event.preventDefault();
         const target = event.target as HTMLElement;
         const card = target.parentElement as HTMLElement;

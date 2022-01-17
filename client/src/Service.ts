@@ -1,28 +1,18 @@
-interface TaskObject {
-    header: string;
-    content: string;
-    color: string;
-    position?: string;
-}
+import { TaskEdit, NewTaskObject, TaskObject } from "./validators/taskValidators";
 
-interface TaskEdit {
-    id: string;
-    content?: string;
-    position?: string;
-}
 class Service {
-    static _instance: any;
+    // static _instance: any;
 
-    // Singleton pattern implementation
-    constructor() {
-        if (Service._instance) {
-            return Service._instance;
-        }
-        Service._instance = this;
-    }
+    // // Singleton pattern implementation
+    // constructor() {
+    //     if (Service._instance) {
+    //         return Service._instance;
+    //     }
+    //     Service._instance = this;
+    // }
     static url: string = "http://localhost:5002/mongo/";
 
-    static async addItem(task: TaskObject) {
+    static async addItem(task: NewTaskObject): Promise<string> {
         const response = await fetch(`${this.url}`, {
             method: "POST",
             headers: {
@@ -34,10 +24,9 @@ class Service {
         return body._id;
     }
     static async delateItem(taskID: string) {
-        const response = await fetch(`${this.url}${taskID}`, {
+        await fetch(`${this.url}${taskID}`, {
             method: "DELETE",
         });
-        return response.json(); //Something is wrong with return value
     }
     static updateItem = async (task: TaskEdit) => {
         const taskObject = {
@@ -45,17 +34,16 @@ class Service {
             content: task.content,
             position: task.position,
         };
-        const response = await fetch(`${this.url}${task.id}`, {
+        await fetch(`${this.url}${task.id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(taskObject),
         });
-        return response.json();
     };
 
-    static async getData() {
+    static async getData(): Promise<TaskObject[]> {
         const data = await fetch(`${this.url}`)
             .then((response) => response.json())
             .then((data) => {
@@ -63,11 +51,6 @@ class Service {
             });
         return data;
     }
-
-    // async logResponse(response) {
-    //     const message = await response.json();
-    //     console.log(message.message);
-    // }
 }
 
 export { Service };

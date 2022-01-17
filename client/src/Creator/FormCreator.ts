@@ -1,5 +1,5 @@
 class FormCreator {
-    createForm(target: HTMLElement) {
+    createForm(target: HTMLElement): void {
         target.insertAdjacentHTML(
             "beforeend",
             `         <div class="add__container">

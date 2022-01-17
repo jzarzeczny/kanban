@@ -19,11 +19,13 @@ Container.onDrop = (ev) => {
     const id = dataNotNull(ev);
     const draggableElement = document.getElementById(id);
     const dropzone = ev.target;
+    const updateObject = {
+        id: draggableElement.id,
+    };
     if (dropzone["classList"].contains("list__container")) {
         dropzone.appendChild(draggableElement);
-        // Update the position of element in array
-        draggableElement.position = dropzone.id;
-        Service.updateItem(draggableElement);
+        updateObject.position = dropzone.id;
+        Service.updateItem(updateObject);
     }
 };
 export { Container };

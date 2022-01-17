@@ -4,3 +4,4 @@ node_modules
 .prettierrc
 config.env
 config.js
+dist
