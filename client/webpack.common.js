@@ -1,5 +1,5 @@
 const path = require("path");
-
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
     entry: "./src/index.ts",
     module: {
@@ -11,9 +11,16 @@ module.exports = {
     resolve: {
         extensions: [".ts"],
     },
+
+    plugins: [
+        new HtmlWebpackPlugin({
+            title: "Kanban",
+            template: "src/index.html",
+        }),
+    ],
     output: {
         filename: "index.js",
-        path: path.resolve(__dirname, "dist"),
+        path: path.resolve(__dirname, "../dist/client"),
         clean: true,
     },
 };
