@@ -25,10 +25,11 @@ class Main {
         },
     ];
     async run() {
+        if (this.root) {
+            this.root.innerHTML = "";
+            this.formCreator.createForm(this.root);
+        }
         const form = new Form();
-
-        this.root!.innerHTML = "";
-        this.formCreator.createForm(this.root);
         this.columns.forEach((column) => {
             this.containerCreator.createContainer(column.id, column.name);
         });

@@ -20,7 +20,9 @@ class Form {
         );
         task.position = task.position || "0";
         const properContainer = document.getElementById(task.position) as HTMLElement;
-        properContainer.appendChild(taskElement);
+        if (properContainer) {
+            properContainer.appendChild(taskElement);
+        }
     }
 
     handleInput(this: HTMLFormElement, ev: SubmitEvent): void {
