@@ -1,4 +1,4 @@
-import { Container } from "../Container.js";
+import { Container } from "../Container";
 class ContainerCreator {
     createContainer(id: string, head: string): void {
         const root = document.getElementById("root");
