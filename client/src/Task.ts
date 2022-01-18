@@ -1,4 +1,4 @@
-import { Service } from "./Service.js";
+import { Service } from "./Service";
 import { TaskEdit } from "./validators/taskValidators";
 
 class Task {

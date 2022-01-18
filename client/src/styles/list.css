@@ -1,0 +1,36 @@
+/* Container styling */
+.container {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+/* List styling */
+.list {
+    display: grid;
+    grid-template-rows: min-content auto;
+    align-items: start;
+}
+
+.list > .list__header {
+    text-align: center;
+    font-size: var(--fs-big);
+    grid-row: 1/2;
+    grid-column: 1/4;
+    border-bottom: 1px solid black;
+    padding: 1rem;
+}
+
+/* Styling of container */
+.list__container {
+    grid-column: 1/4;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-content: flex-start;
+    min-height: 120px;
+    height: 100%;
+    width: 100%;
+    padding: 1rem;
+    gap: 1rem;
+}

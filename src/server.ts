@@ -16,8 +16,7 @@ if (process.env.ATLAS_URI) {
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(express.static(path.resolve(__dirname, "../client")));
-console.log(path.resolve(__dirname, "../client"));
+app.use(express.static(path.resolve(__dirname, "../dist/client")));
 app.use(PATH_TO_API, router);
 
 app.listen(PORT, (): void => {

@@ -1,7 +1,7 @@
-import { Service } from "./Service.js";
-import { Form } from "./Form.js";
-import { FormCreator } from "./Creator/FormCreator.js";
-import { ContainerCreator } from "./Creator/ContainerCreator.js";
+import { Service } from "./Service";
+import { Form } from "./Form";
+import { FormCreator } from "./Creator/FormCreator";
+import { ContainerCreator } from "./Creator/ContainerCreator";
 import { TaskObject } from "./validators/taskValidators";
 
 class Main {
@@ -25,10 +25,11 @@ class Main {
         },
     ];
     async run() {
+        if (this.root) {
+            this.root.innerHTML = "";
+            this.formCreator.createForm(this.root);
+        }
         const form = new Form();
-
-        this.root!.innerHTML = "";
-        this.formCreator.createForm(this.root);
         this.columns.forEach((column) => {
             this.containerCreator.createContainer(column.id, column.name);
         });

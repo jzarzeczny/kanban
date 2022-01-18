@@ -1,5 +1,5 @@
-import { Service } from "./Service.js";
-import { CardCreator } from "./Creator/CardCreator.js";
+import { Service } from "./Service";
+import { CardCreator } from "./Creator/CardCreator";
 import { TaskObject } from "./validators/taskValidators";
 
 class Form {
@@ -20,7 +20,9 @@ class Form {
         );
         task.position = task.position || "0";
         const properContainer = document.getElementById(task.position) as HTMLElement;
-        properContainer.appendChild(taskElement);
+        if (properContainer) {
+            properContainer.appendChild(taskElement);
+        }
     }
 
     handleInput(this: HTMLFormElement, ev: SubmitEvent): void {

@@ -1,4 +1,4 @@
-import { Task } from "../Task.js";
+import { Task } from "../Task";
 
 class CardCreator {
     static createTaskCard(

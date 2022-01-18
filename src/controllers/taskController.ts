@@ -54,5 +54,3 @@ const taskListDelete = async function (req: Request, res: Response): Promise<voi
 };
 
 export { taskList, taskListCreate, taskListUpdate, taskListDelete };
-
-// No unuse locals na back
