@@ -6,8 +6,9 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "watch": "tsc --watch",
-        "dev": "tsc && nodemon dist/server",
-        "start": "tsc && cd client && tsc && cd .. && node dist/server"
+        "dev": "nodemon dist/server",
+        "dev-f": "parcel client/src/index.html",
+        "start": "tsc && parcel build ./client/src/index.html && node dist/server"
     },
     "repository": {
         "type": "git",
