@@ -19,7 +19,7 @@ module.exports = {
         }),
     ],
     output: {
-        filename: "index.js",
+        filename: "bundle.js",
         path: path.resolve(__dirname, "../dist/client"),
         clean: true,
     },
