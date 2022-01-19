@@ -1,23 +1,35 @@
-import { Container } from "../Container";
 class ContainerCreator {
-    createContainer(id: string, head: string): void {
-        const root = document.getElementById("root");
+    static createContainer(id: string, head: string): void {
+        const root = document.getElementById("root") as HTMLElement;
 
-        const list = document.createElement("div");
+        const list = document.createElement("div") as HTMLDivElement;
         list.classList.add("list");
-        list.classList.add(`list--${head}`);
+        list.classList.add(`list--${id}`);
 
-        const header = document.createElement("h2");
-        header.classList.add("list__header");
+        const header = document.createElement("h2") as HTMLElement;
         header.innerHTML = head.toUpperCase();
+        header.classList.add("header__title");
 
-        const box = document.createElement("div");
+        const headerDiv = document.createElement("div") as HTMLDivElement;
+        headerDiv.classList.add("list__header");
+
+        const counter = document.createElement("div") as HTMLDivElement;
+        counter.classList.add("header__counter");
+
+        const number = document.createElement("span") as HTMLElement;
+        number.classList.add("header__number");
+        number.innerHTML = "0";
+
+        counter.appendChild(number);
+
+        headerDiv.appendChild(header);
+        headerDiv.appendChild(counter);
+
+        const box = document.createElement("div") as HTMLDivElement;
         box.classList.add("list__container");
         box.setAttribute("id", id);
-        box.addEventListener("dragover", Container.onDragOver);
-        box.addEventListener("drop", Container.onDrop);
 
-        list.appendChild(header);
+        list.appendChild(headerDiv);
         list.appendChild(box);
 
         root?.appendChild(list);

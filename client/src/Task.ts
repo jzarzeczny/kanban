@@ -1,4 +1,4 @@
-import { Service } from "./Service";
+import { Service } from "./Service/Service";
 import { TaskEdit } from "./validators/taskValidators";
 
 class Task {
@@ -29,7 +29,7 @@ class Task {
         const target = event.target as HTMLElement;
         const card = target.parentElement as HTMLElement;
         card?.parentElement?.removeChild(document.getElementById(card.id) as HTMLElement);
-        Service.delateItem(card.id);
+        Service.deleteItem(card.id);
     }
 }
 
