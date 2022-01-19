@@ -1,4 +1,4 @@
-import { Service } from "./Service";
+import { Service } from "./Service/Service";
 import { CardCreator } from "./Creator/CardCreator";
 import { TaskObject } from "./validators/taskValidators";
 import { NewCategoryObject, CategoryObject } from "./validators/categoryValidators";

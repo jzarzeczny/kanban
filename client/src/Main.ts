@@ -1,4 +1,4 @@
-import { Service } from "./Service";
+import { Service } from "./Service/Service";
 import { Form } from "./Form";
 import { FormCreator } from "./Creator/FormCreator";
 import { Container } from "./Container";

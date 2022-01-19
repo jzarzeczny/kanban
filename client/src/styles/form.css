@@ -117,15 +117,15 @@
     z-index: -1;
     background-color: pink;
 }
-
-.radio:nth-of-type(1) span {
-    background-color: #fdff7b;
-}
-.radio:nth-of-type(2) span {
-    background-color: #fcb7da;
-}
-.radio:nth-of-type(3) span {
-    background-color: #99fa97;
+.radio__delete {
+    cursor: pointer;
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    border: none;
+    z-index: 10;
 }
 
 /* Styling for addCategory */

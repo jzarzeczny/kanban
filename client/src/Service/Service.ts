@@ -1,5 +1,5 @@
-import { TaskEdit, NewTaskObject, TaskObject } from "./validators/taskValidators";
-import { CategoryObject, NewCategoryObject } from "./validators/categoryValidators";
+import { TaskEdit, NewTaskObject, TaskObject } from "../validators/taskValidators";
+import { CategoryObject, NewCategoryObject } from "../validators/categoryValidators";
 
 class Service {
     // static _instance: any;
@@ -27,7 +27,7 @@ class Service {
         const body = await response.json();
         return body._id;
     }
-    static async delateItem(itemID: string, path: string = "") {
+    static async deleteItem(itemID: string, path: string = "") {
         await fetch(`${this.URL}${path}${itemID}`, {
             method: "DELETE",
         });

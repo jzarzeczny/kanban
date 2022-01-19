@@ -1,4 +1,4 @@
-import { Service } from "./Service";
+import { Service } from "./Service/Service";
 import { TaskEdit } from "./validators/taskValidators";
 import { ContainerCreator } from "./Creator/ContainerCreator";
 
@@ -42,7 +42,7 @@ class Container {
         if (dropzone["classList"].contains("list__container")) {
             dropzone.appendChild(draggableElement);
             // Update the position of element in array
-            updateObject.position = dropzone.id;
+            updateObject.position = dropzone.id as string;
             Service.updateItem(updateObject);
         }
     };
