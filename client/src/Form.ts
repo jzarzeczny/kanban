@@ -40,7 +40,7 @@ class Form {
     }
 
     handleFormInput(this: HTMLFormElement, ev: SubmitEvent): void {
-        if (ev.submitter && ev.submitter.classList.contains("submit-form")) {
+        if (ev.submitter && ev.submitter.classList.contains("submit--form")) {
             ev.preventDefault();
 
             const inputElement = ev.target as HTMLFormElement;
@@ -83,7 +83,8 @@ class Form {
         const button = document.getElementById("openButton") as HTMLElement;
         const form = document.getElementById("form") as HTMLFormElement;
         const addCategoryButton = document.getElementById("addCategory") as HTMLElement;
-        addCategoryButton.addEventListener("click", this.handleCategoryInput);
+
+        addCategoryButton?.addEventListener("click", this.handleCategoryInput);
         button.addEventListener("click", this.toggleClass);
         form.addEventListener("submit", this.handleFormInput);
     };

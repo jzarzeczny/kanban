@@ -1,6 +1,7 @@
 import { Service } from "./Service/Service";
 import { Form } from "./Form";
 import { FormCreator } from "./Creator/FormCreator";
+import { CategoryCreator } from "./Creator/CategoryCreator";
 import { Container } from "./Container";
 import { Category } from "./Category";
 import { TaskObject } from "./validators/taskValidators";
@@ -35,7 +36,6 @@ class Main {
             const container = new Container(column.id, column.name);
             container.createContainer();
         });
-        form.bindEvents();
         const tasksArray = (await Service.getData()) as TaskObject[];
         tasksArray.forEach((task: TaskObject) => Form.addTask(task));
         const categoriesArray = (await Service.getData("category")) as CategoryObject[];
@@ -43,6 +43,11 @@ class Main {
             const categoryInstance = new Category(category.name, category._id, category.color);
             categoryInstance.categoryCreate();
         });
+        if (categoriesArray && categoriesArray.length <= 4) {
+            CategoryCreator.createCategoryInput();
+        }
+        Category.checkCategoryLength();
+        form.bindEvents();
     }
 }
 export { Main };

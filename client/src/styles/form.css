@@ -53,10 +53,19 @@
 .submit {
     padding: 0.5rem 0.75rem;
     background-color: #fff;
-    border: 1px solid black;
+    /* border: 1px solid black; */
+    box-shadow: none;
+    outline: none;
     border-radius: 8px;
     outline: none;
     cursor: pointer;
+}
+.submit--form {
+    background-color: #d6f7a3;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1.25rem;
+    font-weight: 400;
 }
 
 .form__label {
@@ -145,11 +154,14 @@
     grid-row: 2/3;
 }
 .form__picker {
+    cursor: pointer;
     grid-column: 2/3;
     grid-row: 2/3;
     width: 40px;
     height: 100%;
     justify-self: right;
+    background-color: transparent;
+    border: none;
 }
 .submit--addCategory {
     margin-top: 1rem;

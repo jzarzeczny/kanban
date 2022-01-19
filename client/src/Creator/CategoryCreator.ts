@@ -16,6 +16,19 @@ class CategoryCreator {
         </label>`
         );
     }
+    static createCategoryInput() {
+        const target = document.querySelectorAll(".form__control")[1];
+        target.insertAdjacentHTML(
+            "afterend",
+            `                                   <div class="form__control form__control--addCategory">
+                  <label class="form__label form__label--addCategory" for="header">New category:</label>
+                  <input class="form__input form__input--addCategory" type="text" id="newCategory" />
+                  <input class="form__picker" type="color" id='newColor'/>
+                  <button class='submit submit--addCategory' id='addCategory'>Add category</button>
+               </div>
+`
+        );
+    }
 }
 
 export { CategoryCreator };
