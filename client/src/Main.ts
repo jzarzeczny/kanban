@@ -31,7 +31,7 @@ class Main {
         const form = new Form();
         this.columns.forEach((column) => {
             const container = new Container(column.id, column.name);
-            container.create();
+            container.createContainer();
         });
         form.bindEvents();
         const tasksArray = await Service.getData();

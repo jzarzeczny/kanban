@@ -17,7 +17,13 @@ class FormCreator {
                      type="textarea"
                      id="text"></textarea>
                </div>
-               <div class="form__control">
+                                   <div class="form__control form__control--addCategory">
+                  <label class="form__label form__label--addCategory" for="header">New category:</label>
+                  <input class="form__input form__input--addCategory" type="text" id="newCategory" />
+                  <input class="form__picker" type="color" id='newColor'/>
+                  <button class='submit submit--addCategory' id='addCategory'>Add category</button>
+               </div>
+               <div class="form__control form__control--category">
                   <p for="color">Select category:</p>
                   <label class="radio"
                      >Category 1
@@ -49,7 +55,8 @@ class FormCreator {
                      <span class="radio__box"></span>
                   </label>
                </div>
-               <input type="submit" class="submit" value="Submit" />
+          
+               <input type="submit" class="submit submit-form" value="Submit" />
             </form>
          </div>
 `

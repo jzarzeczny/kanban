@@ -11,7 +11,7 @@ class Container {
         this.header = header;
         this.creator = ContainerCreator.createContainer;
     }
-    create() {
+    createContainer() {
         this.creator(this.id, this.header);
         const column = document.getElementById(this.id) as HTMLElement;
 
@@ -52,8 +52,8 @@ class Container {
 
         const config = { childList: true };
 
-        const callback = (mutationsList: any) => {
-            mutationsList.forEach((mutation: any) => {
+        const callback = (mutationsList: MutationRecord[]) => {
+            mutationsList.forEach((mutation: MutationRecord) => {
                 if (mutation.type === "childList") {
                     this.updateTheCounter(column);
                 }
@@ -73,7 +73,7 @@ class Container {
     updateTheCounter(column: HTMLElement) {
         const counter = (column as HTMLElement).parentElement?.childNodes[0].childNodes[1]
             .childNodes[0] as HTMLElement;
-
+        // Todo take as an id
         if (counter) {
             const numberOfTasks: number = this.getNumberOfTasks(column);
             counter.innerHTML = numberOfTasks.toString();
