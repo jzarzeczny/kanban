@@ -1,6 +1,8 @@
 import { Service } from "./Service";
 import { CardCreator } from "./Creator/CardCreator";
 import { TaskObject } from "./validators/taskValidators";
+import { NewCategoryObject, CategoryObject } from "./validators/categoryValidators";
+import { Category } from "./Category";
 
 class Form {
     cardCreator = new CardCreator();
@@ -26,13 +28,21 @@ class Form {
     }
 
     static async addCategory(color: string, name: string): Promise<void> {
-        console.log(color);
-        console.log(name);
+        const newCategoryObject: NewCategoryObject = { color: color, name: name };
+        const id: string = await Service.addItem(newCategoryObject, "category/");
+        const categoryObject: CategoryObject = { ...newCategoryObject, _id: id };
+        const category = new Category(
+            categoryObject.name,
+            categoryObject._id,
+            categoryObject.color
+        );
+        category.categoryCreate();
     }
 
     handleFormInput(this: HTMLFormElement, ev: SubmitEvent): void {
-        ev.preventDefault();
         if (ev.submitter && ev.submitter.classList.contains("submit-form")) {
+            ev.preventDefault();
+
             const inputElement = ev.target as HTMLFormElement;
 
             const header: string = (inputElement[0] as HTMLInputElement).value;
@@ -57,9 +67,10 @@ class Form {
     }
 
     handleCategoryInput(this: HTMLElement, ev: MouseEvent): void {
-        ev.stopPropagation();
-        const colorInput = document.getElementById("newCategory") as HTMLInputElement;
-        const nameInput = document.getElementById("newColor") as HTMLInputElement;
+        ev.preventDefault();
+
+        const nameInput = document.getElementById("newCategory") as HTMLInputElement;
+        const colorInput = document.getElementById("newColor") as HTMLInputElement;
 
         Form.addCategory(colorInput.value, nameInput.value);
     }

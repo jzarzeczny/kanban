@@ -1,5 +1,5 @@
-class CateogryCreator {
-    static createCategory(target: HTMLElement, id: string, color: string, name: string): void {
+class CategoryCreator {
+    static createCategory(target: HTMLElement, id: string, name: string, color: string): void {
         target.insertAdjacentHTML(
             "beforeend",
             `        <label class="radio radio--${id}">
@@ -16,3 +16,5 @@ class CateogryCreator {
         );
     }
 }
+
+export { CategoryCreator };

@@ -1,5 +1,5 @@
 import { Router } from "express";
-const router = Router();
+const taskRouter = Router();
 import {
     taskList,
     taskListCreate,
@@ -8,15 +8,15 @@ import {
 } from "../controllers/taskController";
 
 // Get all the tasks
-router.get("/", taskList);
+taskRouter.get("/", taskList);
 
 // Add new task
-router.post("/", taskListCreate);
+taskRouter.post("/", taskListCreate);
 
 // Update the task
-router.put("/:id", taskListUpdate);
+taskRouter.put("/:id", taskListUpdate);
 
 // Delete the task
-router.delete("/:id", taskListDelete);
+taskRouter.delete("/:id", taskListDelete);
 
-export { router };
+export { taskRouter };

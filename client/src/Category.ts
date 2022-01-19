@@ -1,3 +1,4 @@
+import { CategoryCreator } from "./Creator/CategoryCreator";
 class Category {
     name: string;
     id: string;
@@ -10,12 +11,12 @@ class Category {
     }
 
     categoryCreate() {
-        // TODO, CREATE CATEGORY
+        const target = document.querySelector(".form__control--category") as HTMLElement;
+        CategoryCreator.createCategory(target, this.id, this.name, this.color);
+        const label = document.querySelector(`.radio--${this.id} span`) as HTMLElement;
+        label.style.backgroundColor = this.color;
     }
 
-    addNewCategory() {
-        // TODO, Handle new category
-    }
     removeCategory() {
         // TODO, remove category
     }
@@ -24,3 +25,5 @@ class Category {
         // Event listeners
     }
 }
+
+export { Category };

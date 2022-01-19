@@ -25,35 +25,6 @@ class FormCreator {
                </div>
                <div class="form__control form__control--category">
                   <p for="color">Select category:</p>
-                  <label class="radio"
-                     >Category 1
-                     <input
-                        class="radio__input"
-                        type="radio"
-                        value="#fdff7b"
-                        name="color" 
-                              checked="checked"/>
-                  
-                     <span class="radio__box"></span>
-                  </label>
-                  <label class="radio"
-                     >Category 2
-                     <input
-                        class="radio__input"
-                        type="radio"
-                        value="#fcb7da"
-                        name="color" />
-                     <span class="radio__box"></span>
-                  </label>
-                  <label class="radio"
-                     >Category 3
-                     <input
-                        class="radio__input"
-                        type="radio"
-                        value="#99fa97"
-                        name="color" />
-                     <span class="radio__box"></span>
-                  </label>
                </div>
           
                <input type="submit" class="submit submit-form" value="Submit" />
