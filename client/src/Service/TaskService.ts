@@ -1,11 +1,10 @@
 import { Service } from "./Service";
 
 class TaskService extends Service {
-    url: string;
-    constructor(url: string) {
+    constructor() {
         super();
-        this.url = url;
     }
+    static URI: string = "http://localhost:5002/mongo/";
 }
 
 export { TaskService };

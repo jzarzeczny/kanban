@@ -11,13 +11,11 @@ class Service {
     //     }
     //     Service._instance = this;
     // }
-    static URL: string = "http://localhost:5002/mongo/";
 
-    static async addItem(
-        item: NewTaskObject | NewCategoryObject,
-        path: string = ""
-    ): Promise<string> {
-        const response = await fetch(`${this.URL}${path}`, {
+    static URL: string = "";
+
+    static async addItem(item: NewTaskObject | NewCategoryObject): Promise<string> {
+        const response = await fetch(`${this.URL}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -27,18 +25,18 @@ class Service {
         const body = await response.json();
         return body._id;
     }
-    static async deleteItem(itemID: string, path: string = "") {
-        await fetch(`${this.URL}${path}${itemID}`, {
+    static async deleteItem(itemID: string) {
+        await fetch(`${this.URL}${itemID}`, {
             method: "DELETE",
         });
     }
-    static updateItem = async (item: TaskEdit, path: string = "") => {
+    static updateItem = async (item: TaskEdit) => {
         const taskObject = {
             id: item.id,
             content: item.content,
             position: item.position,
         };
-        await fetch(`${this.URL}${path}${item.id}`, {
+        await fetch(`${this.URL}${item.id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -47,9 +45,9 @@ class Service {
         });
     };
 
-    static async getData(path: string = "") {
+    static async getData() {
         // declare return value as Promise<TaskEdit[]> | Promise<CategoryObject[]>
-        const data = await fetch(`${this.URL}${path}`)
+        const data = await fetch(`${this.URL}`)
             .then((response) => response.json())
             .then((data) => {
                 return data;

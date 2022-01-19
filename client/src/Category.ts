@@ -1,6 +1,6 @@
 import { CategoryCreator } from "./Creator/CategoryCreator";
+import { CategoryService } from "./Service/CategoryService";
 
-import { Service } from "./Service/Service";
 class Category {
     name: string;
     id: string;
@@ -28,7 +28,7 @@ class Category {
             const id: string = categoryToDelete.id;
             categoryToDelete.parentElement?.removeChild(categoryToDelete);
 
-            Service.deleteItem(id, "category/");
+            CategoryService.deleteItem(id);
         }
     }
     static checkCategoryLength() {

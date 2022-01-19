@@ -1,4 +1,5 @@
-import { Service } from "./Service/Service";
+import { TaskService } from "./Service/TaskService";
+import { CategoryService } from "./Service/CategoryService";
 import { Form } from "./Form";
 import { FormCreator } from "./Creator/FormCreator";
 import { CategoryCreator } from "./Creator/CategoryCreator";
@@ -36,9 +37,9 @@ class Main {
             const container = new Container(column.id, column.name);
             container.createContainer();
         });
-        const tasksArray = (await Service.getData()) as TaskObject[];
+        const tasksArray = (await TaskService.getData()) as TaskObject[];
         tasksArray.forEach((task: TaskObject) => Form.addTask(task));
-        const categoriesArray = (await Service.getData("category")) as CategoryObject[];
+        const categoriesArray = (await CategoryService.getData()) as CategoryObject[];
         categoriesArray.forEach((category: CategoryObject) => {
             const categoryInstance = new Category(category.name, category._id, category.color);
             categoryInstance.categoryCreate();

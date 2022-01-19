@@ -1,4 +1,5 @@
-import { Service } from "./Service/Service";
+import { TaskService } from "./Service/TaskService";
+import { CategoryService } from "./Service/CategoryService";
 import { CardCreator } from "./Creator/CardCreator";
 import { TaskObject } from "./validators/taskValidators";
 import { NewCategoryObject, CategoryObject } from "./validators/categoryValidators";
@@ -7,12 +8,10 @@ import { Category } from "./Category";
 class Form {
     cardCreator = new CardCreator();
 
-    service = new Service();
-
     static async addTask(task: TaskObject, fresh: boolean = false): Promise<void> {
         let _id: string = task._id;
         if (fresh) {
-            _id = await Service.addItem(task);
+            _id = await TaskService.addItem(task);
         }
         const taskElement: HTMLElement = CardCreator.createTaskCard(
             task.header,
@@ -29,7 +28,7 @@ class Form {
 
     static async addCategory(color: string, name: string): Promise<void> {
         const newCategoryObject: NewCategoryObject = { color: color, name: name };
-        const id: string = await Service.addItem(newCategoryObject, "category/");
+        const id: string = await CategoryService.addItem(newCategoryObject);
         const categoryObject: CategoryObject = { ...newCategoryObject, _id: id };
         const category = new Category(
             categoryObject.name,
