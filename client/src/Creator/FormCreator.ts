@@ -9,6 +9,7 @@ class FormCreator {
                <div class="form__control">
                   <label class="form__label" for="header">Title:</label>
                   <input class="form__input" type="text" id="header" />
+                  <span class='form__error'></span>
                </div>
                <div class="form__control">
                   <label class="form__label" for="text">Content:</label>
@@ -16,6 +17,8 @@ class FormCreator {
                      class="form__input"
                      type="textarea"
                      id="text"></textarea>
+                  <span class='form__error'></span>
+                     
                </div>
                <div class="form__control form__control--category">
                   <p for="color">Select category:</p>

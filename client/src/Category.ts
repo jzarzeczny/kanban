@@ -21,6 +21,11 @@ class Category {
         label.style.backgroundColor = this.color;
     }
 
+    removeNoCategoryIndicator() {
+        const categoryError = document.querySelector("#category") as HTMLElement;
+        categoryError.innerHTML = "";
+    }
+
     removeCategory(this: HTMLElement, ev: MouseEvent) {
         ev.preventDefault();
         if (this.parentElement) {
@@ -42,7 +47,7 @@ class Category {
                     const categoryInput = document.querySelector(
                         ".form__control--addCategory"
                     ) as HTMLElement;
-
+                    // TODO: if length - 1 -> remove the indicator
                     if (categoriesArea.children.length >= 6) {
                         categoryInput.parentElement?.removeChild(categoryInput);
                     } else {

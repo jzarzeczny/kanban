@@ -1,9 +1,10 @@
-import { TaskService } from "./Service/TaskService";
-import { CategoryService } from "./Service/CategoryService";
-import { CardCreator } from "./Creator/CardCreator";
-import { TaskObject } from "./validators/taskValidators";
-import { NewCategoryObject, CategoryObject } from "./validators/categoryValidators";
-import { Category } from "./Category";
+import { TaskService } from "../Service/TaskService";
+import { CategoryService } from "../Service/CategoryService";
+import { CardCreator } from "../Creator/CardCreator";
+import { TaskObject } from "../validators/taskValidators";
+import { NewCategoryObject, CategoryObject } from "../validators/categoryValidators";
+import { Category } from "../Category";
+import { FormValidator, FormError } from "./FormValidator";
 
 class Form {
     cardCreator = new CardCreator();
@@ -41,6 +42,7 @@ class Form {
     handleFormInput(this: HTMLFormElement, ev: SubmitEvent): void {
         if (ev.submitter && ev.submitter.classList.contains("submit--form")) {
             ev.preventDefault();
+            Form.validateFormInput();
 
             const inputElement = ev.target as HTMLFormElement;
 
@@ -74,6 +76,25 @@ class Form {
         Form.addCategory(colorInput.value, nameInput.value);
     }
 
+    static validateFormInput(): void {
+        const formValidator = new FormValidator();
+        let formErrorObject: FormError[] = [];
+        formErrorObject.push(formValidator.validateTitle());
+        formErrorObject.push(formValidator.validateContent());
+        formErrorObject.push(formValidator.validateCategories());
+        formErrorObject.forEach((formField) => {
+            formValidator.evaluate(formField);
+        });
+    }
+
+    onBlur(this: HTMLInputElement, ev: FocusEvent): void {
+        if (this.value.trim() !== "") {
+            this.classList.remove("form__input--error");
+            this.classList.add("form__input--success");
+            (this.nextElementSibling as HTMLElement).innerHTML = "";
+        }
+    }
+
     toggleClass(this: HTMLElement): void {
         this.parentElement?.classList.toggle("add__container--open");
     }
@@ -82,7 +103,11 @@ class Form {
         const button = document.getElementById("openButton") as HTMLElement;
         const form = document.getElementById("form") as HTMLFormElement;
         const addCategoryButton = document.getElementById("addCategory") as HTMLElement;
+        const headerInput = document.getElementById("header") as HTMLInputElement;
+        const contentInput = document.getElementById("text") as HTMLInputElement;
 
+        headerInput.addEventListener("blur", this.onBlur);
+        contentInput.addEventListener("blur", this.onBlur);
         addCategoryButton?.addEventListener("click", this.handleCategoryInput);
         button.addEventListener("click", this.toggleClass);
         form.addEventListener("submit", this.handleFormInput);

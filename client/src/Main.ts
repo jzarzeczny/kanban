@@ -1,6 +1,6 @@
 import { TaskService } from "./Service/TaskService";
 import { CategoryService } from "./Service/CategoryService";
-import { Form } from "./Form";
+import { Form } from "./Form/Form";
 import { FormCreator } from "./Creator/FormCreator";
 import { CategoryCreator } from "./Creator/CategoryCreator";
 import { Container } from "./Container";
