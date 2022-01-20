@@ -37,6 +37,9 @@ class Main {
             const container = new Container(column.id, column.name);
             container.createContainer();
         });
+        // CategoryService.URI = "http://localhost:5002/mongo/category";
+        // TaskService.URI = "http://localhost:5002/mongo/";
+
         const tasksArray = (await TaskService.getData()) as TaskObject[];
         tasksArray.forEach((task: TaskObject) => Form.addTask(task));
         const categoriesArray = (await CategoryService.getData()) as CategoryObject[];

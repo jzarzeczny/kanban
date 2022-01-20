@@ -1,7 +1,7 @@
 import { TaskEdit, NewTaskObject, TaskObject } from "../validators/taskValidators";
 import { CategoryObject, NewCategoryObject } from "../validators/categoryValidators";
 
-class Service {
+abstract class Service {
     // static _instance: any;
 
     // // Singleton pattern implementation
@@ -12,10 +12,12 @@ class Service {
     //     Service._instance = this;
     // }
 
-    static URL: string = "";
+    static get url(): string {
+        return "";
+    }
 
     static async addItem(item: NewTaskObject | NewCategoryObject): Promise<string> {
-        const response = await fetch(`${this.URL}`, {
+        const response = await fetch(`${this.url}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -26,7 +28,7 @@ class Service {
         return body._id;
     }
     static async deleteItem(itemID: string) {
-        await fetch(`${this.URL}${itemID}`, {
+        await fetch(`${this.url}${itemID}`, {
             method: "DELETE",
         });
     }
@@ -36,7 +38,7 @@ class Service {
             content: item.content,
             position: item.position,
         };
-        await fetch(`${this.URL}${item.id}`, {
+        await fetch(`${this.url}${item.id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -47,7 +49,7 @@ class Service {
 
     static async getData() {
         // declare return value as Promise<TaskEdit[]> | Promise<CategoryObject[]>
-        const data = await fetch(`${this.URL}`)
+        const data = await fetch(`${this.url}`)
             .then((response) => response.json())
             .then((data) => {
                 return data;
