@@ -1,6 +1,3 @@
-import { TaskEdit, NewTaskObject, TaskObject } from "../validators/taskValidators";
-import { CategoryObject, NewCategoryObject } from "../validators/categoryValidators";
-
 abstract class Service {
     // static _instance: any;
 
@@ -16,7 +13,7 @@ abstract class Service {
         return "";
     }
 
-    static async addItem(item: NewTaskObject | NewCategoryObject): Promise<string> {
+    static async addItem(item: any): Promise<string> {
         const response = await fetch(`${this.url}`, {
             method: "POST",
             headers: {
@@ -32,7 +29,7 @@ abstract class Service {
             method: "DELETE",
         });
     }
-    static updateItem = async (item: TaskEdit) => {
+    static updateItem = async (item: any) => {
         const taskObject = {
             id: item.id,
             content: item.content,
@@ -47,14 +44,18 @@ abstract class Service {
         });
     };
 
-    static async getData() {
+    static async getData(): Promise<any> {
         // declare return value as Promise<TaskEdit[]> | Promise<CategoryObject[]>
         const data = await fetch(`${this.url}`)
             .then((response) => response.json())
             .then((data) => {
                 return data;
             });
-        return data as CategoryObject[] | TaskObject[];
+        return data;
+        // TODO
+        // Generyk => getData(T):data(T)
+        //getData <T> () => as T[]
+        //getData<TaskObject>()
     }
 }
 
