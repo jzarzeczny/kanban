@@ -8,10 +8,16 @@ import { Category } from "./Category/Category";
 import { TaskObject } from "./validators/taskValidators";
 import { CategoryObject } from "./validators/categoryValidators";
 
+interface Data {
+    tasksData: TaskObject[];
+    categoryData: CategoryObject[];
+}
+
 class Main {
     root = document.getElementById("root") as HTMLElement;
 
     formCreator = new FormCreator();
+    form = new Form();
 
     columns: { id: string; name: string }[] = [
         {
@@ -27,29 +33,62 @@ class Main {
             name: "done ✅",
         },
     ];
-    async run() {
+
+    createElements(): void {
         if (this.root) {
             this.root.innerHTML = "";
             this.formCreator.createForm(this.root);
         }
-        const form = new Form();
         this.columns.forEach((column) => {
             const container = new Container(column.id, column.name);
             container.createContainer();
         });
+    }
 
-        const tasksArray = (await TaskService.getData()) as TaskObject[];
+    createTasks(tasksArray: TaskObject[]): void {
         tasksArray.forEach((task: TaskObject) => Form.addTask(task));
-        const categoriesArray = (await CategoryService.getData()) as CategoryObject[];
+    }
+
+    createCategories(categoriesArray: CategoryObject[]): void {
         categoriesArray.forEach((category: CategoryObject) => {
             const categoryInstance = new Category(category.name, category._id, category.color);
             categoryInstance.categoryCreate();
         });
+    }
+
+    checkCategories(categoriesArray: CategoryObject[]): void {
         if (categoriesArray && categoriesArray.length <= 4) {
             CategoryCreator.createCategoryInput();
         }
         Category.checkCategoryLength();
-        form.bindEvents();
     }
+
+    async getData(): Promise<Data> {
+        const [taskArray, categoryArray] = await Promise.all([
+            TaskService.getData(),
+            CategoryService.getData(),
+        ]);
+
+        const dataObject: Data = {
+            tasksData: taskArray,
+            categoryData: categoryArray,
+        };
+
+        return dataObject;
+    }
+
+    bindEvents(): void {
+        this.form.bindEvents();
+        Category.bindEvents();
+    }
+    async run() {
+        this.createElements();
+        const dataObject = await this.getData();
+        this.createTasks(dataObject.tasksData);
+        this.createCategories(dataObject.categoryData);
+        this.checkCategories(dataObject.categoryData);
+        this.bindEvents();
+    }
+    // Promise all
 }
 export { Main };

@@ -23,7 +23,7 @@ class CategoryCreator {
             `                                   <div id='category' class="form__control form__control--addCategory">
                   <label class="form__label form__label--addCategory" for="header">New category:</label>
                   <input class="form__input form__input--addCategory" type="text" id="newCategory" />
-                  <input class="form__picker" type="color" id='newColor'/>
+                  <input class="form__picker" type="color" id='newColor'  value="#f6b73c"/>
                   <button class='submit submit--addCategory' id='addCategory'>Add category</button>
 <span class='form__error'></span>
 

@@ -1,5 +1,7 @@
 import { CategoryCreator } from "../Creator/CategoryCreator";
 import { CategoryService } from "../Service/CategoryService";
+import { CategoryValidator } from "../Category/CategoryValidator";
+import { NewCategoryObject, CategoryObject } from "../validators/categoryValidators";
 
 class Category {
     name: string;
@@ -10,6 +12,29 @@ class Category {
         this.name = name;
         this.id = id;
         this.color = color;
+    }
+
+    static async addCategory(color: string, name: string): Promise<void> {
+        const canAddCategory = CategoryValidator.validateCategoryName(name);
+        if (canAddCategory === false) return;
+        const newCategoryObject: NewCategoryObject = { color: color, name: name };
+        const id: string = await CategoryService.addItem(newCategoryObject);
+        const categoryObject: CategoryObject = { ...newCategoryObject, _id: id };
+        const category = new Category(
+            categoryObject.name,
+            categoryObject._id,
+            categoryObject.color
+        );
+        category.categoryCreate();
+    }
+
+    static handleCategoryInput(this: HTMLElement, ev: MouseEvent): void {
+        ev.preventDefault();
+
+        const nameInput = document.getElementById("newCategory") as HTMLInputElement;
+        const colorInput = document.getElementById("newColor") as HTMLInputElement;
+
+        Category.addCategory(colorInput.value, nameInput.value);
     }
 
     categoryCreate() {
@@ -47,10 +72,11 @@ class Category {
                     const categoryInput = document.querySelector(
                         ".form__control--addCategory"
                     ) as HTMLElement;
+                    const categoryError = document.querySelector(
+                        "#category .form__error"
+                    ) as HTMLElement;
+
                     if (categoriesArea.children.length === 2) {
-                        const categoryError = document.querySelector(
-                            "#category .form__error"
-                        ) as HTMLElement;
                         categoryError.innerHTML = "";
                     }
                     if (categoriesArea.children.length >= 6) {
@@ -65,6 +91,11 @@ class Category {
         };
         const observer = new MutationObserver(menageChangeOfElementList);
         observer.observe(categoriesArea, config);
+    }
+
+    static bindEvents() {
+        const addCategoryButton = document.getElementById("addCategory") as HTMLElement;
+        addCategoryButton.addEventListener("click", Category.handleCategoryInput);
     }
 }
 

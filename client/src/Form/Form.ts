@@ -1,11 +1,7 @@
 import { TaskService } from "../Service/TaskService";
-import { CategoryService } from "../Service/CategoryService";
 import { CardCreator } from "../Creator/CardCreator";
 import { TaskObject } from "../validators/taskValidators";
-import { NewCategoryObject, CategoryObject } from "../validators/categoryValidators";
-import { Category } from "../Category/Category";
 import { FormValidator, FormError } from "./FormValidator";
-import { CategoryValidator } from "../Category/CategoryValidator";
 
 class Form {
     cardCreator = new CardCreator();
@@ -26,20 +22,6 @@ class Form {
         if (properContainer) {
             properContainer.appendChild(taskElement);
         }
-    }
-
-    static async addCategory(color: string, name: string): Promise<void> {
-        const canAddCategory = CategoryValidator.validateCategoryName(name);
-        if (canAddCategory === false) return;
-        const newCategoryObject: NewCategoryObject = { color: color, name: name };
-        const id: string = await CategoryService.addItem(newCategoryObject);
-        const categoryObject: CategoryObject = { ...newCategoryObject, _id: id };
-        const category = new Category(
-            categoryObject.name,
-            categoryObject._id,
-            categoryObject.color
-        );
-        category.categoryCreate();
     }
 
     handleFormInput(this: HTMLFormElement, ev: SubmitEvent): void {
@@ -70,15 +52,6 @@ class Form {
 
             form.reset();
         }
-    }
-
-    handleCategoryInput(this: HTMLElement, ev: MouseEvent): void {
-        ev.preventDefault();
-
-        const nameInput = document.getElementById("newCategory") as HTMLInputElement;
-        const colorInput = document.getElementById("newColor") as HTMLInputElement;
-
-        Form.addCategory(colorInput.value, nameInput.value);
     }
 
     static validateFormInput(): boolean {
@@ -114,13 +87,11 @@ class Form {
     bindEvents = (): void => {
         const button = document.getElementById("openButton") as HTMLElement;
         const form = document.getElementById("form") as HTMLFormElement;
-        const addCategoryButton = document.getElementById("addCategory") as HTMLElement;
         const headerInput = document.getElementById("header") as HTMLInputElement;
         const contentInput = document.getElementById("text") as HTMLInputElement;
 
         headerInput.addEventListener("blur", this.onBlur);
         contentInput.addEventListener("blur", this.onBlur);
-        addCategoryButton?.addEventListener("click", this.handleCategoryInput);
         button.addEventListener("click", this.toggleClass);
         form.addEventListener("submit", this.handleFormInput);
     };

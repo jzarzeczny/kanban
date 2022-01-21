@@ -4,7 +4,7 @@ class CategoryValidator {
         //  - to lower case!
         //  - no empty category!
         if (newCategoryName.trim() === "") {
-            return false;
+            return false as boolean;
         }
         const categoryContent = document.querySelectorAll(".radio") as NodeListOf<HTMLElement>;
         const categoryContentArray: HTMLElement[] = Array.from(categoryContent);
