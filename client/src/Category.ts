@@ -47,7 +47,12 @@ class Category {
                     const categoryInput = document.querySelector(
                         ".form__control--addCategory"
                     ) as HTMLElement;
-                    // TODO: if length - 1 -> remove the indicator
+                    if (categoriesArea.children.length === 2) {
+                        const categoryError = document.querySelector(
+                            "#category .form__error"
+                        ) as HTMLElement;
+                        categoryError.innerHTML = "";
+                    }
                     if (categoriesArea.children.length >= 6) {
                         categoryInput.parentElement?.removeChild(categoryInput);
                     } else {

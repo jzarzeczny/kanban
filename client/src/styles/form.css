@@ -69,11 +69,14 @@
 }
 
 .form__control {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2.5rem;
+    position: relative;
+}
+.form__control:last-of-type {
+    margin-bottom: 1rem;
 }
 
 .form__label {
-    position: relative;
     display: block;
     margin-bottom: 0.25rem;
 }
@@ -98,8 +101,8 @@
 }
 .form__error {
     color: red;
-    position: relative;
-    bottom: -0.5rem;
+    position: absolute;
+    bottom: -1.5rem;
     left: 0;
     font-weight: 300;
 }

@@ -42,8 +42,8 @@ class Form {
     handleFormInput(this: HTMLFormElement, ev: SubmitEvent): void {
         if (ev.submitter && ev.submitter.classList.contains("submit--form")) {
             ev.preventDefault();
-            Form.validateFormInput();
-
+            const error = Form.validateFormInput();
+            if (error) return;
             const inputElement = ev.target as HTMLFormElement;
 
             const header: string = (inputElement[0] as HTMLInputElement).value;
@@ -62,8 +62,10 @@ class Form {
             Form.addTask(newTask, true);
             const form = document.getElementById("form") as HTMLFormElement;
 
-            form?.parentElement?.classList.toggle("add__container--open");
-            form?.reset();
+            form.parentElement?.classList.toggle("add__container--open");
+            FormValidator.resetEvaluation();
+
+            form.reset();
         }
     }
 
@@ -76,7 +78,7 @@ class Form {
         Form.addCategory(colorInput.value, nameInput.value);
     }
 
-    static validateFormInput(): void {
+    static validateFormInput(): boolean {
         const formValidator = new FormValidator();
         let formErrorObject: FormError[] = [];
         formErrorObject.push(formValidator.validateTitle());
@@ -85,6 +87,13 @@ class Form {
         formErrorObject.forEach((formField) => {
             formValidator.evaluate(formField);
         });
+        const errors = formErrorObject.filter((error) => error.error === true);
+
+        if (errors.length === 0) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     onBlur(this: HTMLInputElement, ev: FocusEvent): void {

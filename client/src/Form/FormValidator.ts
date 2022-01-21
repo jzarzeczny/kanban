@@ -60,6 +60,19 @@ class FormValidator {
             categoryError.innerHTML = formField.message;
         }
     }
+
+    static resetEvaluation() {
+        const formInputs = document.querySelectorAll(".form__input--success");
+        const errorMessages = document.querySelectorAll(".form__error");
+
+        formInputs.forEach((formInput) => {
+            formInput.classList.remove("form__input--success");
+        });
+
+        errorMessages.forEach((errorMessage) => {
+            errorMessage.innerHTML = "";
+        });
+    }
 }
 
 export { FormValidator };
