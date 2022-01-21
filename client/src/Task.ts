@@ -1,4 +1,4 @@
-import { Service } from "./Service/Service";
+import { TaskService } from "./Service/TaskService";
 import { TaskEdit } from "./validators/taskValidators";
 
 class Task {
@@ -16,11 +16,11 @@ class Task {
         const element = document.getElementById(id) as HTMLElement;
         const editableDiv = element?.children[1] as HTMLElement;
         editableDiv.onblur = (): void => {
-            const objToUpdate: TaskEdit = {
+            const taskObject: TaskEdit = {
                 id: element.id,
                 content: element?.children[1].innerHTML,
             };
-            Service.updateItem(objToUpdate);
+            TaskService.updateItem(taskObject);
         };
     }
 
@@ -29,7 +29,7 @@ class Task {
         const target = event.target as HTMLElement;
         const card = target.parentElement as HTMLElement;
         card?.parentElement?.removeChild(document.getElementById(card.id) as HTMLElement);
-        Service.deleteItem(card.id);
+        TaskService.deleteItem(card.id);
     }
 }
 

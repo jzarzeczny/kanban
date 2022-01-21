@@ -68,14 +68,30 @@
     font-weight: 400;
 }
 
+.form__control {
+    margin-bottom: 2.5rem;
+    position: relative;
+}
+.form__control:last-of-type {
+    margin-bottom: 1rem;
+}
+
 .form__label {
     display: block;
     margin-bottom: 0.25rem;
 }
 
-.form__control > input {
+.form__input {
     padding: 0.5rem;
 }
+
+.form__input--error {
+    border-color: red;
+}
+.form__input--success {
+    border-color: green;
+}
+
 .form__control > textarea {
     width: 100%;
     min-height: 100px;
@@ -83,7 +99,13 @@
 
     resize: none;
 }
-
+.form__error {
+    color: red;
+    position: absolute;
+    bottom: -1.5rem;
+    left: 0;
+    font-weight: 300;
+}
 /* Custom radio buttons */
 .radio {
     margin-top: 1rem;

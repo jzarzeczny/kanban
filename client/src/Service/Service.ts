@@ -1,7 +1,4 @@
-import { TaskEdit, NewTaskObject, TaskObject } from "../validators/taskValidators";
-import { CategoryObject, NewCategoryObject } from "../validators/categoryValidators";
-
-class Service {
+abstract class Service {
     // static _instance: any;
 
     // // Singleton pattern implementation
@@ -11,13 +8,13 @@ class Service {
     //     }
     //     Service._instance = this;
     // }
-    static URL: string = "http://localhost:5002/mongo/";
 
-    static async addItem(
-        item: NewTaskObject | NewCategoryObject,
-        path: string = ""
-    ): Promise<string> {
-        const response = await fetch(`${this.URL}${path}`, {
+    static get url(): string {
+        return "";
+    }
+
+    static async addItem(item: any): Promise<string> {
+        const response = await fetch(`${this.url}`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -27,18 +24,18 @@ class Service {
         const body = await response.json();
         return body._id;
     }
-    static async deleteItem(itemID: string, path: string = "") {
-        await fetch(`${this.URL}${path}${itemID}`, {
+    static async deleteItem(itemID: string) {
+        await fetch(`${this.url}${itemID}`, {
             method: "DELETE",
         });
     }
-    static updateItem = async (item: TaskEdit, path: string = "") => {
+    static updateItem = async (item: any) => {
         const taskObject = {
             id: item.id,
             content: item.content,
             position: item.position,
         };
-        await fetch(`${this.URL}${path}${item.id}`, {
+        await fetch(`${this.url}${item.id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -47,14 +44,18 @@ class Service {
         });
     };
 
-    static async getData(path: string = "") {
+    static async getData(): Promise<any> {
         // declare return value as Promise<TaskEdit[]> | Promise<CategoryObject[]>
-        const data = await fetch(`${this.URL}${path}`)
+        const data = await fetch(`${this.url}`)
             .then((response) => response.json())
             .then((data) => {
                 return data;
             });
-        return data as CategoryObject[] | TaskObject[];
+        return data;
+        // TODO
+        // Generyk => getData(T):data(T)
+        //getData <T> () => as T[]
+        //getData<TaskObject>()
     }
 }
 
