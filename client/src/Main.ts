@@ -4,7 +4,7 @@ import { Form } from "./Form/Form";
 import { FormCreator } from "./Creator/FormCreator";
 import { CategoryCreator } from "./Creator/CategoryCreator";
 import { Container } from "./Container";
-import { Category } from "./Category";
+import { Category } from "./Category/Category";
 import { TaskObject } from "./validators/taskValidators";
 import { CategoryObject } from "./validators/categoryValidators";
 

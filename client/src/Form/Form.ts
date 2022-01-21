@@ -3,8 +3,9 @@ import { CategoryService } from "../Service/CategoryService";
 import { CardCreator } from "../Creator/CardCreator";
 import { TaskObject } from "../validators/taskValidators";
 import { NewCategoryObject, CategoryObject } from "../validators/categoryValidators";
-import { Category } from "../Category";
+import { Category } from "../Category/Category";
 import { FormValidator, FormError } from "./FormValidator";
+import { CategoryValidator } from "../Category/CategoryValidator";
 
 class Form {
     cardCreator = new CardCreator();
@@ -28,6 +29,8 @@ class Form {
     }
 
     static async addCategory(color: string, name: string): Promise<void> {
+        const canAddCategory = CategoryValidator.validateCategoryName(name);
+        if (canAddCategory === false) return;
         const newCategoryObject: NewCategoryObject = { color: color, name: name };
         const id: string = await CategoryService.addItem(newCategoryObject);
         const categoryObject: CategoryObject = { ...newCategoryObject, _id: id };
@@ -96,7 +99,7 @@ class Form {
         }
     }
 
-    onBlur(this: HTMLInputElement, ev: FocusEvent): void {
+    onBlur(this: HTMLInputElement): void {
         if (this.value.trim() !== "") {
             this.classList.remove("form__input--error");
             this.classList.add("form__input--success");

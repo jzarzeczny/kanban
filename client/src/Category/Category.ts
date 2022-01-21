@@ -1,5 +1,5 @@
-import { CategoryCreator } from "./Creator/CategoryCreator";
-import { CategoryService } from "./Service/CategoryService";
+import { CategoryCreator } from "../Creator/CategoryCreator";
+import { CategoryService } from "../Service/CategoryService";
 
 class Category {
     name: string;
