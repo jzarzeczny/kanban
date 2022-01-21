@@ -35,15 +35,16 @@ class Container {
         const id = dataNotNull(ev);
         const draggableElement = document.getElementById(id) as HTMLElement;
         const dropzone = ev.target as HTMLElement;
-
-        const taskObject: TaskEdit = {
-            id: draggableElement.id,
-        };
-        if (dropzone["classList"].contains("list__container")) {
-            dropzone.appendChild(draggableElement);
-            // Update the position of element in array
-            taskObject.position = dropzone.id as string;
-            TaskService.updateItem(taskObject);
+        if (draggableElement) {
+            const taskObject: TaskEdit = {
+                id: draggableElement.id,
+            };
+            if (dropzone["classList"].contains("list__container")) {
+                dropzone.appendChild(draggableElement);
+                // Update the position of element in array
+                taskObject.position = dropzone.id as string;
+                TaskService.updateItem(taskObject);
+            }
         }
     };
 
