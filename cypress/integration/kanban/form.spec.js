@@ -49,9 +49,9 @@ describe("Testing drag and drop", () => {
 
         // Make an input to test once the textarea class change occurs
         cy.get("#header")
-            .type("Task 1")
+            .type("Task 4")
             .blur()
-            .should("have.value", "Task 1")
+            .should("have.value", "Task 4")
             .should("have.class", "form__input--success");
         cy.get("#text")
             .type("lorem ipsum dori")
@@ -65,10 +65,10 @@ describe("Testing drag and drop", () => {
         cy.get(".radio > input").should("have.value", "#8ae1fc");
         cy.get(".submit--form").click();
         cy.get(".list__card:last-of-type").should("be.visible");
-        cy.get(".list__card:last-of-type h2").should("have.text", "Task 1");
+        cy.get(".list__card:last-of-type h2").should("have.text", "Task 4");
         cy.get(".list__card:last-of-type div").should("have.text", "lorem ipsum dori");
         cy.get(".list__card:last-of-type button").click();
-        cy.contains("Task 1").should("not.be.visible");
+        cy.contains("Task 4").should("not.exist");
         // Chain of event based on props (should be some lovely stuff in doc)
     });
 });

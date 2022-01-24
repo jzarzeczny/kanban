@@ -29,7 +29,7 @@ abstract class Service {
             method: "DELETE",
         });
     }
-    static updateItem = async (item: any) => {
+    static async updateItem(item: any) {
         const taskObject = {
             id: item.id,
             content: item.content,
@@ -42,7 +42,7 @@ abstract class Service {
             },
             body: JSON.stringify(taskObject),
         });
-    };
+    }
 
     static async getData(): Promise<any> {
         // declare return value as Promise<TaskEdit[]> | Promise<CategoryObject[]>

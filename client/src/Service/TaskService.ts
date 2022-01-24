@@ -12,7 +12,7 @@ class TaskService extends Service {
         Service.deleteItem(taskID as string);
     }
     public async updateItem(task: TaskEdit) {
-        Service.updateItem(task as TaskEdit);
+        return Service.updateItem(task as TaskEdit);
     }
     public async getData(): Promise<TaskObject[]> {
         return Service.getData();
