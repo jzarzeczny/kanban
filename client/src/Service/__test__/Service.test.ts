@@ -1,16 +1,15 @@
 import { TaskService } from "../TaskService";
 
-global.fetch = jest.fn(
-    (): Promise<any> =>
-        Promise.resolve({
-            json: () => Promise.resolve([]),
-        })
+global.fetch = jest.fn((): any =>
+    Promise.resolve({
+        json: () => Promise.resolve([]),
+    })
 );
 
 describe("TaskService", () => {
     beforeEach(() => {
         //@ts-ignore
-        fetch.mockClear() as any;
+        fetch.mockClear();
     });
     it("Gives response for GET request ", async () => {
         const data = await TaskService.getData();
