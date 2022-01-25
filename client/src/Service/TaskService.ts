@@ -9,10 +9,10 @@ class TaskService extends Service {
         return Service.addItem(item as TaskObject);
     }
     public async deleteItem(taskID: string) {
-        Service.deleteItem(taskID as string);
+        return Service.deleteItem(taskID as string);
     }
     public async updateItem(task: TaskEdit) {
-        Service.updateItem(task as TaskEdit);
+        return Service.updateItem(task as TaskEdit);
     }
     public async getData(): Promise<TaskObject[]> {
         return Service.getData();

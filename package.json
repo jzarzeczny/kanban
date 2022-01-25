@@ -4,12 +4,13 @@
     "description": "",
     "main": "dist/server.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "cd client && jest",
         "watch": "cd client && webpack --watch --config webpack.dev.js ",
         "server": "nodemon dist/server.js",
         "ts-server": "tsc src/",
         "dev": "tsc && nodemon dist/server",
-        "build": "cd client && webpack --config webpack.prod.js && cd .. && tsc && node dist/server"
+        "build": "cd client && webpack --config webpack.prod.js && cd .. && tsc && node dist/server",
+        "test:cypress": "cypress open"
     },
     "repository": {
         "type": "git",
@@ -23,11 +24,14 @@
     },
     "homepage": "https://gitlab.com/jkzarzeczny/kanban#readme",
     "devDependencies": {
+        "@4tw/cypress-drag-drop": "^2.1.0",
         "@types/express": "^4.17.13",
         "@types/mongoose": "^5.11.97",
         "@types/node": "^17.0.8",
         "css-loader": "^6.5.1",
+        "cypress": "^9.3.1",
         "html-webpack-plugin": "^5.5.0",
+        "jest": "^27.4.7",
         "nodemon": "^2.0.15",
         "style-loader": "^3.3.1",
         "ts-loader": "^9.2.6",
@@ -37,7 +41,6 @@
         "webpack-merge": "^5.8.0"
     },
     "dependencies": {
-        "async": "^3.2.3",
         "dotenv": "^11.0.0",
         "express": "^4.17.2",
         "mongoose": "^6.1.6"

@@ -1,14 +1,4 @@
 abstract class Service {
-    // static _instance: any;
-
-    // // Singleton pattern implementation
-    // constructor() {
-    //     if (Service._instance) {
-    //         return Service._instance;
-    //     }
-    //     Service._instance = this;
-    // }
-
     static get url(): string {
         return "";
     }
@@ -29,7 +19,7 @@ abstract class Service {
             method: "DELETE",
         });
     }
-    static updateItem = async (item: any) => {
+    static async updateItem(item: any) {
         const taskObject = {
             id: item.id,
             content: item.content,
@@ -42,7 +32,7 @@ abstract class Service {
             },
             body: JSON.stringify(taskObject),
         });
-    };
+    }
 
     static async getData(): Promise<any> {
         // declare return value as Promise<TaskEdit[]> | Promise<CategoryObject[]>
