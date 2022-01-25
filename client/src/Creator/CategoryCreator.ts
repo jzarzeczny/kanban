@@ -17,7 +17,7 @@ class CategoryCreator {
         );
     }
     static createCategoryInput() {
-        const target = document.querySelectorAll(".form__control")[1];
+        const target = document.querySelector(".form__control--category") as HTMLElement;
         target.insertAdjacentHTML(
             "afterend",
             `                                   <div id='category' class="form__control form__control--addCategory">

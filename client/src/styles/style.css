@@ -1,6 +1,7 @@
 @import "./form.css";
 @import "./card.css";
 @import "./list.css";
+@import "./userForm.css";
 :root {
     /* Colors */
     --bg-clr: #ddca7d;
@@ -36,6 +37,9 @@ h3,
 p {
     margin: 0;
     padding: 0;
+}
+#root {
+    position: relative;
 }
 
 /* Tablet style */
