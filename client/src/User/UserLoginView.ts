@@ -1,5 +1,5 @@
 class UserLoginView {
-    createUserLogin(): void {
+    createUserLogin(): HTMLElement {
         const userAuthRoot = document.querySelector(".authorization__container") as HTMLElement;
         userAuthRoot.insertAdjacentHTML(
             "beforeend",
@@ -20,7 +20,9 @@ class UserLoginView {
                     </form>
         `
         );
+        return document.querySelector(".form--user") as HTMLElement;
     }
 }
+// Zwrotka z typem w celu nadania eventlistnera na odpowiedni element
 
 export { UserLoginView };

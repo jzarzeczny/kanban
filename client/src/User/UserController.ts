@@ -5,35 +5,48 @@ import { UserRegisterView } from "./UserRegisterView";
 class UserController {
     userView = new UserView();
     userLoginView = new UserLoginView();
+    userRegisterView = new UserRegisterView();
 
-    switchToAnotherForm(this: HTMLElement): void {
+    switchToAnotherForm = (): void => {
+        // Arrow function to get rid of this -> solution
         const userView = new UserView();
-        const userLoginView = new UserLoginView();
-        const userRegisterView = new UserRegisterView();
-
+        const targetButton = document.querySelector(
+            ".authorization__button--nonactive"
+        ) as HTMLElement;
         const buttonsList: NodeListOf<HTMLElement> =
             document.querySelectorAll(`.authorization__button`);
         const siblingButton: HTMLElement = Array.from(buttonsList).filter(
             (button) => button.classList.length === 1
         )[0];
         userView.removeForm();
-        this.classList.remove("authorization__button--nonactive");
+        targetButton.classList.remove("authorization__button--nonactive");
         siblingButton.classList.add("authorization__button--nonactive");
 
-        this.setAttribute("disabled", "true");
+        targetButton.setAttribute("disabled", "true");
         siblingButton.removeAttribute("disabled");
-        if (this.textContent?.toLowerCase() === "register") {
-            userRegisterView.createUserRegister();
+        this.switchViewForm(targetButton.textContent as string);
+    };
+    // .bind() // .apply()
+
+    switchViewForm(type: string): void {
+        let formElement: HTMLElement;
+        if (type.toLowerCase() === "register") {
+            formElement = this.userRegisterView.createUserRegister();
         } else {
-            userLoginView.createUserLogin();
+            formElement = this.userLoginView.createUserLogin();
         }
+        formElement.addEventListener("submit", this.validateOnSubmit);
     }
 
     buttonsAddEventListeners(): void {
         const buttons = document.querySelectorAll(".authorization__button");
-        buttons.forEach((button) => {
+        buttons.forEach((button): void => {
             button.addEventListener("click", this.switchToAnotherForm);
         });
+    }
+
+    validateOnSubmit(e: Event) {
+        e.preventDefault();
     }
 
     init(): void {
