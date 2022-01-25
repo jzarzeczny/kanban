@@ -1,14 +1,4 @@
 abstract class Service {
-    // static _instance: any;
-
-    // // Singleton pattern implementation
-    // constructor() {
-    //     if (Service._instance) {
-    //         return Service._instance;
-    //     }
-    //     Service._instance = this;
-    // }
-
     static get url(): string {
         return "";
     }
