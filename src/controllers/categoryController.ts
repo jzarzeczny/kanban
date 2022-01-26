@@ -1,6 +1,6 @@
 import { categoryModel } from "../models/categoryModel";
 import { Request, Response } from "express";
-import { Category } from "../validators/taskValidators";
+import { Category } from "../validators/categoryValidators";
 
 // GET list of all categories
 const categoryList = async function (req: Request, res: Response): Promise<void> {
