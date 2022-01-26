@@ -1,11 +1,14 @@
 import { UserView } from "./UserView";
 import { UserLoginView } from "./UserLoginView";
 import { UserRegisterView } from "./UserRegisterView";
+import { UserFormInput, UserFormErrors } from "../validators/userValidators";
+import { UserModel } from "./UserModel";
 
 class UserController {
     userView = new UserView();
     userLoginView = new UserLoginView();
     userRegisterView = new UserRegisterView();
+    userModel = new UserModel();
 
     switchToAnotherForm = (): void => {
         // Arrow function to get rid of this -> solution
@@ -35,7 +38,7 @@ class UserController {
         } else {
             formElement = this.userLoginView.createUserLogin();
         }
-        formElement.addEventListener("submit", this.validateOnSubmit);
+        formElement.addEventListener("submit", this.getDataOnSubmit);
     }
 
     buttonsAddEventListeners(): void {
@@ -45,13 +48,73 @@ class UserController {
         });
     }
 
-    validateOnSubmit(e: Event) {
+    getDataOnSubmit = (e: SubmitEvent): void => {
         e.preventDefault();
+        const submitType = (e.submitter as HTMLInputElement).value;
+        const userFormElement = e.target as HTMLFormElement;
+        let userFormInputData: any;
+        if (submitType.toLowerCase() === "register") {
+            userFormInputData = {
+                user: (userFormElement[0] as HTMLInputElement).value,
+                password: (userFormElement[1] as HTMLInputElement).value,
+                password2: (userFormElement[2] as HTMLInputElement).value,
+            };
+        } else if (submitType.toLowerCase() === "login") {
+            userFormInputData = {
+                user: (userFormElement[0] as HTMLInputElement).value,
+                password: (userFormElement[1] as HTMLInputElement).value,
+            };
+        }
+        this.validateDataOnSubmit(userFormInputData);
+    };
+
+    validateDataOnSubmit(userFormInputData: UserFormInput) {
+        const error: any = new Object();
+        if (userFormInputData.user === "") {
+            error.user = {
+                message: "Provide a username",
+            };
+            // Case to cover later:
+            // - username taken
+            // - length
+        }
+        if (userFormInputData.password === "") {
+            error.password = {
+                message: "Provide a password",
+            };
+        }
+        if (userFormInputData.password2 === "") {
+            error.password2 = {
+                message: "Confirm password",
+            };
+        }
+        if (
+            userFormInputData.password2 &&
+            userFormInputData.password !== userFormInputData.password2
+        ) {
+            error.password = {
+                message: "Password must much",
+            };
+            error.password2 = {
+                message: "Password must much",
+            };
+        }
+        if (Object.keys(error).length === 0) {
+            this.userModel.submitTheUserForm(userFormInputData);
+        } else this.displayErrorMessage(error);
+    }
+
+    displayErrorMessage(errors: UserFormErrors): void {
+        for (const [error, value] of Object.entries(errors)) {
+            const message: string = value.message;
+            this.userView.displayErrorMessage(error, message);
+        }
     }
 
     init(): void {
         this.userView.createUserTemplate();
-        this.userLoginView.createUserLogin();
+        const formElement = this.userLoginView.createUserLogin();
+        formElement.addEventListener("submit", this.getDataOnSubmit);
         this.buttonsAddEventListeners();
     }
 }

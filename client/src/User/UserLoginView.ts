@@ -12,8 +12,8 @@ class UserLoginView {
                             <span class="form__error"></span>
                         </div>
                         <div class="form__control">
-                            <label for="Password" class="form__label">Password:</label>
-                            <input type="password" id="Password" class="form__input" />
+                            <label for="password" class="form__label">Password:</label>
+                            <input type="password" id="password" class="form__input" />
                             <span class="form__error"></span>
                         </div>
                         <input type="submit" class="submit submit--user" value="Login" />

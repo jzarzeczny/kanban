@@ -24,6 +24,21 @@ class UserView {
         ) as HTMLElement;
         formToBeRemoved.parentElement?.removeChild(formToBeRemoved);
     }
+
+    displayErrorMessage(element: string, errorMessage: string): void {
+        const elementToEvaluate = document.querySelector(`#${element}`) as HTMLInputElement;
+        const elementToEvaluateError = elementToEvaluate.nextElementSibling as HTMLElement;
+        elementToEvaluate.classList.add("form__input--error");
+        elementToEvaluateError.innerHTML = errorMessage;
+        this.onBlurWrongInput(elementToEvaluate, elementToEvaluateError);
+    }
+
+    onBlurWrongInput(element: HTMLInputElement, errorElement: HTMLElement): void {
+        element.addEventListener("blur", () => {
+            element.classList.remove("form__input--error");
+            errorElement.innerHTML = "";
+        });
+    }
 }
 
 export { UserView };
