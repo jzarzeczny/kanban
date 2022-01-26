@@ -18,14 +18,16 @@ const loginUser = async function (req: Request, res: Response) {
 const registerUser = async function (req: Request, res: Response) {
     let newUser = new userModel();
 
-    newUser.user = req.body.name;
+    newUser.user = req.body.user;
     newUser.setPassword(req.body.password);
 
     try {
         await newUser.save();
         return res.status(201).send({ message: "User added successfully" });
-    } catch (error) {
-        console.log(error);
+    } catch (error: any) {
+        if (error.code === 11000) {
+            return res.status(400).send({ message: "User already exists" });
+        }
         return res.status(400).send({ message: "Failed to add user" });
     }
 };

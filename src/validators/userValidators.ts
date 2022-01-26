@@ -1,6 +1,5 @@
 interface User {
-    user: string;
-    password: string;
+    user: { type: string; unique: boolean };
     hash: string;
     salt: string;
     setPassword: (password: string) => void;

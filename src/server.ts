@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.resolve(__dirname, "../dist/client")));
 app.use(PATH_TO_API, taskRouter);
-app.use(PATH_TO_API + userRouter);
+app.use(PATH_TO_API, userRouter);
 
 app.use(PATH_TO_API + "/category", categoryRouter);
 
