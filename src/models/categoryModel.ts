@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { Category } from "../validators/taskValidators";
+import { Category } from "../validators/categoryValidators";
 
 const CategorySchema = new Schema<Category>({
     color: String,

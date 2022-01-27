@@ -7,7 +7,6 @@ class CategoryValidator {
             return false as boolean;
         }
         const categoryContent = document.querySelectorAll(".radio") as NodeListOf<HTMLElement>;
-        console.log(categoryContent);
         const categoryContentArray: HTMLElement[] = Array.from(categoryContent);
         const isItContain: boolean[] = categoryContentArray.map(
             (categoryName: HTMLElement): boolean => {

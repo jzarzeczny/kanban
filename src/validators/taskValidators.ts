@@ -5,9 +5,4 @@ interface Task {
     position: number;
 }
 
-interface Category {
-    color: string;
-    name: string;
-}
-
-export { Task, Category };
+export { Task };

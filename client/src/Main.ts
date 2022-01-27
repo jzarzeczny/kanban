@@ -7,6 +7,7 @@ import { Container } from "./Container";
 import { Category } from "./Category/Category";
 import { TaskObject } from "./validators/taskValidators";
 import { CategoryObject } from "./validators/categoryValidators";
+import { UserController } from "./User/UserController";
 
 interface Data {
     tasksData: TaskObject[];
@@ -18,6 +19,7 @@ class Main {
 
     formCreator = new FormCreator();
     form = new Form();
+    userController = new UserController();
 
     columns: { id: string; name: string }[] = [
         {
@@ -34,15 +36,28 @@ class Main {
         },
     ];
 
-    createElements(): void {
+    async createElements() {
         if (this.root) {
             this.root.innerHTML = "";
-            this.formCreator.createForm(this.root);
+            await this.userController.initHTML();
         }
+        document.addEventListener("logged", () => {
+            this.userLoggedIn();
+        });
+    }
+
+    async userLoggedIn() {
+        this.formCreator.createForm(this.root);
+
         this.columns.forEach((column) => {
             const container = new Container(column.id, column.name);
             container.createContainer();
         });
+        const dataObject = await this.getData();
+        this.createTasks(dataObject.tasksData);
+        this.createCategories(dataObject.categoryData);
+        this.checkCategories(dataObject.categoryData);
+        this.bindEvents();
     }
 
     createTasks(tasksArray: TaskObject[]): void {
@@ -81,14 +96,8 @@ class Main {
         this.form.bindEvents();
         Category.bindEvents();
     }
-    async run() {
+    run() {
         this.createElements();
-        const dataObject = await this.getData();
-        this.createTasks(dataObject.tasksData);
-        this.createCategories(dataObject.categoryData);
-        this.checkCategories(dataObject.categoryData);
-        this.bindEvents();
     }
-    // Promise all
 }
 export { Main };

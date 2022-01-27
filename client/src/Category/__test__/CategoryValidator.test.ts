@@ -13,7 +13,6 @@ describe("Category validator test", () => {
     beforeEach(() => {
         dom = new JSDOM(html);
         global.document = dom.window.document;
-        // global.window = dom.window;
         document = dom.window.document;
         const root = document.querySelector("#root");
         root?.insertAdjacentHTML(
