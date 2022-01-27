@@ -1,19 +1,39 @@
 import { UserFormInput, UserServiceReturn } from "../validators/userValidators";
 import { UserService } from "../Service/UserService";
 import { UserView } from "./UserView";
-import { Main } from "../Main";
 
 class UserModel {
     userService = new UserService();
     userView = new UserView();
-
+    username: string = "";
     // userController = new UserController();
 
-    submitTheUserForm(userFormInputData: UserFormInput) {
+    async userModelRunner(userFormInputData: UserFormInput) {
+        let loginProcessDone;
+        const inputType = this.submitTheUserForm(userFormInputData);
+
+        if (inputType === "login") {
+            const loginServerResponse = await this.submitLogin(userFormInputData);
+            loginProcessDone = this.decisionMakingLogin(loginServerResponse);
+        } else if (inputType === "register") {
+            const registerServerResponse = await this.submitRegister(userFormInputData);
+            loginProcessDone = this.decisionMakingRegister(registerServerResponse);
+        } else {
+            alert("We have a situation here");
+        }
+        if (loginProcessDone) {
+            this.username = userFormInputData.user;
+        }
+        return loginProcessDone;
+    }
+
+    submitTheUserForm(userFormInputData: UserFormInput): string {
         if (Object.keys(userFormInputData).length === 2) {
-            this.submitLogin(userFormInputData);
+            return "login";
         } else if (Object.keys(userFormInputData).length === 3) {
-            this.submitRegister(userFormInputData);
+            return "register";
+        } else {
+            return "error";
         }
     }
     async submitLogin(userFormInputData: UserFormInput) {
@@ -21,7 +41,7 @@ class UserModel {
             user: userFormInputData.user,
             password: userFormInputData.password,
         });
-        this.decisionMakingLogin(serverResponse);
+        return serverResponse;
     }
 
     async submitRegister(userFormInputData: UserFormInput) {
@@ -29,42 +49,39 @@ class UserModel {
             user: userFormInputData.user,
             password: userFormInputData.password,
         });
-        this.decisionMakingRegister(serverResponse);
+        return serverResponse;
     }
 
-    decisionMakingLogin(serverResponse: UserServiceReturn) {
+    decisionMakingLogin(serverResponse: UserServiceReturn): boolean {
         switch (serverResponse.code) {
             case 201:
                 this.userView.removeUserTemplate();
-                break;
+                return true;
             case 400:
                 this.userView.displayErrorMessage("user", serverResponse.message);
-
-                break;
+                return false;
             case 401:
-                console.log("Invalid password");
                 this.userView.displayErrorMessage("password", serverResponse.message);
-
-                break;
+                return false;
             default:
                 this.userView.displayErrorMessage("user", "Crazy error happened");
-                break;
+                return false;
         }
     }
     decisionMakingRegister(serverResponse: UserServiceReturn) {
         switch (serverResponse.code) {
             case 201:
                 this.userView.removeUserTemplate();
-                break;
+                return true;
             case 400:
                 this.userView.displayErrorMessage("user", serverResponse.message);
-                break;
+                return false;
             case 401:
                 this.userView.displayErrorMessage("user", serverResponse.message);
-                break;
+                return false;
             default:
                 this.userView.displayErrorMessage("user", "Crazy error happened");
-                break;
+                return false;
         }
     }
 }

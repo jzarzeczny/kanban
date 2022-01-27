@@ -36,21 +36,28 @@ class Main {
         },
     ];
 
-    createElements(): void {
-        let logged: boolean = false;
+    async createElements() {
         if (this.root) {
             this.root.innerHTML = "";
-            this.userController.init();
+            await this.userController.initHTML();
         }
+        document.addEventListener("logged", () => {
+            this.userLoggedIn();
+        });
+    }
 
-        if (logged) {
-            this.formCreator.createForm(this.root);
+    async userLoggedIn() {
+        this.formCreator.createForm(this.root);
 
-            this.columns.forEach((column) => {
-                const container = new Container(column.id, column.name);
-                container.createContainer();
-            });
-        }
+        this.columns.forEach((column) => {
+            const container = new Container(column.id, column.name);
+            container.createContainer();
+        });
+        const dataObject = await this.getData();
+        this.createTasks(dataObject.tasksData);
+        this.createCategories(dataObject.categoryData);
+        this.checkCategories(dataObject.categoryData);
+        this.bindEvents();
     }
 
     createTasks(tasksArray: TaskObject[]): void {
@@ -89,13 +96,8 @@ class Main {
         this.form.bindEvents();
         Category.bindEvents();
     }
-    async run() {
+    run() {
         this.createElements();
-        // const dataObject = await this.getData();
-        // this.createTasks(dataObject.tasksData);
-        // this.createCategories(dataObject.categoryData);
-        // this.checkCategories(dataObject.categoryData);
-        // this.bindEvents();
     }
 }
 export { Main };

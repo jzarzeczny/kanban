@@ -5,6 +5,12 @@ import { UserFormInput, UserFormErrors } from "../validators/userValidators";
 import { UserModel } from "./UserModel";
 
 class UserController {
+    formSubmitted: boolean;
+
+    constructor() {
+        this.formSubmitted = false;
+    }
+
     userView = new UserView();
     userLoginView = new UserLoginView();
     userRegisterView = new UserRegisterView();
@@ -66,7 +72,7 @@ class UserController {
         this.validateDataOnSubmit(userFormInputData);
     };
 
-    validateDataOnSubmit(userFormInputData: UserFormInput) {
+    async validateDataOnSubmit(userFormInputData: UserFormInput) {
         const error: any = new Object();
         if (userFormInputData.user === "") {
             error.user = {
@@ -95,7 +101,10 @@ class UserController {
             };
         }
         if (Object.keys(error).length === 0) {
-            this.userModel.submitTheUserForm(userFormInputData);
+            const success = await this.userModel.userModelRunner(userFormInputData);
+            if (success) {
+                this.dispatchEventLoggedIn();
+            }
         } else this.displayErrorMessage(error);
     }
 
@@ -106,7 +115,13 @@ class UserController {
         }
     }
 
-    init(): void {
+    dispatchEventLoggedIn() {
+        const event = new Event("logged");
+        document.dispatchEvent(event);
+    }
+
+    // Inithtml
+    async initHTML() {
         this.userView.createUserTemplate();
         const formElement = this.userLoginView.createUserLogin();
         formElement.addEventListener("submit", this.getDataOnSubmit);
