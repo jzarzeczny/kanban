@@ -1,6 +1,5 @@
 class UserView {
     userAuthRoot = document.querySelector(".authorization__container") as HTMLElement;
-
     createUserTemplate(): void {
         const documentRoot = document.getElementById("root") as HTMLElement;
         documentRoot.insertAdjacentHTML(
@@ -38,6 +37,10 @@ class UserView {
             element.classList.remove("form__input--error");
             errorElement.innerHTML = "";
         });
+    }
+    removeUserTemplate() {
+        const userTemplate = document.querySelector(".authorization") as HTMLElement;
+        userTemplate.parentElement?.removeChild(userTemplate);
     }
 }
 

@@ -22,11 +22,11 @@ class UserRegisterView {
                             <span class="form__error"></span>
                         </div>
                         <input type="submit" class="submit submit--user" value="Register" />
+                    
                     </form>
         `
         );
         return document.querySelector(".form--user") as HTMLElement;
     }
 }
-// Zwrotka z typem w celu nadania eventlistnera na odpowiedni element
 export { UserRegisterView };

@@ -16,4 +16,9 @@ interface UserFormErrors {
     };
 }
 
-export { UserFormInput, UserFormErrors };
+interface UserServiceReturn {
+    message: string;
+    code: number;
+}
+
+export { UserFormInput, UserFormErrors, UserServiceReturn };

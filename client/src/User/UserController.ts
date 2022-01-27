@@ -11,7 +11,6 @@ class UserController {
     userModel = new UserModel();
 
     switchToAnotherForm = (): void => {
-        // Arrow function to get rid of this -> solution
         const userView = new UserView();
         const targetButton = document.querySelector(
             ".authorization__button--nonactive"
@@ -29,7 +28,6 @@ class UserController {
         siblingButton.removeAttribute("disabled");
         this.switchViewForm(targetButton.textContent as string);
     };
-    // .bind() // .apply()
 
     switchViewForm(type: string): void {
         let formElement: HTMLElement;
@@ -74,9 +72,6 @@ class UserController {
             error.user = {
                 message: "Provide a username",
             };
-            // Case to cover later:
-            // - username taken
-            // - length
         }
         if (userFormInputData.password === "") {
             error.password = {

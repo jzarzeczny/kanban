@@ -42,6 +42,7 @@ class Main {
             this.root.innerHTML = "";
             this.userController.init();
         }
+
         if (logged) {
             this.formCreator.createForm(this.root);
 
@@ -96,6 +97,5 @@ class Main {
         // this.checkCategories(dataObject.categoryData);
         // this.bindEvents();
     }
-    // Promise all
 }
 export { Main };
