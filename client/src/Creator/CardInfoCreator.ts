@@ -19,8 +19,12 @@ class CardInfoCreator {
         `
         );
     }
-    createTaskSingleInfo(taskId: string, taskSingleInformation: TaskInfo): void {
+    static createTaskSingleInfo(taskId: string, taskSingleInformation: TaskInfo): void {
         const listItem = document.querySelector(`.task__info__list--${taskId}`) as HTMLElement;
+
+        const date = new Date(taskSingleInformation.time);
+        const formattedDate = date.toLocaleDateString("pl-PL");
+        const formattedTime = date.toLocaleTimeString("pl-PL");
         listItem.insertAdjacentHTML(
             "beforeend",
             `
@@ -30,7 +34,7 @@ class CardInfoCreator {
       <p class='task__info__label'>Change:</p>
       <p>${taskSingleInformation.change}</p>
       <p class='task__info__label'>Time:</p>
-      <time>${taskSingleInformation.time}</time>
+      <time>${formattedTime} - ${formattedDate}</time>
     </li>
         `
         );

@@ -1,7 +1,6 @@
 import { userModel } from "../models/userModel";
 import { Request, Response } from "express";
 
-// Szukanie po nazwie uzytkownika
 const loginUser = async function (req: Request, res: Response) {
     const user = await userModel.findOne({ user: req.body.user });
     if (user === null) {

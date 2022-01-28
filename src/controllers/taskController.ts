@@ -20,6 +20,7 @@ const taskListCreate = async function (req: Request, res: Response): Promise<voi
         content: req.body.content,
         color: req.body.color,
         position: req.body.position,
+        editList: req.body.editList,
     });
     try {
         await task.save();

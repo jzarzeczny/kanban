@@ -5,18 +5,12 @@ import { UserFormInput, UserFormErrors } from "../validators/userValidators";
 import { UserModel } from "./UserModel";
 
 class UserController {
-    formSubmitted: boolean;
-
-    constructor() {
-        this.formSubmitted = false;
-    }
-
     userView = new UserView();
     userLoginView = new UserLoginView();
     userRegisterView = new UserRegisterView();
     userModel = new UserModel();
 
-    switchToAnotherForm = (): void => {
+    private switchToAnotherForm = (): void => {
         const userView = new UserView();
         const targetButton = document.querySelector(
             ".authorization__button--nonactive"
@@ -35,7 +29,7 @@ class UserController {
         this.switchViewForm(targetButton.textContent as string);
     };
 
-    switchViewForm(type: string): void {
+    private switchViewForm(type: string): void {
         let formElement: HTMLElement;
         if (type.toLowerCase() === "register") {
             formElement = this.userRegisterView.createUserRegister();
@@ -45,14 +39,14 @@ class UserController {
         formElement.addEventListener("submit", this.getDataOnSubmit);
     }
 
-    buttonsAddEventListeners(): void {
+    private buttonsAddEventListeners(): void {
         const buttons = document.querySelectorAll(".authorization__button");
         buttons.forEach((button): void => {
             button.addEventListener("click", this.switchToAnotherForm);
         });
     }
 
-    getDataOnSubmit = (e: SubmitEvent): void => {
+    private getDataOnSubmit = (e: SubmitEvent): void => {
         e.preventDefault();
         const submitType = (e.submitter as HTMLInputElement).value;
         const userFormElement = e.target as HTMLFormElement;
@@ -77,7 +71,7 @@ class UserController {
         return user;
     }
 
-    async validateDataOnSubmit(userFormInputData: UserFormInput) {
+    private async validateDataOnSubmit(userFormInputData: UserFormInput) {
         const error: any = new Object();
         if (userFormInputData.user === "") {
             error.user = {
@@ -113,14 +107,14 @@ class UserController {
         } else this.displayErrorMessage(error);
     }
 
-    displayErrorMessage(errors: UserFormErrors): void {
+    private displayErrorMessage(errors: UserFormErrors): void {
         for (const [error, value] of Object.entries(errors)) {
             const message: string = value.message;
             this.userView.displayErrorMessage(error, message);
         }
     }
 
-    dispatchEventLoggedIn() {
+    private dispatchEventLoggedIn() {
         const event = new Event("logged");
         document.dispatchEvent(event);
     }

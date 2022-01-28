@@ -1,9 +1,11 @@
 import { CardCreator } from "./Creator/CardCreator";
 import { TaskService } from "./Service/TaskService";
-import { TaskEdit, TaskObject } from "./validators/taskValidators";
+import { TaskEdit, TaskObject, TaskInfo } from "./validators/taskValidators";
 import { CardInfoCreator } from "./Creator/CardInfoCreator";
 
 class Task {
+    static editList: TaskInfo[] = [];
+
     static onDragStart(ev: DragEvent) {
         const element = ev.target as HTMLElement;
         ev.dataTransfer?.setData("text/plain", element.id);
@@ -36,11 +38,18 @@ class Task {
             task.color,
             _id
         );
+
+        this.editListOfTask = task.editList;
+
         task.position = task.position || "0";
         const properContainer = document.getElementById(task.position) as HTMLElement;
         if (properContainer) {
             properContainer.appendChild(taskElement);
         }
+    }
+
+    static set editListOfTask(editList: TaskInfo[]) {
+        this.editList = editList;
     }
 
     static removeTask(event: Event) {
@@ -51,10 +60,13 @@ class Task {
         TaskService.deleteItem(card.id);
     }
 
-    static showTaskInfo(event: MouseEvent): void {
+    static showTaskInfo = (event: MouseEvent): void => {
         const taskId: string = (event.relatedTarget as HTMLElement).id;
         CardInfoCreator.createTaskInfo(taskId);
-    }
+        this.editList.forEach((singleEditInformation: TaskInfo) => {
+            CardInfoCreator.createTaskSingleInfo(taskId, singleEditInformation);
+        });
+    };
     static removeTaskInfo(event: MouseEvent): void {
         const taskId: string = (event.relatedTarget as HTMLElement).id;
         CardInfoCreator.removeTaskInfo(taskId);
