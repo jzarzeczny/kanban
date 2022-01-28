@@ -3,10 +3,10 @@ import { TaskInfo } from "../validators/taskValidators";
 class TaskInfoCreator {
     static createTaskInfo(taskId: string) {
         const card = document.getElementById(taskId) as HTMLElement;
-
-        card.insertAdjacentHTML(
-            "beforeend",
-            `
+        if (!card.children[5]) {
+            card.insertAdjacentHTML(
+                "beforeend",
+                `
             
         <div class='task__info__container'>
   <h2 class='task__info__header'>Change log</h2>
@@ -17,8 +17,10 @@ class TaskInfoCreator {
 </div>
         
         `
-        );
+            );
+        }
     }
+
     static createTaskSingleInfo(taskId: string, taskSingleInformation: TaskInfo): void {
         const listItem = document.querySelector(`.task__info__list--${taskId}`) as HTMLElement;
 
@@ -49,6 +51,7 @@ class TaskInfoCreator {
     }
     static removeTaskInfo(taskId: string) {
         const card = document.getElementById(taskId) as HTMLElement;
+
         if (card.children[5]) {
             card.removeChild(card.children[5]);
         }

@@ -59,7 +59,6 @@ class Task {
         cardContainer.appendChild(cardButton);
         cardContainer.appendChild(cardInfo);
 
-        // Add the card to TODO section
         return cardContainer;
     }
 
@@ -111,6 +110,7 @@ class Task {
         TaskService.updateItem(taskObject);
         // TODO:
         // Blur does not have current element, it has old one. Need to grab it once again.
+        // Add the function that change the location of info based on the location of mouse or task
     };
 
     set editListOfTask(editList: TaskInfo[]) {
