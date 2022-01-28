@@ -1,13 +1,13 @@
 import { TaskService } from "./Service/TaskService";
 import { CategoryService } from "./Service/CategoryService";
 import { Form } from "./Form/Form";
-import { FormCreator } from "./Creator/FormCreator";
 import { CategoryCreator } from "./Creator/CategoryCreator";
 import { Container } from "./Container";
 import { Category } from "./Category/Category";
 import { TaskObject } from "./validators/taskValidators";
 import { CategoryObject } from "./validators/categoryValidators";
 import { UserController } from "./User/UserController";
+import { Task } from "./Task";
 
 interface Data {
     tasksData: TaskObject[];
@@ -16,8 +16,8 @@ interface Data {
 
 class Main {
     root = document.getElementById("root") as HTMLElement;
-
-    formCreator = new FormCreator();
+    // Store data of user here!
+    // Pass the user data by props!
     form = new Form();
     userController = new UserController();
 
@@ -36,18 +36,24 @@ class Main {
         },
     ];
 
-    async createElements() {
+    run() {
+        this.createElements();
+    }
+
+    private async createElements() {
         if (this.root) {
             this.root.innerHTML = "";
             await this.userController.initHTML();
         }
         document.addEventListener("logged", () => {
-            this.userLoggedIn();
+            const user: string = this.userController.returnUserData();
+            this.userLoggedIn(user);
         });
     }
 
-    async userLoggedIn() {
-        this.formCreator.createForm(this.root);
+    private async userLoggedIn(user: string) {
+        this.form.createForm(this.root);
+        this.form.userName = user;
 
         this.columns.forEach((column) => {
             const container = new Container(column.id, column.name);
@@ -60,25 +66,7 @@ class Main {
         this.bindEvents();
     }
 
-    createTasks(tasksArray: TaskObject[]): void {
-        tasksArray.forEach((task: TaskObject) => Form.addTask(task));
-    }
-
-    createCategories(categoriesArray: CategoryObject[]): void {
-        categoriesArray.forEach((category: CategoryObject) => {
-            const categoryInstance = new Category(category.name, category._id, category.color);
-            categoryInstance.categoryCreate();
-        });
-    }
-
-    checkCategories(categoriesArray: CategoryObject[]): void {
-        if (categoriesArray && categoriesArray.length <= 4) {
-            CategoryCreator.createCategoryInput();
-        }
-        Category.checkCategoryLength();
-    }
-
-    async getData(): Promise<Data> {
+    private async getData(): Promise<Data> {
         const [taskArray, categoryArray] = await Promise.all([
             TaskService.getData(),
             CategoryService.getData(),
@@ -92,12 +80,27 @@ class Main {
         return dataObject;
     }
 
-    bindEvents(): void {
+    private createTasks(tasksArray: TaskObject[]): void {
+        tasksArray.forEach((task: TaskObject) => Task.addTask(task));
+    }
+
+    private createCategories(categoriesArray: CategoryObject[]): void {
+        categoriesArray.forEach((category: CategoryObject) => {
+            const categoryInstance = new Category(category.name, category._id, category.color);
+            categoryInstance.categoryCreate();
+        });
+    }
+
+    private checkCategories(categoriesArray: CategoryObject[]): void {
+        if (categoriesArray && categoriesArray.length <= 4) {
+            CategoryCreator.createCategoryInput();
+        }
+        Category.checkCategoryLength();
+    }
+
+    private bindEvents(): void {
         this.form.bindEvents();
         Category.bindEvents();
-    }
-    run() {
-        this.createElements();
     }
 }
 export { Main };

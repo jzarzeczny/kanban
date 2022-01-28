@@ -1,5 +1,7 @@
+import { CardCreator } from "./Creator/CardCreator";
 import { TaskService } from "./Service/TaskService";
-import { TaskEdit } from "./validators/taskValidators";
+import { TaskEdit, TaskObject } from "./validators/taskValidators";
+import { CardInfoCreator } from "./Creator/CardInfoCreator";
 
 class Task {
     static onDragStart(ev: DragEvent) {
@@ -7,14 +9,14 @@ class Task {
         ev.dataTransfer?.setData("text/plain", element.id);
     }
 
-    static editCard(event: Event) {
+    static editTask(event: Event) {
         const eventElement = event.target as HTMLElement;
         let id: string = "";
         if (eventElement.parentElement) {
             id = eventElement.parentElement.id;
         }
         const element = document.getElementById(id) as HTMLElement;
-        const editableDiv = element?.children[1] as HTMLElement;
+        const editableDiv = element.children[1] as HTMLElement;
         editableDiv.onblur = (): void => {
             const taskObject: TaskEdit = {
                 id: element.id,
@@ -23,13 +25,39 @@ class Task {
             TaskService.updateItem(taskObject);
         };
     }
+    static async addTask(task: TaskObject, fresh: boolean = false): Promise<void> {
+        let _id: string = task._id;
+        if (fresh) {
+            _id = await TaskService.addItem(task);
+        }
+        const taskElement: HTMLElement = CardCreator.createTaskCard(
+            task.header,
+            task.content,
+            task.color,
+            _id
+        );
+        task.position = task.position || "0";
+        const properContainer = document.getElementById(task.position) as HTMLElement;
+        if (properContainer) {
+            properContainer.appendChild(taskElement);
+        }
+    }
 
-    static removeCard(event: Event) {
+    static removeTask(event: Event) {
         event.preventDefault();
         const target = event.target as HTMLElement;
         const card = target.parentElement as HTMLElement;
         card?.parentElement?.removeChild(document.getElementById(card.id) as HTMLElement);
         TaskService.deleteItem(card.id);
+    }
+
+    static showTaskInfo(event: MouseEvent): void {
+        const taskId: string = (event.relatedTarget as HTMLElement).id;
+        CardInfoCreator.createTaskInfo(taskId);
+    }
+    static removeTaskInfo(event: MouseEvent): void {
+        const taskId: string = (event.relatedTarget as HTMLElement).id;
+        CardInfoCreator.removeTaskInfo(taskId);
     }
 }
 

@@ -72,6 +72,11 @@ class UserController {
         this.validateDataOnSubmit(userFormInputData);
     };
 
+    returnUserData(): string {
+        const user = this.userModel.currentUserData;
+        return user;
+    }
+
     async validateDataOnSubmit(userFormInputData: UserFormInput) {
         const error: any = new Object();
         if (userFormInputData.user === "") {
@@ -120,7 +125,6 @@ class UserController {
         document.dispatchEvent(event);
     }
 
-    // Inithtml
     async initHTML() {
         this.userView.createUserTemplate();
         const formElement = this.userLoginView.createUserLogin();

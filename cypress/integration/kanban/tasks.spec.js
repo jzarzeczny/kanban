@@ -55,8 +55,11 @@ const mockedTasks = [
 describe("Testing tasks", () => {
     before(() => {
         cy.visit("/");
-        cy.wait(1000);
 
+        cy.get("#user").type("test1");
+        cy.get("#password").type("12345");
+        cy.get(".submit--user").click();
+        cy.wait(1000);
         cy.document().then((doc) => {
             const deleteTasks = doc.querySelectorAll(".card_button--remove");
             const deleteButtons = doc.querySelectorAll(".radio__delete");
@@ -103,8 +106,8 @@ describe("Testing tasks", () => {
             const firstElementOfArray = taskCardArrId[0];
 
             cy.get(".add__open").click();
-            cy.get(`#${firstElementOfArray}`).trigger("dragstart", { dataTransfer });
-            cy.get("#2").trigger("drop", { dataTransfer }); // waitForAnimations - walk around - does not work :) waitForAnimations: true
+            cy.get(`#${firstElementOfArray}`).trigger("dragstart", { force: true, dataTransfer });
+            cy.get("#2").trigger("drop", { force: true, dataTransfer }); // waitForAnimations - walk around - does not work :) waitForAnimations: true
             // cy.get(`#${firstElementOfArray}`).trigger("dragend"); - walk around - does not work
             // cy.contains("Task f").parent().drag("#2"); - plugin - does not work
 

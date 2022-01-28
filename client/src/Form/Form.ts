@@ -1,30 +1,18 @@
-import { TaskService } from "../Service/TaskService";
 import { CardCreator } from "../Creator/CardCreator";
-import { TaskObject } from "../validators/taskValidators";
+import { TaskInfo, TaskObject } from "../validators/taskValidators";
+import { Task } from "../Task";
 import { FormValidator, FormError } from "./FormValidator";
+import { UserController } from "../User/UserController";
+import { FormCreator } from "../Creator/FormCreator";
 
 class Form {
     cardCreator = new CardCreator();
+    userController = new UserController();
+    formCreator = new FormCreator();
 
-    static async addTask(task: TaskObject, fresh: boolean = false): Promise<void> {
-        let _id: string = task._id;
-        if (fresh) {
-            _id = await TaskService.addItem(task);
-        }
-        const taskElement: HTMLElement = CardCreator.createTaskCard(
-            task.header,
-            task.content,
-            task.color,
-            _id
-        );
-        task.position = task.position || "0";
-        const properContainer = document.getElementById(task.position) as HTMLElement;
-        if (properContainer) {
-            properContainer.appendChild(taskElement);
-        }
-    }
+    _user: string = "";
 
-    handleFormInput(this: HTMLFormElement, ev: SubmitEvent): void {
+    handleFormInput = (ev: SubmitEvent): void => {
         if (ev.submitter && ev.submitter.classList.contains("submit--form")) {
             ev.preventDefault();
             const error = Form.validateFormInput();
@@ -38,13 +26,22 @@ class Form {
             ).value;
             const _id: string = "";
 
+            const editInfo: TaskInfo = {
+                author: this._user,
+                change: content,
+                time: Date.now(),
+            };
+            // Flax
             const newTask: TaskObject = {
                 header,
                 content,
                 color,
                 _id,
+                editList: [],
             };
-            Form.addTask(newTask, true);
+            newTask.editList.push(editInfo);
+            console.log(newTask);
+            Task.addTask(newTask, true);
             const form = document.getElementById("form") as HTMLFormElement;
 
             form.parentElement?.classList.toggle("add__container--open");
@@ -52,7 +49,7 @@ class Form {
 
             form.reset();
         }
-    }
+    };
 
     static validateFormInput(): boolean {
         const formValidator = new FormValidator();
@@ -95,6 +92,14 @@ class Form {
         button.addEventListener("click", this.toggleClass);
         form.addEventListener("submit", this.handleFormInput);
     };
+
+    createForm(target: HTMLElement) {
+        this.formCreator.createForm(target);
+    }
+
+    set userName(user: string) {
+        this._user = user;
+    }
 }
 
 export { Form };

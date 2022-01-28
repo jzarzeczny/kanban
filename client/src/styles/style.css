@@ -2,6 +2,7 @@
 @import "./card.css";
 @import "./list.css";
 @import "./userForm.css";
+@import "./cardInfo.css";
 :root {
     /* Colors */
     --bg-clr: #ddca7d;
@@ -34,7 +35,8 @@ body {
 h1,
 h2,
 h3,
-p {
+p,
+ul {
     margin: 0;
     padding: 0;
 }

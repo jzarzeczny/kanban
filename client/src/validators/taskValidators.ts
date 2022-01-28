@@ -7,6 +7,7 @@ interface NewTaskObject {
 
 interface TaskObject extends NewTaskObject {
     _id: string;
+    editList: TaskInfo[];
 }
 
 interface TaskEdit {
@@ -15,4 +16,10 @@ interface TaskEdit {
     position?: string;
 }
 
-export { TaskObject, NewTaskObject, TaskEdit };
+interface TaskInfo {
+    author: string;
+    change: string;
+    time: number;
+}
+
+export { TaskObject, NewTaskObject, TaskEdit, TaskInfo };
