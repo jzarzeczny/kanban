@@ -4,14 +4,29 @@ import { TaskEdit, TaskObject, TaskInfo } from "./validators/taskValidators";
 import { CardInfoCreator } from "./Creator/CardInfoCreator";
 
 class Task {
-    static editList: TaskInfo[] = [];
+    header: string;
+    content: string;
+    color: string;
+    position: string;
+    _id: string;
+    editList: TaskInfo[];
+    constructor(taskData: TaskObject) {
+        this.header = taskData.header;
+        this.content = taskData.content;
+        this.color = taskData.color;
+        this.position = taskData.position || "0";
+        this._id = taskData._id || "";
+        this.editList = taskData.editList;
+    }
 
-    static onDragStart(ev: DragEvent) {
+    cardCreator = new CardCreator();
+
+    onDragStart(ev: DragEvent) {
         const element = ev.target as HTMLElement;
         ev.dataTransfer?.setData("text/plain", element.id);
     }
 
-    static editTask(event: Event) {
+    editTask(event: Event) {
         const eventElement = event.target as HTMLElement;
         let id: string = "";
         if (eventElement.parentElement) {
@@ -27,32 +42,59 @@ class Task {
             TaskService.updateItem(taskObject);
         };
     }
-    static async addTask(task: TaskObject, fresh: boolean = false): Promise<void> {
-        let _id: string = task._id;
+    async addTask(fresh: boolean = false): Promise<void> {
+        const taskObject = this.createTaskObject();
         if (fresh) {
-            _id = await TaskService.addItem(task);
+            const newId = await TaskService.addItem(taskObject);
+            this._id = newId;
+            taskObject._id = newId;
         }
-        const taskElement: HTMLElement = CardCreator.createTaskCard(
-            task.header,
-            task.content,
-            task.color,
-            _id
-        );
+        const taskElement: HTMLElement = this.createTaskElement();
 
-        this.editListOfTask = task.editList;
-
-        task.position = task.position || "0";
-        const properContainer = document.getElementById(task.position) as HTMLElement;
+        const properContainer = document.getElementById(this.position) as HTMLElement;
         if (properContainer) {
             properContainer.appendChild(taskElement);
         }
     }
+    createTaskObject(): TaskObject {
+        const taskObject = {
+            header: this.header,
+            content: this.content,
+            color: this.color,
+            _id: this._id,
+            editList: this.editList,
+        };
+        return taskObject;
+    }
 
-    static set editListOfTask(editList: TaskInfo[]) {
+    createTaskElement(): HTMLElement {
+        const cardContainer = this.cardCreator.createCardContainer(this.color, this._id);
+        cardContainer.addEventListener("dragstart", this.onDragStart);
+
+        const cardHeader = this.cardCreator.createCardHeader(this.header);
+        const cardContent = this.cardCreator.createCardContent(this.content);
+        cardContent.addEventListener("click", this.editTask);
+        const cardButton = this.cardCreator.createCardButton();
+        cardButton.addEventListener("click", this.removeTask);
+
+        const cardInfo = this.cardCreator.createCardInfo();
+        cardInfo.addEventListener("mouseover", this.showTaskInfo);
+        cardInfo.addEventListener("mouseout", this.removeTaskInfo);
+
+        cardContainer.appendChild(cardHeader);
+        cardContainer.appendChild(cardContent);
+        cardContainer.appendChild(cardButton);
+        cardContainer.appendChild(cardInfo);
+
+        // Add the card to TODO section
+        return cardContainer;
+    }
+
+    set editListOfTask(editList: TaskInfo[]) {
         this.editList = editList;
     }
 
-    static removeTask(event: Event) {
+    removeTask(event: Event) {
         event.preventDefault();
         const target = event.target as HTMLElement;
         const card = target.parentElement as HTMLElement;
@@ -60,14 +102,14 @@ class Task {
         TaskService.deleteItem(card.id);
     }
 
-    static showTaskInfo = (event: MouseEvent): void => {
+    showTaskInfo = (event: MouseEvent): void => {
         const taskId: string = (event.relatedTarget as HTMLElement).id;
         CardInfoCreator.createTaskInfo(taskId);
         this.editList.forEach((singleEditInformation: TaskInfo) => {
             CardInfoCreator.createTaskSingleInfo(taskId, singleEditInformation);
         });
     };
-    static removeTaskInfo(event: MouseEvent): void {
+    removeTaskInfo(event: MouseEvent): void {
         const taskId: string = (event.relatedTarget as HTMLElement).id;
         CardInfoCreator.removeTaskInfo(taskId);
     }

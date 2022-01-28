@@ -81,7 +81,10 @@ class Main {
     }
 
     private createTasks(tasksArray: TaskObject[]): void {
-        tasksArray.forEach((task: TaskObject) => Task.addTask(task));
+        tasksArray.forEach((task: TaskObject) => {
+            const taskInstance = new Task(task);
+            taskInstance.addTask();
+        });
     }
 
     private createCategories(categoriesArray: CategoryObject[]): void {
