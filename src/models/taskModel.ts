@@ -6,6 +6,8 @@ const TaskModelSchema = new Schema<Task>({
     content: String,
     color: String,
     position: Number,
+    author: String,
+
     editList: [
         {
             author: String,

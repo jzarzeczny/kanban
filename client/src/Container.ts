@@ -34,7 +34,7 @@ class Container {
         const dropzone = ev.target as HTMLElement;
         if (draggableElement) {
             const taskObject: TaskEdit = {
-                id: draggableElement.id,
+                _id: draggableElement.id,
             };
             if (dropzone["classList"].contains("list__container")) {
                 dropzone.appendChild(draggableElement);

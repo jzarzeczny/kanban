@@ -21,11 +21,12 @@ abstract class Service {
     }
     static async updateItem(item: any) {
         const taskObject = {
-            id: item.id,
+            id: item._id,
             content: item.content,
             position: item.position,
+            editList: item.editList,
         };
-        await fetch(`${this.url}${item.id}`, {
+        await fetch(`${this.url}${item._id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",

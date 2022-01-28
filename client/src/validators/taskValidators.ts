@@ -2,6 +2,7 @@ interface NewTaskObject {
     header: string;
     content: string;
     color: string;
+    author: string;
     position?: string;
 }
 
@@ -11,9 +12,10 @@ interface TaskObject extends NewTaskObject {
 }
 
 interface TaskEdit {
-    id: string;
+    _id: string;
     content?: string;
     position?: string;
+    editList?: TaskInfo[];
 }
 
 interface TaskInfo {

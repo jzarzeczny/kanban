@@ -81,8 +81,9 @@ class Main {
     }
 
     private createTasks(tasksArray: TaskObject[]): void {
+        const currentUser = this.userController.returnUserData();
         tasksArray.forEach((task: TaskObject) => {
-            const taskInstance = new Task(task);
+            const taskInstance = new Task(task, currentUser);
             taskInstance.addTask();
         });
     }

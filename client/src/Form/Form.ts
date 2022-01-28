@@ -1,4 +1,4 @@
-import { CardCreator } from "../Creator/CardCreator";
+import { CardCreator } from "../Creator/TaskCreator";
 import { NewTaskObject, TaskInfo, TaskObject } from "../validators/taskValidators";
 import { Task } from "../Task";
 import { FormValidator, FormError } from "./FormValidator";
@@ -34,7 +34,7 @@ class Form {
             };
             newTask.editList.push(editInfo);
 
-            const task = new Task(newTask);
+            const task = new Task(newTask, this._user);
 
             task.addTask(true);
             const form = document.getElementById("form") as HTMLFormElement;
@@ -56,6 +56,7 @@ class Form {
             header: header,
             content: content,
             color: color,
+            author: this._user,
         };
     }
 

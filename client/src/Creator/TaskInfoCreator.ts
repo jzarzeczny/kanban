@@ -1,6 +1,6 @@
 import { TaskInfo } from "../validators/taskValidators";
 
-class CardInfoCreator {
+class TaskInfoCreator {
     static createTaskInfo(taskId: string) {
         const card = document.getElementById(taskId) as HTMLElement;
 
@@ -26,23 +26,33 @@ class CardInfoCreator {
         const formattedDate = date.toLocaleDateString("pl-PL");
         const formattedTime = date.toLocaleTimeString("pl-PL");
         listItem.insertAdjacentHTML(
-            "beforeend",
+            "afterbegin",
             `
                 <li class='task__info__listItem'>
-      <p class='task__info__label'>Author:</h>
-      <p>${taskSingleInformation.author}</p>
+                <div task__info__line>
+                      <p class='task__info__label'>Author:</h>
+      <p class='task__info__content'>${taskSingleInformation.author}</p>
+                </div>
+    <div task__info__line>
       <p class='task__info__label'>Change:</p>
-      <p>${taskSingleInformation.change}</p>
-      <p class='task__info__label'>Time:</p>
-      <time>${formattedTime} - ${formattedDate}</time>
+      <p class='task__info__content'>${taskSingleInformation.change}</p>
+    </div>
+    <div task__info__line>
+          <p class='task__info__label'>Time:</p>
+      <time class='task__info__content'>${formattedTime} - ${formattedDate}</time>
+
+    </div>
+
     </li>
         `
         );
     }
     static removeTaskInfo(taskId: string) {
         const card = document.getElementById(taskId) as HTMLElement;
-        card.removeChild(card.children[4]);
+        if (card.children[5]) {
+            card.removeChild(card.children[5]);
+        }
     }
 }
 
-export { CardInfoCreator };
+export { TaskInfoCreator as CardInfoCreator };

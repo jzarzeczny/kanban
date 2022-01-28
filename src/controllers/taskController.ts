@@ -19,6 +19,7 @@ const taskListCreate = async function (req: Request, res: Response): Promise<voi
         header: req.body.header,
         content: req.body.content,
         color: req.body.color,
+        author: req.body.author,
         position: req.body.position,
         editList: req.body.editList,
     });
