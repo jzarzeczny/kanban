@@ -2,8 +2,6 @@ import { Schema, model } from "mongoose";
 import { User } from "../validators/userValidators";
 import crypto from "crypto";
 
-// interface UserInstanceCreation extends Model<User> {}
-
 const UserSchema = new Schema<User>({
     user: {
         type: String,

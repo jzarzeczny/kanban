@@ -23,6 +23,5 @@ class UserLoginView {
         return document.querySelector(".form--user") as HTMLElement;
     }
 }
-// Zwrotka z typem w celu nadania eventlistnera na odpowiedni element
 
 export { UserLoginView };

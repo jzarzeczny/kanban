@@ -36,17 +36,12 @@ abstract class Service {
     }
 
     static async getData(): Promise<any> {
-        // declare return value as Promise<TaskEdit[]> | Promise<CategoryObject[]>
         const data = await fetch(`${this.url}`)
             .then((response) => response.json())
             .then((data) => {
                 return data;
             });
         return data;
-        // TODO
-        // Generyk => getData(T):data(T)
-        //getData <T> () => as T[]
-        //getData<TaskObject>()
     }
 }
 

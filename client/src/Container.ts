@@ -78,7 +78,6 @@ class Container {
             `.list--${this.id}  .list__header  .header__counter  .header__number`
         ) as HTMLElement;
 
-        // Todo take as an id
         if (counter) {
             const numberOfTasks: number = this.getNumberOfTasks();
             counter.innerHTML = numberOfTasks.toString();

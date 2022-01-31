@@ -7,7 +7,7 @@ import path from "path";
 import * as dotenv from "dotenv";
 
 dotenv.config({ path: path.resolve(__dirname, "../config.env") });
-//
+
 const app = express();
 const PORT = process.env.PORT || 5002;
 

@@ -1,5 +1,4 @@
 import { CategoryValidator } from "../CategoryValidator";
-// import { CategoryCreator } from "../../Creator/CategoryCreator";
 import { JSDOM } from "jsdom";
 import * as fs from "fs";
 import path from "path";

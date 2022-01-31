@@ -12,10 +12,6 @@ class UserModel {
     userService = new UserService();
     userView = new UserView();
     username: string = "";
-    // userController = new UserController();
-
-    // Methods have to be private, once they are used in the class only
-
     async userModelRunner(userFormInputData: UserFormInput) {
         let loginProcessDone;
         const inputType: string = this.submitTheUserForm(userFormInputData);
