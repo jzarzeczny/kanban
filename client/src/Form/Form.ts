@@ -38,7 +38,6 @@ class Form {
             change: initialTaskObject.content,
             time: Date.now(),
         };
-        // Flax
         const finalTaskObject: TaskObject = {
             ...initialTaskObject,
             _id: "",
