@@ -1,8 +1,5 @@
 class CategoryValidator {
     static validateCategoryName(newCategoryName: string): boolean {
-        // TODO: validate the replication of category name
-        //  - to lower case!
-        //  - no empty category!
         if (newCategoryName.trim() === "") {
             return false as boolean;
         }

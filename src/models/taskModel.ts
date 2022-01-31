@@ -6,6 +6,15 @@ const TaskModelSchema = new Schema<Task>({
     content: String,
     color: String,
     position: Number,
+    author: String,
+
+    editList: [
+        {
+            author: String,
+            change: String,
+            time: Number,
+        },
+    ],
 });
 const taskModel = model("TaskModel", TaskModelSchema);
 export { taskModel };

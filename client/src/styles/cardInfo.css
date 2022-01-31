@@ -1,0 +1,36 @@
+.task__info__container {
+    position: absolute;
+    left: 100%;
+    top: 0;
+    border: 1px solid black;
+    background: #fff;
+    padding: 1rem;
+    border-radius: 8px;
+    min-width: 200px;
+    z-index: 99;
+    font-size: 12px;
+    font-weight: 300;
+}
+
+.task__info__header {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+.task__info__list {
+    list-style: none;
+}
+.task__info__list > * {
+    margin-top: 1rem;
+}
+.task__info__listItem > * {
+    margin-bottom: 0.5rem;
+}
+
+.task__info__label {
+    margin-bottom: 0.25rem;
+    display: inline;
+    font-weight: 400;
+}
+.task__info__content {
+    display: inline-block;
+}

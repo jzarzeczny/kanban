@@ -1,50 +1,27 @@
-import { TaskService } from "../Service/TaskService";
-import { CardCreator } from "../Creator/CardCreator";
-import { TaskObject } from "../validators/taskValidators";
+import { NewTaskObject, TaskInfo, TaskObject } from "../validators/taskValidators";
+import { Task } from "../Task";
 import { FormValidator, FormError } from "./FormValidator";
+import { UserController } from "../User/UserController";
+import { FormCreator } from "../Creator/FormCreator";
 
 class Form {
-    cardCreator = new CardCreator();
+    userController = new UserController();
+    formCreator = new FormCreator();
 
-    static async addTask(task: TaskObject, fresh: boolean = false): Promise<void> {
-        let _id: string = task._id;
-        if (fresh) {
-            _id = await TaskService.addItem(task);
-        }
-        const taskElement: HTMLElement = CardCreator.createTaskCard(
-            task.header,
-            task.content,
-            task.color,
-            _id
-        );
-        task.position = task.position || "0";
-        const properContainer = document.getElementById(task.position) as HTMLElement;
-        if (properContainer) {
-            properContainer.appendChild(taskElement);
-        }
-    }
+    _user: string = "";
 
-    handleFormInput(this: HTMLFormElement, ev: SubmitEvent): void {
+    handleFormInput = (ev: SubmitEvent): void => {
         if (ev.submitter && ev.submitter.classList.contains("submit--form")) {
             ev.preventDefault();
             const error = Form.validateFormInput();
             if (error) return;
             const inputElement = ev.target as HTMLFormElement;
 
-            const header: string = (inputElement[0] as HTMLInputElement).value;
-            const content: string = (inputElement[1] as HTMLInputElement).value;
-            const color: string = (
-                document.querySelector("input[name='color']:checked") as HTMLInputElement
-            ).value;
-            const _id: string = "";
+            const taskObject = this.createInputObject(inputElement);
 
-            const newTask: TaskObject = {
-                header,
-                content,
-                color,
-                _id,
-            };
-            Form.addTask(newTask, true);
+            const task = new Task(taskObject, this._user);
+
+            task.addTask(true);
             const form = document.getElementById("form") as HTMLFormElement;
 
             form.parentElement?.classList.toggle("add__container--open");
@@ -52,6 +29,36 @@ class Form {
 
             form.reset();
         }
+    };
+
+    createInputObject(inputElement: HTMLFormElement): TaskObject {
+        const initialTaskObject = this.getDataFromInput(inputElement);
+        const editInfo: TaskInfo = {
+            author: this._user,
+            change: initialTaskObject.content,
+            time: Date.now(),
+        };
+        const finalTaskObject: TaskObject = {
+            ...initialTaskObject,
+            _id: "",
+            editList: [],
+        };
+        finalTaskObject.editList.push(editInfo);
+        return finalTaskObject;
+    }
+
+    private getDataFromInput(formElement: HTMLFormElement): NewTaskObject {
+        const header: string = (formElement[0] as HTMLInputElement).value;
+        const content: string = (formElement[1] as HTMLInputElement).value;
+        const color: string = (
+            document.querySelector("input[name='color']:checked") as HTMLInputElement
+        ).value;
+        return {
+            header: header,
+            content: content,
+            color: color,
+            author: this._user,
+        };
     }
 
     static validateFormInput(): boolean {
@@ -95,6 +102,14 @@ class Form {
         button.addEventListener("click", this.toggleClass);
         form.addEventListener("submit", this.handleFormInput);
     };
+
+    createForm(target: HTMLElement) {
+        this.formCreator.createForm(target);
+    }
+
+    set userName(user: string) {
+        this._user = user;
+    }
 }
 
 export { Form };

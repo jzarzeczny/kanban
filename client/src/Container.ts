@@ -32,18 +32,20 @@ class Container {
         const id = ev.dataTransfer.getData("text/plain") as string;
         const draggableElement = document.getElementById(id) as HTMLElement;
         const dropzone = ev.target as HTMLElement;
-        if (draggableElement) {
-            const taskObject: TaskEdit = {
-                id: draggableElement.id,
-            };
-            if (dropzone["classList"].contains("list__container")) {
-                dropzone.appendChild(draggableElement);
-                // Update the position of element in array
-                taskObject.position = dropzone.id as string;
-                TaskService.updateItem(taskObject);
-            }
-        }
+        if (!draggableElement) return;
+        this.updateTaskPositionOnDrop(dropzone, draggableElement);
     };
+
+    updateTaskPositionOnDrop(dropzone: HTMLElement, draggableElement: HTMLElement) {
+        if (dropzone["classList"].contains("list__container")) {
+            const taskObject: TaskEdit = {
+                _id: draggableElement.id,
+            };
+            dropzone.appendChild(draggableElement);
+            taskObject.position = dropzone.id as string;
+            TaskService.updateItem(taskObject);
+        }
+    }
 
     observeTheChange(column: HTMLElement) {
         const target = column;
@@ -53,7 +55,7 @@ class Container {
         const callback = (mutationsList: MutationRecord[]) => {
             mutationsList.forEach((mutation: MutationRecord) => {
                 if (mutation.type === "childList") {
-                    this.updateTheCounter(column);
+                    this.updateTheCounter();
                 }
             });
         };
@@ -62,18 +64,23 @@ class Container {
         observer.observe(target, config);
     }
 
-    getNumberOfTasks(column: HTMLElement): number {
-        const dndZone = column as HTMLElement;
-        const numberOfElementsInColumn: number = dndZone.childNodes.length;
+    getNumberOfTasks(): number {
+        const numberOfElements = document
+            .getElementById(this.id)
+            ?.querySelectorAll(".list__card") as NodeListOf<HTMLElement>;
+        if (!numberOfElements) return 0;
+        const numberOfElementsInColumn: number = numberOfElements.length;
         return numberOfElementsInColumn;
     }
 
-    updateTheCounter(column: HTMLElement) {
-        const counter = (column as HTMLElement).parentElement?.childNodes[0].childNodes[1]
-            .childNodes[0] as HTMLElement;
+    updateTheCounter() {
+        const counter = document.querySelector(
+            `.list--${this.id}  .list__header  .header__counter  .header__number`
+        ) as HTMLElement;
+
         // Todo take as an id
         if (counter) {
-            const numberOfTasks: number = this.getNumberOfTasks(column);
+            const numberOfTasks: number = this.getNumberOfTasks();
             counter.innerHTML = numberOfTasks.toString();
         }
     }
