@@ -125,6 +125,25 @@ class UserController {
         formElement.addEventListener("submit", this.getDataOnSubmit);
         this.buttonsAddEventListeners();
     }
+    async returnUserDataFromCookie(userCookie: string): Promise<string> {
+        const user = await this.userModel.decodeUserFromCookie(userCookie);
+        return user;
+    }
+
+    createLogoutButton() {
+        this.userView.logoutButton();
+        this.listenOnLogoutButton();
+    }
+    listenOnLogoutButton() {
+        const logoutButton = document.querySelector(".button--logout");
+        logoutButton?.addEventListener("click", this.handleLogout);
+    }
+    handleLogout = (event: Event) => {
+        event.preventDefault();
+        document.cookie = "token= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+        const logoutEvent = new Event("logout");
+        document.dispatchEvent(logoutEvent);
+    };
 }
 
 export { UserController };

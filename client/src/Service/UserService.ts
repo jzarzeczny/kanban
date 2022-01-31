@@ -25,6 +25,21 @@ class UserService {
         const loginResponse = await response.json();
         return loginResponse;
     }
+
+    async decodeCookie(cookie: string): Promise<string> {
+        const response = await fetch("http://localhost:5002/mongo/getUser", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify({
+                value: cookie.split("=")[1],
+            }),
+        });
+
+        const userData = await response.json();
+        return userData.user;
+    }
 }
 
 export { UserService };

@@ -60,6 +60,8 @@ class UserModel {
         switch (serverResponse.code) {
             case 201:
                 this.userView.removeUserTemplate();
+                this.setJWTCookie(serverResponse.jwt);
+
                 return true;
             case 400:
                 this.userView.displayErrorMessage("user", serverResponse.message);
@@ -76,6 +78,7 @@ class UserModel {
         switch (serverResponse.code) {
             case 201:
                 this.userView.removeUserTemplate();
+                this.setJWTCookie(serverResponse.jwt);
                 return true;
             case 400:
                 this.userView.displayErrorMessage("user", serverResponse.message);
@@ -87,6 +90,16 @@ class UserModel {
                 this.userView.displayErrorMessage("user", "Crazy error happened");
                 return false;
         }
+    }
+
+    setJWTCookie(jwt: string) {
+        document.cookie = `token=${jwt}`;
+    }
+
+    async decodeUserFromCookie(cookie: string): Promise<string> {
+        const loginServerResponse = await this.userService.decodeCookie(cookie);
+        this.username = loginServerResponse;
+        return loginServerResponse;
     }
 
     get currentUserData(): string {

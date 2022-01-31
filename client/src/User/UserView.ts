@@ -42,6 +42,13 @@ class UserView {
         const userTemplate = document.querySelector(".authorization") as HTMLElement;
         userTemplate.parentElement?.removeChild(userTemplate);
     }
+    logoutButton() {
+        const documentRoot = document.getElementById("root") as HTMLElement;
+        const logoutButton = document.createElement("button");
+        logoutButton.classList.add("button--logout");
+        logoutButton.innerHTML = "Logout";
+        documentRoot.appendChild(logoutButton);
+    }
 }
 
 export { UserView };
