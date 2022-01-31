@@ -19,6 +19,7 @@ interface UserFormErrors {
 interface UserServiceReturn {
     message: string;
     code: number;
+    jwt: string;
 }
 
 export { UserFormInput, UserFormErrors, UserServiceReturn };

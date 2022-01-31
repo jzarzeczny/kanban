@@ -4,5 +4,7 @@ interface User {
     salt: string;
     setPassword: (password: string) => void;
     validPassword: (password: string) => boolean;
+    generateAccessToken: (user: string) => string;
+    decodeAccessToken: (token: string) => string;
 }
 export { User };

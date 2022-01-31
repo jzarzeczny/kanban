@@ -36,24 +36,38 @@ class Main {
     ];
 
     run() {
+        document.addEventListener("logout", () => {
+            this.run();
+        });
         this.createElements();
     }
 
     private async createElements() {
         if (this.root) {
             this.root.innerHTML = "";
-            await this.userController.initHTML();
         }
-        document.addEventListener("logged", () => {
-            const user: string = this.userController.returnUserData();
-            this.userLoggedIn(user);
-        });
+        if (document.cookie) {
+            const user: string = await this.userController.returnUserDataFromCookie(
+                document.cookie
+            );
+            this.createFormWithUser(user);
+        } else {
+            await this.userController.initHTML();
+
+            document.addEventListener("logged", () => {
+                const user: string = this.userController.returnUserData();
+                this.createFormWithUser(user);
+            });
+        }
     }
 
-    private async userLoggedIn(user: string) {
+    private async createFormWithUser(user: string) {
         this.form.createForm(this.root);
         this.form.userName = user;
+        this.createKanbanBoard();
+    }
 
+    private async createKanbanBoard() {
         this.columns.forEach((column) => {
             const container = new Container(column.id, column.name);
             container.createContainer();
@@ -62,6 +76,8 @@ class Main {
         this.createTasks(dataObject.tasksData);
         this.createCategories(dataObject.categoryData);
         this.checkCategories(dataObject.categoryData);
+        this.userController.createLogoutButton();
+
         this.bindEvents();
     }
 
