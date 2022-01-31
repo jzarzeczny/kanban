@@ -1,4 +1,4 @@
-import { CardCreator } from "./Creator/TaskCreator";
+import { TaskCreator } from "./Creator/TaskCreator";
 import { TaskService } from "./Service/TaskService";
 import { TaskEdit, TaskObject, TaskInfo } from "./validators/taskValidators";
 import { CardInfoCreator } from "./Creator/TaskInfoCreator";
@@ -23,7 +23,7 @@ class Task {
         this.currentUser = currentUser;
     }
 
-    cardCreator = new CardCreator();
+    taskCreator = new TaskCreator();
 
     async addTask(fresh: boolean = false): Promise<void> {
         const taskObject = this.createTaskObject();
@@ -37,31 +37,6 @@ class Task {
         this.addTaskToContainer(taskElement);
     }
 
-    private createTaskElement(): HTMLElement {
-        const cardContainer = this.cardCreator.createTaskContainer(this.color, this._id);
-        cardContainer.addEventListener("dragstart", this.onDragStart);
-
-        const cardHeader = this.cardCreator.createTaskHeader(this.header);
-        const cardContent = this.cardCreator.createTaskContent(this.content);
-        cardContent.addEventListener("click", this.editTask);
-        const cardButton = this.cardCreator.createTaskButton();
-        cardButton.addEventListener("click", this.removeTask);
-
-        const cardInfo = this.cardCreator.createTaskInfo();
-        cardInfo.addEventListener("mouseover", this.showTaskInfo);
-        cardInfo.addEventListener("mouseout", this.removeTaskInfo);
-
-        const cardAuthor = this.cardCreator.createTaskAuthor(this.author);
-
-        cardContainer.appendChild(cardHeader);
-        cardContainer.appendChild(cardContent);
-        cardContainer.appendChild(cardAuthor);
-        cardContainer.appendChild(cardButton);
-        cardContainer.appendChild(cardInfo);
-
-        return cardContainer;
-    }
-
     private createTaskObject(): TaskObject {
         const taskObject = {
             header: this.header,
@@ -73,6 +48,32 @@ class Task {
         };
         return taskObject;
     }
+
+    private createTaskElement(): HTMLElement {
+        const cardContainer = this.taskCreator.createTaskContainer(this.color, this._id);
+        cardContainer.addEventListener("dragstart", this.onDragStart);
+
+        const cardHeader = this.taskCreator.createTaskHeader(this.header);
+        const cardContent = this.taskCreator.createTaskContent(this.content);
+        cardContent.addEventListener("click", this.editTask);
+        const cardButton = this.taskCreator.createTaskButton();
+        cardButton.addEventListener("click", this.removeTask);
+
+        const cardInfo = this.taskCreator.createTaskInfo();
+        cardInfo.addEventListener("mouseover", this.showTaskInfo);
+        cardInfo.addEventListener("mouseout", this.removeTaskInfo);
+
+        const cardAuthor = this.taskCreator.createTaskAuthor(this.author);
+
+        cardContainer.appendChild(cardHeader);
+        cardContainer.appendChild(cardContent);
+        cardContainer.appendChild(cardAuthor);
+        cardContainer.appendChild(cardButton);
+        cardContainer.appendChild(cardInfo);
+
+        return cardContainer;
+    }
+
     private addTaskToContainer(taskElement: HTMLElement) {
         const properContainer = document.getElementById(this.position) as HTMLElement;
         if (properContainer) {
@@ -80,55 +81,21 @@ class Task {
         }
     }
 
-    editTask = (event: Event) => {
-        const eventElement = event.target as HTMLElement;
-        let _id: string = "";
-        if (eventElement.parentElement) {
-            _id = eventElement.parentElement.id;
-        }
-        const taskElement = document.getElementById(_id) as HTMLElement;
-        const editableDiv = taskElement.children[1] as HTMLElement;
-
-        editableDiv.blur = this.onBlurHandler(taskElement);
-    };
-    private onBlurHandler = (taskElement: HTMLElement): any => {
-        const newContent = taskElement.children[1].innerHTML;
-        const newEditList = [
-            ...this.editList,
-            {
-                author: this.currentUser,
-                change: newContent,
-                time: Date.now(),
-            },
-        ];
-        const taskObject: TaskEdit = {
-            _id: taskElement.id,
-            content: newContent,
-            editList: newEditList,
-        };
-        this.editList = newEditList;
-        TaskService.updateItem(taskObject);
-        // TODO:
-        // Blur does not have current element, it has old one. Need to grab it once again.
-        // Add the function that change the location of info based on the location of mouse or task
-    };
-
-    set editListOfTask(editList: TaskInfo[]) {
-        this.editList = editList;
-    }
-
-    removeTask(event: Event) {
-        event.preventDefault();
-        const target = event.target as HTMLElement;
-        const card = target.parentElement as HTMLElement;
-        card?.parentElement?.removeChild(document.getElementById(card.id) as HTMLElement);
-        TaskService.deleteItem(card.id);
-    }
-
     private onDragStart(ev: DragEvent) {
         const element = ev.target as HTMLElement;
         ev.dataTransfer?.setData("text/plain", element.id);
     }
+
+    editTask = () => {
+        const editableDiv = this.getEditableDiv();
+        editableDiv.addEventListener("blur", this.onBlurHandler);
+    };
+
+    removeTask = (event: Event) => {
+        event.preventDefault();
+        this.taskCreator.removeTask(this._id);
+        TaskService.deleteItem(this._id);
+    };
 
     private showTaskInfo = (event: MouseEvent): void => {
         const taskId: string = (event.relatedTarget as HTMLElement).id;
@@ -144,6 +111,38 @@ class Task {
         if (taskId) {
             CardInfoCreator.removeTaskInfo(taskId);
         }
+    }
+
+    private onBlurHandler = () => {
+        const editableDiv = this.getEditableDiv();
+        const newContent = editableDiv.innerHTML;
+        const newEditList = [
+            ...this.editList,
+            {
+                author: this.currentUser,
+                change: newContent,
+                time: Date.now(),
+            },
+        ];
+        const taskObject: TaskEdit = {
+            _id: this._id,
+            content: newContent,
+            editList: newEditList,
+        };
+        this.editList = newEditList;
+        TaskService.updateItem(taskObject);
+
+        // Add the function that change the location of info based on the location of mouse or task
+    };
+
+    set editListOfTask(editList: TaskInfo[]) {
+        this.editList = editList;
+    }
+
+    private getEditableDiv(): HTMLElement {
+        const taskElement = document.getElementById(this._id);
+        const editableDiv = taskElement?.children[1] as HTMLElement;
+        return editableDiv;
     }
 }
 

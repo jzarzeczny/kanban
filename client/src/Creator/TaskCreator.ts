@@ -40,7 +40,11 @@ class TaskCreator {
         authorInformation.innerHTML = "@" + author;
         return authorInformation;
     }
-    // Creator function that enables the construction of each element with proper listener, and then create the whole element
+
+    removeTask(_id: string) {
+        const task = document.getElementById(_id) as HTMLElement;
+        task.parentElement?.removeChild(task);
+    }
 }
 
-export { TaskCreator as CardCreator };
+export { TaskCreator };

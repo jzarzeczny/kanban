@@ -1,4 +1,3 @@
-import { CardCreator } from "../Creator/TaskCreator";
 import { NewTaskObject, TaskInfo, TaskObject } from "../validators/taskValidators";
 import { Task } from "../Task";
 import { FormValidator, FormError } from "./FormValidator";
@@ -6,7 +5,6 @@ import { UserController } from "../User/UserController";
 import { FormCreator } from "../Creator/FormCreator";
 
 class Form {
-    cardCreator = new CardCreator();
     userController = new UserController();
     formCreator = new FormCreator();
 
@@ -18,23 +16,10 @@ class Form {
             const error = Form.validateFormInput();
             if (error) return;
             const inputElement = ev.target as HTMLFormElement;
-            const newTaskObject = this.getDataFromInput(inputElement);
-            const _id: string = "";
 
-            const editInfo: TaskInfo = {
-                author: this._user,
-                change: newTaskObject.content,
-                time: Date.now(),
-            };
-            // Flax
-            const newTask: TaskObject = {
-                ...newTaskObject,
-                _id,
-                editList: [],
-            };
-            newTask.editList.push(editInfo);
+            const taskObject = this.createInputObject(inputElement);
 
-            const task = new Task(newTask, this._user);
+            const task = new Task(taskObject, this._user);
 
             task.addTask(true);
             const form = document.getElementById("form") as HTMLFormElement;
@@ -45,6 +30,23 @@ class Form {
             form.reset();
         }
     };
+
+    createInputObject(inputElement: HTMLFormElement): TaskObject {
+        const initialTaskObject = this.getDataFromInput(inputElement);
+        const editInfo: TaskInfo = {
+            author: this._user,
+            change: initialTaskObject.content,
+            time: Date.now(),
+        };
+        // Flax
+        const finalTaskObject: TaskObject = {
+            ...initialTaskObject,
+            _id: "",
+            editList: [],
+        };
+        finalTaskObject.editList.push(editInfo);
+        return finalTaskObject;
+    }
 
     private getDataFromInput(formElement: HTMLFormElement): NewTaskObject {
         const header: string = (formElement[0] as HTMLInputElement).value;
