@@ -131,8 +131,6 @@ class Task {
         };
         this.editList = newEditList;
         TaskService.updateItem(taskObject);
-
-        // Add the function that change the location of info based on the location of mouse or task
     };
 
     set editListOfTask(editList: TaskInfo[]) {

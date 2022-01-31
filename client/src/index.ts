@@ -17,8 +17,6 @@ interface Data {
 
 class Main {
     root = document.getElementById("root") as HTMLElement;
-    // Store data of user here!
-    // Pass the user data by props!
     form = new Form();
     userController = new UserController();
 
