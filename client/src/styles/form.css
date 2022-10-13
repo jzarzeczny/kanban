@@ -1,0 +1,193 @@
+/* Form styling */
+
+.add__container {
+    position: absolute;
+    max-width: 250px;
+    top: 5%;
+    left: 0;
+    margin-top: 1rem;
+    padding: 1rem;
+    border: 2px solid black;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    background-color: #fff;
+    z-index: 2;
+    text-align: left;
+    transform: translateX(-100%);
+    transition: all 0.5s ease-in-out;
+}
+.add__container--open {
+    transform: translateX(0);
+    box-shadow: 6px -5px 18px -9px rgba(66, 68, 90, 1);
+}
+
+.add__header {
+    text-align: center;
+}
+
+.add__open {
+    position: absolute;
+    right: -31px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 30px;
+    height: 80px;
+    border: none;
+    background-color: white;
+    border-top: 2px solid black;
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+    border-left: none;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5rem;
+}
+
+.add__form > * {
+    margin-top: 1rem;
+}
+
+.submit {
+    padding: 0.5rem 0.75rem;
+    background-color: #fff;
+    /* border: 1px solid black; */
+    box-shadow: none;
+    outline: none;
+    border-radius: 8px;
+    outline: none;
+    cursor: pointer;
+}
+.submit--form {
+    background-color: #d6f7a3;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1.25rem;
+    font-weight: 400;
+}
+
+.form__control {
+    margin-bottom: 2.5rem;
+    position: relative;
+}
+.form__control:last-of-type {
+    margin-bottom: 1rem;
+}
+
+.form__label {
+    display: block;
+    margin-bottom: 0.25rem;
+}
+
+.form__input {
+    padding: 0.5rem;
+}
+
+.form__input--error {
+    border-color: red;
+}
+.form__input--success {
+    border-color: green;
+}
+
+.form__control > textarea {
+    width: 100%;
+    min-height: 100px;
+    padding: 0.5rem;
+
+    resize: none;
+}
+.form__error {
+    color: red;
+    position: absolute;
+    bottom: -1.5rem;
+    left: 0;
+    font-weight: 300;
+}
+/* Custom radio buttons */
+.radio {
+    margin-top: 1rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    position: relative;
+    padding: 0.5rem 0;
+    margin-left: 0.5rem;
+    font-weight: 300;
+    text-align: center;
+    cursor: pointer;
+}
+
+.radio:hover input ~ span {
+    border: 2px solid #cd1a14aa;
+}
+
+.radio input:checked ~ span {
+    border: 2px solid #003844;
+}
+
+.radio input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+.radio span {
+    position: absolute;
+    bottom: 0;
+    left: -0.5rem;
+    border-radius: 8px;
+
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background-color: pink;
+}
+.radio__delete {
+    cursor: pointer;
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: transparent;
+    border: none;
+    z-index: 10;
+}
+
+/* Styling for addCategory */
+
+.form__control--addCategory {
+    display: grid;
+    grid-template-columns: 160px 50px;
+    grid-template-rows: min-content min-content 1fr;
+    max-width: 100%;
+}
+.form__label--addCategory {
+    grid-column: 1/3;
+    grid-row: 1/2;
+}
+.form__input--addCategory {
+    grid-column: 1/2;
+    grid-row: 2/3;
+}
+.form__picker {
+    cursor: pointer;
+    grid-column: 2/3;
+    grid-row: 2/3;
+    width: 40px;
+    height: 100%;
+    justify-self: right;
+    background-color: transparent;
+    border: none;
+}
+.submit--addCategory {
+    margin-top: 1rem;
+    grid-column: 1/3;
+    grid-row: 3/4;
+    padding: 0.5rem 0;
+}

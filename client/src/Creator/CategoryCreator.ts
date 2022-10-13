@@ -1,0 +1,36 @@
+class CategoryCreator {
+    static createCategory(target: HTMLElement, id: string, name: string, color: string): void {
+        target.insertAdjacentHTML(
+            "beforeend",
+            `        <label class="radio radio--${id}" id=${id}>
+            ${name}
+            <input
+                class="radio__input"
+                type="radio"
+                value="${color}"
+                name="color"
+                checked="checked"
+            />
+            <button class="radio__delete">➖</button>
+            <span class="radio__box"></span>
+        </label>`
+        );
+    }
+    static createCategoryInput() {
+        const target = document.querySelector(".form__control--category") as HTMLElement;
+        target.insertAdjacentHTML(
+            "afterend",
+            `                                   <div id='category' class="form__control form__control--addCategory">
+                  <label class="form__label form__label--addCategory" for="header">New category:</label>
+                  <input class="form__input form__input--addCategory" type="text" id="newCategory" />
+                  <input class="form__picker" type="color" id='newColor'  value="#f6b73c"/>
+                  <button class='submit submit--addCategory' id='addCategory'>Add category</button>
+<span class='form__error'></span>
+
+               </div>
+`
+        );
+    }
+}
+
+export { CategoryCreator };
